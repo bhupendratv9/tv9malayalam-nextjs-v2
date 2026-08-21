@@ -320,7 +320,7 @@ export default function HeaderWidget({ navItems }) {
                 <a
                   className={styles.catHead}
                   title={item.label}
-                  href={item.href}
+                  href={getHref(item.href)}
                   onClick={
                     item.subItems ? (e) => e.stopPropagation() : undefined
                   }
@@ -337,7 +337,7 @@ export default function HeaderWidget({ navItems }) {
                     >
                       {item.subItems.map((sub) => (
                         <li key={sub.href}>
-                          <a title={sub.label} href={sub.href}>
+                          <a title={sub.label} href={getHref(sub.href)}>
                             {sub.label}
                           </a>
                         </li>

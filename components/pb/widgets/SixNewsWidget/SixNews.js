@@ -3,6 +3,7 @@ import AppLink from "@/components/AppLink";
 import styles from "./SixNews.module.css";
 import {
   decodeHtml,
+  getHref,
   getViewMoreUrl,
   getViewMoreLabel,
   ViewMoreLink,
@@ -85,7 +86,7 @@ export default function SixNewsWidget({
       <div className={styles.newsGridListing}>
         {allItems.map((item, idx) => (
           <figure key={item.id || idx}>
-            <AppLink href={item.url || "#"} title={decodeHtml(item.title) || ""}>
+            <AppLink href={getHref(item.url || item.permalink || item.link || "#")} title={decodeHtml(item.title) || ""}>
               {(item.thumbnail || item.image || item.thumb || item.image_url) && (
                 <div className={styles.imgThumb}>
                   <Image

@@ -25,6 +25,8 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 9 | `#webstory-icon` missing from sprite | **Open** |
 | 10 | Weather / AQI clicks miss `basePath` (`AppLink` + `USE_LINK=0`) | **Resolved** — see §10 |
 | 11 | Article detail page looks UP, not malayalamtv9 | **Resolved** — see §11 (widget CSS + `LayoutRightSidebar` class names) |
+| 12 | Category cards leave localhost → `alphapublish.tv9hindi.com/...html` | **Resolved** — see §12 (`getHref` helper; `*UP` RHS widgets **not** changed) |
+| 13 | Short-video detail 404 after staying on localhost | **Resolved** — see §13 (`.env` `SHORT_VIDEO_API_BASE_URL` `alphaup` → `alphamalayalam`) |
 | 5 | Logo, `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
@@ -46,7 +48,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | `.env` `MENU_API_BASE_URL` | UP `wpapis/.../menus` | `.../alphamalayalam/pagecategory` |
 | `.env` `TRENDING_MENU_SLUG` | empty | `trending-tags` |
 | `.env` `WEBSTORY_API_BASE_URL` | `alphaup` | `alphamalayalam` |
-| `.env` `NEXT_PUBLIC_SITE_REWRITE_PATTERN` | `tv9up.com` regex | `malayalamtv9.com` regex (same shape as UP) — see §8 |
+| `.env` `NEXT_PUBLIC_SITE_REWRITE_PATTERN` | `tv9up.com` regex | `malayalamtv9.com` **and** CMS `tv9hindi.com` — see §8 / §12 |
 | `lib/constants.js` `SHORT_VIDEO_API_URL` | `alphaup/.../short-video-detail` | `alphamalayalam/.../short-video-detail` |
 
 Rewrites unchanged (same UP routes). `PAGE_BUILDER_MODE` still `s3`.
@@ -154,14 +156,14 @@ Path includes `basePath`; `#ytShort` + `#rgt-arrow` added to the sprite; `ViewMo
 | Area | File | Root cause | Open resolution |
 |---|---|---|---|
 | Logo | `.env` `NEXT_PUBLIC_SITE_LOGO_URL` | still tv9up logo URL | Malayalam logo (or `siteSettings.logo_url`) |
-| Short video env URL | `.env` `SHORT_VIDEO_API_BASE_URL` | still `alphaup` (env wins over constants) | `alphamalayalam/.../short-video-detail` |
+| Short video env URL | `.env` `SHORT_VIDEO_API_BASE_URL` | **Resolved** — see §13 | `alphamalayalam/.../short-video-detail` |
 | Next-article API | `.env` `NEXT_ARTICLE_API_URL` | still `alphaup` | `alphamalayalam/.../detail/{id}` |
 | Infinite scroll path | `InfiniteScrollArticleWidget` | `BASE_PATH = "/tv9up-nextjs"` | `/tv9malayalam-nextjs` |
 | Double-basePath strip | `lib/server/homePageBuilder.js` | **Resolved** — see §8 | UP-style collapse `/tv9malayalam-nextjs/tv9malayalam-nextjs/` |
 | Page-builder fallback name | `lib/constants.js` | `PAGE_BUILDER_SITE_NAME = "tv9up"` | `tv9malayalam` |
 | Font | `pages/_app.js` + AMP | **Resolved** — see §6 | Noto Sans like old ML |
 | Font leftovers | UP widgets still CSS `"Anek Devanagari"` | unused on typical ML pages; same leftovers as old ML | see §6 leftover table — swap to `"Noto Sans"` only if those widgets go live |
-| Rewrite pattern | `.env` `NEXT_PUBLIC_SITE_REWRITE_PATTERN` | **Resolved** — see §8 | same shape as UP, host `malayalamtv9.com` |
+| Rewrite pattern | `.env` `NEXT_PUBLIC_SITE_REWRITE_PATTERN` | **Resolved** — see §8 + §12 | live `malayalamtv9.com` **and** CMS `tv9hindi.com` |
 | Web story **href** (double path) | CMS permalink + `getHref` | **Resolved** — see §8 | `basePath` / `SITE_URL` match CMS folder; doubled path collapses like UP |
 | Web story 404 (detail) | `WebStoryDetailAMP.js` | **Resolved** — see §8 | `SITE_LANGUAGE` → `SITE_LANGUAGE_VALUE` |
 | Page keys | `lib/pageConfig.js` | UP keys (`video-landing`, `detail-amp`) | ML JSON keys **or** rebuild CMS |
@@ -174,6 +176,7 @@ Path includes `basePath`; `#ytShort` + `#rgt-arrow` added to the sprite; `ViewMo
 | `#webstory-icon` | `public/images/icons.svg` | ML widgets request `#webstory-icon`; sprite does not have it | **Open** — see §9 |
 | Weather / AQI click | `AppLink` `href="/aqi"` / `"/weather-forecast"` | **Resolved** — see §10 | `getHref(...)` so `USE_LINK=0` still includes `basePath` |
 | Article detail **style** | UP `DetailMainContent` + UP layout class names vs ML `globals.css` | **Resolved** — see §11 | ML widget CSS/markup + `LayoutRightSidebar` `tv9wrapperMain` / `main_col` / `rhs_col` |
+| Category / listing **href** | `getHref` + `rewritePermalink` | **Resolved** — see §12 | shared helper rewrites CMS Alpha host; `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` left as UP (`item.url` only) |
 
 ---
 
@@ -395,6 +398,75 @@ Article / photo / live-blog detail use original ML markup + CSS. `LayoutRightSid
 
 ---
 
+## 12. Category page article links go to `alphapublish.tv9hindi.com`
+
+Example (sports listing card):
+
+`https://alphapublish.tv9hindi.com/tv9malayalam-nextjs/sports/argentina-fan-launches-petition-for-fifa-world-cup-2026-final-replay-after-defeat-to-spain-2218331.html`
+
+Expected local href:
+
+`http://localhost:3000/tv9malayalam-nextjs/sports/argentina-fan-launches-petition-for-fifa-world-cup-2026-final-replay-after-defeat-to-spain-2218331.html`
+
+Same class of bug as §8 (permalink rewrite / `getHref`). Not a Next.js route redirect — the `<a href>` is already the CMS publish host, so the browser leaves localhost.
+
+### Changes
+
+**Do not change** `RightNewsWidgetUP.js` or `RightNewsPhotoWidgetUP.js` (same as UP: `href={item.url}`). Rewrite belongs in the shared helper, not in `*UP` widgets. Those two files were briefly wrapped with `getHref`, then **reverted**.
+
+1. `lib/helper/commonHelper.js` `getHref` — UP flow (prefix `SITE_URL`, collapse doubled `basePath`) **plus** original ML host rewrite in code, not env-only:
+   - `alphapublish.tv9hindi.com` / other `tv9*.com` Alpha hosts
+   - `malayalamtv9.com`
+   - plus `NEXT_PUBLIC_SITE_REWRITE_PATTERN` if set
+2. `lib/server/homePageBuilder.js` `rewritePermalink` — calls `getHref` (same as client; UP had a second hardcoded regex that drifted). SSR `items[].url` is already localhost before `*UP` widgets render.
+3. Malayalam-only widgets that used raw `href` now wrap `getHref`:
+   - `SixNewsWidget/SixNews.js`
+   - `HeaderWidget/Header.js` mega menu (`/sports` etc. need `SITE_URL` when `USE_LINK=0`)
+   - `RightNewsWidget/RightNews.js` already had `getHref` (ML twin of the UP RHS widget)
+4. `lib/server/fetchNavMenu.js` — rewrite menu `url` via `getHref`.
+
+`.env` `NEXT_PUBLIC_SITE_REWRITE_PATTERN` still includes live `malayalamtv9.com` **and** CMS `tv9hindi.com`.
+
+### Root cause
+
+Malayalam CMS permalinks are **`https://alphapublish.tv9hindi.com/tv9malayalam-nextjs/...`**. Original ML `getHref` rewrote that host in code. This fork copied UP `getHref`, which only rewrites `NEXT_PUBLIC_SITE_REWRITE_PATTERN`. Env-only `malayalamtv9.com` (and a later env tweak) was not enough: some ML listing widgets (`SixNews`, hamburger mega menu) used **raw** `href={item.url}` / `href={item.href}` like UP, assuming SSR already rewrote. Client load-more and relative `/sports` (no `basePath` when `AppLink` is a plain `<a>`) still sent the browser to Alpha or off `basePath`.
+
+### Resolution
+
+`getHref` always rewrites Alpha `tv9hindi.com` the same way original ML did. Server `rewritePermalink` uses that helper, so UP RHS widgets keep `item.url` and still stay local. Malayalam listing (`SixNews`, `Header.js` mega, `RightNews.js`) also calls `getHref`. Card href should be `http://localhost:3000/tv9malayalam-nextjs/sports/...html`, not `alphapublish.tv9hindi.com`. Hard-refresh after the Next rebuild.
+
+Do not change `tv9up-nextjs`.
+
+---
+
+## 13. Short-video detail 404 (`alphaup` API)
+
+Example:
+
+`http://localhost:3000/tv9malayalam-nextjs/videos/short-videos/mohanlal-watching-fifa-world-cup-2026-final-at-new-york-new-jersey-stadium`
+
+Dev log: `Fetch failed: 404 .../alphaup/pagecategory/short-video-detail/mohanlal-...` then Next `404`.
+
+### Changes
+
+`.env` (same UP env key, Malayalam tenant — env wins over `lib/constants.js` `SHORT_VIDEO_API_URL`):
+
+```env
+SHORT_VIDEO_API_BASE_URL=https://apipublish1.tv9hindi.com/apis/page-builder/alphamalayalam/pagecategory/short-video-detail
+```
+
+### Root cause
+
+§12 made short-video **hrefs stay on localhost**. Before that, cards went to Alpha publish, so the local detail API was never hit. `pages/ShortVideoDetail/ShortVideoDetailPage.js` uses `process.env.SHORT_VIDEO_API_BASE_URL || SHORT_VIDEO_API_URL`. Env was still UP `alphaup` (leftover in §5). That endpoint 404s for Malayalam slugs. Constants already had `alphamalayalam` but env overrides it. Original ML uses `alphamalayalam` (optionally `/1min/` — both 200 for this slug).
+
+### Resolution
+
+Env matches UP’s shape with tenant `alphamalayalam`. **Restart `npm run dev`** (server env). Reload the Mohanlal short-video URL — should 200 and play, not Custom 404.
+
+Do not change `tv9up-nextjs`.
+
+---
+
 ## How CSS loads
 
 1. `pages/_app.js` → `styles/globals.css` (site-wide). Includes ML layout: `.tv9wrapperMain` / `.main_col` / `.rhs_col`.
@@ -407,6 +479,6 @@ Article / photo / live-blog detail use original ML markup + CSS. `LayoutRightSid
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + malayalamtv9 rewrite pattern; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10); article detail ML chrome + layout grid (§11).
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13).
 
-**Open:** logo; several `alphaup` env APIs; infinite-scroll `BASE_PATH`; page keys; `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.
+**Open:** logo; next-article `alphaup` env API; infinite-scroll `BASE_PATH`; page keys; `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.
