@@ -17,7 +17,7 @@ export default function ShortVideoLandingWidget({
   const viewMoreUrl = getHref(view_more_link || dataConfig?.view_more_url || sectionUrl || "/videos/short-videos");
   const endpoint = dataConfig?.endpoint || "";
   const parsed = parseEndpoint(endpoint);
-  const pageSize = parsed ? parsed.limit : 12;
+  const pageSize = parsed ? parsed.limit : 10;
 
   const [allItems, setAllItems] = useState(Array.isArray(items) && items.length > 0 ? items : []);
   const [currentOffset, setCurrentOffset] = useState(parsed ? parsed.offset + pageSize : pageSize);
@@ -59,10 +59,12 @@ export default function ShortVideoLandingWidget({
 
   return (
     <>
-      <div className="common_heading">
-        <h1 className="h2">{displayTitle}</h1>
+      <div className="tv9common_heading">
+        <h1 className="h2">
+          <AppLink href={viewMoreUrl}>{displayTitle}</AppLink>
+        </h1>
       </div>
-      <div className={styles.shortvideosWidget_Thumbs}>
+      <div className={styles.shortVideosListing_Wrapper}>
         {allItems.map((item, idx) => {
           const img = getImg(item);
           const link = getLink(item);
@@ -70,26 +72,32 @@ export default function ShortVideoLandingWidget({
 
           return (
             <figure key={item?.id || item?.post_id || idx}>
-              <AppLink href={link} title={itemTitle}>
-                <div className={styles.imgwrap}>
+              <div className={styles.img_wrap}>
+                <AppLink href={link} title={itemTitle}>
                   {img && (
-                      <Thumbnail
-                        src={img}
-                        alt={itemTitle}
-                        preset="portrait"
-                        dataConfig={dataConfig}
-                      />
-                    )}
+                    <Thumbnail
+                      src={img}
+                      alt={itemTitle}
+                      preset="portrait"
+                      dataConfig={dataConfig}
+                    />
+                  )}
+                  <div className={styles.sv_btn}>
                     <svg>
-                      <use href={`${ICONS_SVG}#ic_shortvideo`}></use>
+                      <use href={`${ICONS_SVG}#ytShort`}></use>
                     </svg>
-                </div>
-              </AppLink>
+                  </div>
+                </AppLink>
+              </div>
+              <div className={styles.textgraint}>
+                <h3 className={styles.h3}>
+                  <AppLink href={link} title={itemTitle}>{itemTitle}</AppLink>
+                </h3>
+              </div>
             </figure>
           );
         })}
 
-        {/* Load More */}
         {hasMore && (
           <button className={styles.loadMoreBtn} onClick={handleLoadMore} disabled={loading}>
             {loading ? "Loading..." : (dataConfig?.load_more_label || "Load More")}

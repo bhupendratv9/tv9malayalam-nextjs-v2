@@ -27,6 +27,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 11 | Article detail page looks UP, not malayalamtv9 | **Resolved** — see §11 (widget CSS + `LayoutRightSidebar` class names) |
 | 12 | Category cards leave localhost → `alphapublish.tv9hindi.com/...html` | **Resolved** — see §12 (`getHref` helper; `*UP` RHS widgets **not** changed) |
 | 13 | Short-video detail 404 after staying on localhost | **Resolved** — see §13 (`.env` `SHORT_VIDEO_API_BASE_URL` `alphaup` → `alphamalayalam`) |
+| 14 | Short-videos listing: empty SVG + no title under thumbs | **Resolved** — see §14 (ML listing markup/CSS, `#ytShort`) |
 | 5 | Logo, `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
@@ -177,6 +178,7 @@ Path includes `basePath`; `#ytShort` + `#rgt-arrow` added to the sprite; `ViewMo
 | Weather / AQI click | `AppLink` `href="/aqi"` / `"/weather-forecast"` | **Resolved** — see §10 | `getHref(...)` so `USE_LINK=0` still includes `basePath` |
 | Article detail **style** | UP `DetailMainContent` + UP layout class names vs ML `globals.css` | **Resolved** — see §11 | ML widget CSS/markup + `LayoutRightSidebar` `tv9wrapperMain` / `main_col` / `rhs_col` |
 | Category / listing **href** | `getHref` + `rewritePermalink` | **Resolved** — see §12 | shared helper rewrites CMS Alpha host; `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` left as UP (`item.url` only) |
+| Short-videos **listing** chrome | UP `ShortVideoLanding` (no title, `#ic_shortvideo`) vs ML overlay + `#ytShort` | **Resolved** — see §14 | original ML markup/CSS; keep `AppLink` + `getHref` |
 
 ---
 
@@ -467,6 +469,31 @@ Do not change `tv9up-nextjs`.
 
 ---
 
+## 14. Short-videos listing — empty SVG, no title under thumbs
+
+Page: View more on homepage Short Videos → `/videos/short-videos`.
+
+### Changes
+
+1. `ShortVideoLandingWidget/ShortVideoLanding.module.css` — copied original ML listing CSS (`shortVideosListing_Wrapper`, `.sv_btn`, `.textgraint` gradient, red `#ytShort` badge). Replaced UP `shortvideosWidget_Thumbs` (no title overlay; `var(--color-red)` missing in ML `globals.css`).
+2. `ShortVideoLandingWidget/ShortVideoLanding.js` — original ML card markup:
+   - red corner `.sv_btn` + sprite `#ytShort` (homepage `HomeShortVideos.js` already used this)
+   - `.textgraint` + `<h3>` title on the thumb
+   - heading class `tv9common_heading` (ML globals)
+   - kept `AppLink` + `getHref` / `getLink` (not `next/link`) so `USE_LINK=0` still has `basePath`
+
+Do not change `tv9up-nextjs` or `HomeShortVideosWidgetUP`.
+
+### Root cause
+
+Listing widget was still the **UP engine** copy. UP cards are thumbnail + `#ic_shortvideo` only — **no title under the video**. Malayalamtv9 overlay is `.textgraint` (white clamped title on a bottom gradient) and a red `#ytShort` badge. Sprite already had `#ytShort` from §4; this page never requested it. Empty/odd SVG was UP’s icon + CSS (`position:absolute` on a bare `<svg>` without `.sv_btn`). Missing bottom text was missing markup, not a font bug.
+
+### Resolution
+
+Listing cards match homepage shorts / original ML: red shorts icon + title on the gradient. Hard-refresh `http://localhost:3000/tv9malayalam-nextjs/videos/short-videos`.
+
+---
+
 ## How CSS loads
 
 1. `pages/_app.js` → `styles/globals.css` (site-wide). Includes ML layout: `.tv9wrapperMain` / `.main_col` / `.rhs_col`.
@@ -479,6 +506,6 @@ Do not change `tv9up-nextjs`.
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13).
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14).
 
 **Open:** logo; next-article `alphaup` env API; infinite-scroll `BASE_PATH`; page keys; `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.
