@@ -118,7 +118,7 @@ export default function TodaysWeatherInCityWidget({
   dataConfig = {},
   queryParams = {},
 }) {
-  const weatherHref = `/weather-forecast`;
+  const weatherHref = getHref("/weather-forecast");
   const siteName = dataConfig.site_name || DEFAULT_WEATHER_SITE;
   const language = dataConfig.language || dataConfig.lang || "en";
   const cityLangKey = `city_${language}`;

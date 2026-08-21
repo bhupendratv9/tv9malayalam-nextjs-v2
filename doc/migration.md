@@ -29,6 +29,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 13 | Short-video detail 404 after staying on localhost | **Resolved** — see §13 (`.env` `SHORT_VIDEO_API_BASE_URL` `alphaup` → `alphamalayalam`) |
 | 14 | Short-videos listing: empty SVG + no title under thumbs | **Resolved** — see §14 (ML listing markup/CSS, `#ytShort`) |
 | 15 | Photo gallery view more → `/photo-gallery` 404 | **Resolved** — see §15 (S3 `photo-gallery-landing.json` 403; use `listing`) |
+| 16 | City weather icon → `/weather-forecast` missing `basePath` | **Resolved** — see §10 leftover (`TodaysWeatherInCity.js`) |
 | 5 | Logo, `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
@@ -176,7 +177,7 @@ Path includes `basePath`; `#ytShort` + `#rgt-arrow` added to the sprite; `ViewMo
 | AMP backups | `amp/widgets__05-08-2026/*` | tv9up logos (not live registry) | ignore or replace if used |
 | `globals.css` ad label | `styles/globals.css` | copied from old ML (Tamil) | Malayalam copy |
 | `#webstory-icon` | `public/images/icons.svg` | ML widgets request `#webstory-icon`; sprite does not have it | **Open** — see §9 |
-| Weather / AQI click | `AppLink` `href="/aqi"` / `"/weather-forecast"` | **Resolved** — see §10 | `getHref(...)` so `USE_LINK=0` still includes `basePath` |
+| Weather / AQI click | `AppLink` `href="/aqi"` / `"/weather-forecast"` | **Resolved** — see §10 | `getHref(...)` including city-page weather tab |
 | Article detail **style** | UP `DetailMainContent` + UP layout class names vs ML `globals.css` | **Resolved** — see §11 | ML widget CSS/markup + `LayoutRightSidebar` `tv9wrapperMain` / `main_col` / `rhs_col` |
 | Category / listing **href** | `getHref` + `rewritePermalink` | **Resolved** — see §12 | shared helper rewrites CMS Alpha host; `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` left as UP (`item.url` only) |
 | Short-videos **listing** chrome | UP `ShortVideoLanding` (no title, `#ic_shortvideo`) vs ML overlay + `#ytShort` | **Resolved** — see §14 | original ML markup/CSS; keep `AppLink` + `getHref` |
@@ -341,7 +342,7 @@ Wrapped live-registry Weather/AQI `AppLink` hrefs with `getHref(...)` so plain `
 | `HomeAqiWidget/HomeAqi.js` | tabs + Delhi city card |
 | `AqiIndexWidget/AqiIndex.js` | weather tab |
 | `WeatherForecastWidget/WeatherForecast.js` | AQI tabs + AQI card |
-| `WeatherForecastWidget/TodaysWeatherInCity.js` | AQI tab |
+| `WeatherForecastWidget/TodaysWeatherInCity.js` | AQI tab **and** weather tab `getHref("/weather-forecast")` (city page leftover) |
 | `AqiPollutedCitiesWidget/AqiPollutedCities.js` | city AQI hrefs |
 | `AqiTopCityWidget/AqiTopCity.js` | city AQI hrefs |
 | `public/images/icons.svg` | copied `#weather_icon`, `#sun_icon`, `#wind_icon` from original ML sprite |
@@ -354,7 +355,9 @@ Wrapped live-registry Weather/AQI `AppLink` hrefs with `getHref(...)` so plain `
 
 ### Resolution
 
-Relative `/aqi` and `/weather-forecast` (and city AQI) hrefs now go through `getHref`, which prefixes `SITE_URL` (`http://localhost:3000/tv9malayalam-nextjs`). Tab/header icons resolve from the copied sprite symbols. Do not change `tv9up-nextjs`.
+Relative `/aqi` and `/weather-forecast` (and city AQI) hrefs now go through `getHref`, which prefixes `SITE_URL` (`http://localhost:3000/tv9malayalam-nextjs`). Tab/header icons resolve from the copied sprite symbols.
+
+**Follow-up:** city page `TodaysWeatherInCity.js` still had `weatherHref = "/weather-forecast"` without `getHref`. Clicking the weather tab from `/weather-forecast/chennai-weather-update` went to `http://localhost:3000/weather-forecast` (no `basePath`) → 404. Now `getHref("/weather-forecast")`. Do not change `tv9up-nextjs`.
 
 ---
 
@@ -535,6 +538,6 @@ Photo gallery uses the shared listing page + `category=photo-gallery`. Reload `/
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15).
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15).
 
 **Open:** logo; next-article `alphaup` env API; infinite-scroll `BASE_PATH`; page keys (`video-landing.json` still 403); `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.
