@@ -228,14 +228,14 @@ export default function WeatherForecastWidget({
         </div>
         <div className={styles.tabLinks_Wrap}>
           <div className={styles.tabLinks}>
-            <AppLink href="/aqi" id="openAQI" data-city={aqiCityName}>
+            <AppLink href={getHref("/aqi")} id="openAQI" data-city={aqiCityName}>
               <svg className={styles.aqi_icon}>
                 <use href={`${ICONS_SVG}#wind_icon`} />
               </svg>
               AQI
             </AppLink>
 
-            <AppLink href="/weather-forecast" className={styles.active}>
+            <AppLink href={getHref("/weather-forecast")} className={styles.active}>
               <svg className={styles.weather_icon}>
                 <use href={`${ICONS_SVG}#sun_icon`} />
               </svg>
@@ -314,7 +314,7 @@ export default function WeatherForecastWidget({
             </div>
           </div>
           <div className={styles.aqiIndex_Wrapper}>
-            <AppLink href="/aqi">
+            <AppLink href={getHref("/aqi")}>
               <div className={styles.aqiIndex_Header}>
                 <h2>{labels.aqi}</h2>
                 <span className={styles.view_icon}>

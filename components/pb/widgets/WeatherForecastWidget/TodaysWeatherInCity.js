@@ -227,7 +227,7 @@ export default function TodaysWeatherInCityWidget({
         <div className={styles.custom_heading} />
         <div className={styles.tabLinks_Wrap}>
           <div className={styles.tabLinks}>
-            <AppLink href="/aqi" id="openAQI" data-city="New delhi">
+            <AppLink href={getHref("/aqi")} id="openAQI" data-city="New delhi">
               <svg className={styles.aqi_icon}>
                 <use href={`${ICONS_SVG}#wind_icon`} />
               </svg>

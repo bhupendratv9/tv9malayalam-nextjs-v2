@@ -486,13 +486,13 @@ function HomepageWeather({ dataConfig = {}, data = null, items = [] }) {
     <>
       <div className={styles.widget_tab_links}>
         <div className={styles.tabLinks}>
-          <AppLink href="/weather-forecast" className={styles.active}>
+          <AppLink href={getHref("/weather-forecast")} className={styles.active}>
             <svg className={styles.weather_icon}>
               <use href={`${ICONS_SVG}#sun_icon`}></use>
             </svg>
             {weatherForecastNavTitle}
           </AppLink>
-          <AppLink href="/aqi">
+          <AppLink href={getHref("/aqi")}>
             <svg className={styles.aqi_icon}>
               <use href={`${ICONS_SVG}#wind_icon`}></use>
             </svg>

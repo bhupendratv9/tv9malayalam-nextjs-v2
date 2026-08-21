@@ -23,6 +23,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 8 | Web-story href: `basePath` / `SITE_URL` / rewrite pattern like UP | **Resolved** |
 | 8 | Web-story AMP `SITE_LANGUAGE` → `SITE_LANGUAGE_VALUE` | **Resolved** |
 | 9 | `#webstory-icon` missing from sprite | **Open** |
+| 10 | Weather / AQI clicks miss `basePath` (`AppLink` + `USE_LINK=0`) | **Resolved** — see §10 |
 | 5 | Logo, `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
@@ -174,6 +175,7 @@ Path includes `basePath`; `#ytShort` + `#rgt-arrow` added to the sprite; `ViewMo
 | AMP backups | `amp/widgets__05-08-2026/*` | tv9up logos (not live registry) | ignore or replace if used |
 | `globals.css` ad label | `styles/globals.css` | copied from old ML (Tamil) | Malayalam copy |
 | `#webstory-icon` | `public/images/icons.svg` | ML widgets request `#webstory-icon`; sprite does not have it | **Open** — see §9 |
+| Weather / AQI click | `AppLink` `href="/aqi"` / `"/weather-forecast"` | **Resolved** — see §10 | `getHref(...)` so `USE_LINK=0` still includes `basePath` |
 
 ---
 
@@ -314,6 +316,44 @@ Same class of bug as `#p_icon` / `#ytShort`: UP sprite uses other ids (`#ic_webs
 
 ---
 
+## 10. Weather / AQI clicks go to the wrong URL
+
+Correct (this app + malayalamtv9 / original):
+
+```
+http://localhost:3000/tv9malayalam-nextjs/weather-forecast
+http://localhost:3000/tv9malayalam-nextjs/aqi
+```
+
+`next.config.js` already rewrites those paths. `PAGE_IDS.AQI` / `WEATHER_FORECAST` match original (`aqi`, `weather-forecast`). Header already used `${SITE_URL}/weather-forecast` and `${SITE_URL}/aqi`.
+
+### Changes
+
+Wrapped live-registry Weather/AQI `AppLink` hrefs with `getHref(...)` so plain `<a>` tags still include `SITE_URL` / `basePath`:
+
+| File | What we did |
+|---|---|
+| `HomepageWeatherWidget/HomepageWeather.js` | tabs `getHref("/weather-forecast")` / `getHref("/aqi")` |
+| `HomeAqiWidget/HomeAqi.js` | tabs + Delhi city card |
+| `AqiIndexWidget/AqiIndex.js` | weather tab |
+| `WeatherForecastWidget/WeatherForecast.js` | AQI tabs + AQI card |
+| `WeatherForecastWidget/TodaysWeatherInCity.js` | AQI tab |
+| `AqiPollutedCitiesWidget/AqiPollutedCities.js` | city AQI hrefs |
+| `AqiTopCityWidget/AqiTopCity.js` | city AQI hrefs |
+| `public/images/icons.svg` | copied `#weather_icon`, `#sun_icon`, `#wind_icon` from original ML sprite |
+
+`router.push(\`/aqi/...\`)` in `AqiIndex.js` left as-is — Next router already prefixes `basePath`. Unused root-level backup widgets (`AqiIndexWidget.js`, `HomeAqiWidget.js`, etc.) not in `widgetRegistry.js` were left unchanged.
+
+### Root cause
+
+`.env` `NEXT_PUBLIC_USE_LINK_NAVIGATION=0` → `AppLink` = `<a href={href}>`. Next `basePath` is **not** applied to raw `<a>`. Original homepage weather/AQI tabs use `next/link` `Link`, which prefixes `/tv9malayalam-nextjs`. Header both sides prefix `SITE_URL`, so header clicks were already fine. UP sprite also lacked `#weather_icon` / `#sun_icon` / `#wind_icon`, so header/tab SVGs were empty.
+
+### Resolution
+
+Relative `/aqi` and `/weather-forecast` (and city AQI) hrefs now go through `getHref`, which prefixes `SITE_URL` (`http://localhost:3000/tv9malayalam-nextjs`). Tab/header icons resolve from the copied sprite symbols. Do not change `tv9up-nextjs`.
+
+---
+
 ## How CSS loads
 
 1. `pages/_app.js` → `styles/globals.css` (site-wide).
@@ -325,6 +365,6 @@ Same class of bug as `#p_icon` / `#ytShort`: UP sprite uses other ids (`#ic_webs
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + malayalamtv9 rewrite pattern; ML `globals.css`; `Link` import; sprite `#ytShort` / `#rgt-arrow` / `#p_icon`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`.
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + malayalamtv9 rewrite pattern; ML `globals.css`; `Link` import; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10).
 
 **Open:** logo; several `alphaup` env APIs; infinite-scroll `BASE_PATH`; page keys; `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.

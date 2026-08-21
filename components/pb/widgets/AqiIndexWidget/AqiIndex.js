@@ -8,7 +8,7 @@ import React, {
 import PropTypes from "prop-types";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useSmoothScrollAnchor, decodeHtml } from "@/lib/helper/commonHelper";
+import { useSmoothScrollAnchor, decodeHtml, getHref } from "@/lib/helper/commonHelper";
 
 import AppLink from "@/components/AppLink";
 import styles from "./AqiIndex.module.css";
@@ -527,7 +527,7 @@ export default function AqiIndexWidget({
               <svg className={styles.aqi_icon}><use href={`${ICONS_SVG}#wind_icon`}></use></svg>
               AQI
             </button>
-            <AppLink href="/weather-forecast">
+            <AppLink href={getHref("/weather-forecast")}>
               <svg className={styles.weather_icon}><use href={`${ICONS_SVG}#sun_icon`}></use></svg>
               வானிலை
             </AppLink>

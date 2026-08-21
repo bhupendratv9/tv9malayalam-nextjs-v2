@@ -3,6 +3,7 @@ import AppLink from "@/components/AppLink";
 import Image from "next/image";
 import styles from "./AqiTopCity.module.css";
 import { ICONS_SVG } from "@/lib/constants";
+import { getHref } from "@/lib/helper/commonHelper";
 const IMAGE_BASE = "https://images.tv9hindi.com/images";
 const IMAGE_SLUG_OVERRIDES = {
   ahmedabad: "ahemdabad",
@@ -176,7 +177,7 @@ export default function AqiTopCityWidget({
         <div className={styles.cityWise_Thumbs}>
           {topCities.map((city) => (
             <figure key={city.id} data-city={city.cityName || city.title}>
-              <AppLink href={`/aqi/${city.slug}-air-quality-index-today`}>
+              <AppLink href={getHref(`/aqi/${city.slug}-air-quality-index-today`)}>
                 <div className={styles.imgThumb}>
                   <Image
                     width={83}

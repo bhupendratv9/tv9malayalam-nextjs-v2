@@ -2,14 +2,15 @@ import Image from "next/image";
 import AppLink from "@/components/AppLink";
 import styles from "./HomeAqi.module.css";
 import { ICONS_SVG } from "@/lib/constants";
+import { getHref } from "@/lib/helper/commonHelper";
 
 export default function HomeAqiWidget() {
   return (
     <>
         <div className={styles.widget_tab_links}>
             <div className={styles.tabLinks}>
-                <AppLink href="/aqi" className={styles.active}><svg className="aqi_icon"><use href={`${ICONS_SVG}#wind_icon`}></use></svg>AQI</AppLink>
-                <AppLink href="/weather-forecast"><svg className={styles.weather_icon}><use href={`${ICONS_SVG}#sun_icon`}></use></svg>வானிலை</AppLink>
+                <AppLink href={getHref("/aqi")} className={styles.active}><svg className="aqi_icon"><use href={`${ICONS_SVG}#wind_icon`}></use></svg>AQI</AppLink>
+                <AppLink href={getHref("/weather-forecast")}><svg className={styles.weather_icon}><use href={`${ICONS_SVG}#sun_icon`}></use></svg>வானிலை</AppLink>
             </div>
         </div>
 
@@ -22,7 +23,7 @@ export default function HomeAqiWidget() {
                 </div>
             </div>   
             <div className={`${styles.inArticleAQIContent_Wrapper} ${styles.moderateAQI}`}>
-                <AppLink href="/aqi/new-delhi-air-quality-index-today">
+                <AppLink href={getHref("/aqi/new-delhi-air-quality-index-today")}>
                     <div className={styles.AQIRange_Wrap}>
                         <div className={styles.locationName} id="cityName">नई दिल्ली</div>
                         <div className={styles.rangeInfo}>

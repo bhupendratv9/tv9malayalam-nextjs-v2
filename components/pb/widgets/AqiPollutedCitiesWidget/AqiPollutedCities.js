@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import AppLink from "@/components/AppLink";
 import styles from "./AqiPollutedCities.module.css";
+import { getHref } from "@/lib/helper/commonHelper";
 
 const DEFAULT_CITY_LANGUAGE = "hi";
 
@@ -89,7 +90,7 @@ function CityTable({ cities = [], type = "highest" }) {
             <tr key={city.key}>
               <td>{city.rank}</td>
               <td>
-                <AppLink href={`/aqi/${city.slug}-air-quality-index-today`}>
+                <AppLink href={getHref(`/aqi/${city.slug}-air-quality-index-today`)}>
                   {city.city}
                 </AppLink>
               </td>
