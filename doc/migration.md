@@ -28,6 +28,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 12 | Category cards leave localhost → `alphapublish.tv9hindi.com/...html` | **Resolved** — see §12 (`getHref` helper; `*UP` RHS widgets **not** changed) |
 | 13 | Short-video detail 404 after staying on localhost | **Resolved** — see §13 (`.env` `SHORT_VIDEO_API_BASE_URL` `alphaup` → `alphamalayalam`) |
 | 14 | Short-videos listing: empty SVG + no title under thumbs | **Resolved** — see §14 (ML listing markup/CSS, `#ytShort`) |
+| 15 | Photo gallery view more → `/photo-gallery` 404 | **Resolved** — see §15 (S3 `photo-gallery-landing.json` 403; use `listing`) |
 | 5 | Logo, `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
@@ -167,7 +168,7 @@ Path includes `basePath`; `#ytShort` + `#rgt-arrow` added to the sprite; `ViewMo
 | Rewrite pattern | `.env` `NEXT_PUBLIC_SITE_REWRITE_PATTERN` | **Resolved** — see §8 + §12 | live `malayalamtv9.com` **and** CMS `tv9hindi.com` |
 | Web story **href** (double path) | CMS permalink + `getHref` | **Resolved** — see §8 | `basePath` / `SITE_URL` match CMS folder; doubled path collapses like UP |
 | Web story 404 (detail) | `WebStoryDetailAMP.js` | **Resolved** — see §8 | `SITE_LANGUAGE` → `SITE_LANGUAGE_VALUE` |
-| Page keys | `lib/pageConfig.js` | UP keys (`video-landing`, `detail-amp`) | ML JSON keys **or** rebuild CMS |
+| Page keys | `lib/pageConfig.js` | UP keys (`video-landing`, `detail-amp`); `photo-gallery-landing.json` **403** | **Partial** — photo gallery uses `listing` (§15); videos still `video-landing` |
 | `top-9-widget` | `widgetRegistry.js` | not registered; ML homepage JSON may use it | copy from old ML **or** rebuild CMS to `*-up` |
 | Header / sports links | `Header.js`, `Sports9HeaderWidget.js` | hardcoded `tv9up.com` | Malayalam URLs |
 | Menus 404 | `fetchNavMenu` + `ENDPOINTS` | helper appends `.json`; ML menu URLs 404 | real ML menu URL or drop `.json` |
@@ -494,6 +495,34 @@ Listing cards match homepage shorts / original ML: red shorts icon + title on th
 
 ---
 
+## 15. Photo gallery `/photo-gallery` 404
+
+View more / header Photos → `http://localhost:3000/tv9malayalam-nextjs/photo-gallery` → Custom 404.
+
+Dev log: `[buildHomePageData] Failed to fetch page photo-gallery-landing: Fetch failed: 403 https://api.tv9tamil.com/pagebuilder-apis/development/tv9malayalam/photo-gallery-landing.json`
+
+### Changes
+
+`pages/CategoryLanding/PhotoGalleryPage.js` `getServerSideProps` — same as `/sports` / `/world`:
+
+```js
+return getPageProps(PAGE_IDS.CATEGORY_LISTING, {
+  query: { ...query, category: query.category || "photo-gallery" },
+});
+```
+
+`next.config.js` rewrite `/photo-gallery` → this page is unchanged. Do not change `tv9up-nextjs`. `PAGE_IDS.PHOTO_GALLERY` stays `"photo-gallery-landing"` for when CMS publishes that JSON.
+
+### Root cause
+
+Same class as §13: §12 kept the click on **localhost**. Alpha publish had a working gallery. Local S3 mode fetches `{API_BASE}/{env}/tv9malayalam/{pageKey}.json`. Key `photo-gallery-landing` (and `photo-gallery`, `photos`, …) returns **403**. `listing.json` **200s**. Category API `.../category-detail/photo-gallery/0_15` **200s** (15 posts, title Photo Gallery). `getPageProps` treats empty fetch as `notFound`.
+
+### Resolution
+
+Photo gallery uses the shared listing page + `category=photo-gallery`. Reload `/photo-gallery` — listing should 200. Dedicated `photo-gallery-landing.json` is still missing on CDN (same leftover as `video-landing.json`).
+
+---
+
 ## How CSS loads
 
 1. `pages/_app.js` → `styles/globals.css` (site-wide). Includes ML layout: `.tv9wrapperMain` / `.main_col` / `.rhs_col`.
@@ -506,6 +535,6 @@ Listing cards match homepage shorts / original ML: red shorts icon + title on th
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14).
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15).
 
-**Open:** logo; next-article `alphaup` env API; infinite-scroll `BASE_PATH`; page keys; `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.
+**Open:** logo; next-article `alphaup` env API; infinite-scroll `BASE_PATH`; page keys (`video-landing.json` still 403); `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.

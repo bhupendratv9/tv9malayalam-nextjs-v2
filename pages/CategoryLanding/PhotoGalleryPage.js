@@ -37,5 +37,10 @@ export default function PhotoGalleryPage({ pageData, queryParams = {} }) {
 }
 
 export async function getServerSideProps({ query }) {
-  return getPageProps(PAGE_IDS.PHOTO_GALLERY, { query });
+  // Dedicated S3 key `photo-gallery-landing.json` is 403 on Malayalam CDN.
+  // Category-detail API for slug `photo-gallery` 200s — use the shared listing page
+  // (same as /sports, /world) until CMS publishes the landing JSON.
+  return getPageProps(PAGE_IDS.CATEGORY_LISTING, {
+    query: { ...query, category: query.category || "photo-gallery" },
+  });
 }
