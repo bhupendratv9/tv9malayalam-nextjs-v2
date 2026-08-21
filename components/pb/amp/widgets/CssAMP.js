@@ -1,7 +1,7 @@
 export const ampCss = `
 :root{--body-bg:#fff;--adcont-bg:#f9f9f9;--header-bg:#fff;--header-bdr:#fff;--primary-text:#000;--color-red:#e85a00;--color-white:#fff;--border-color:#dfdfdf;--webstory-widget-bg:#1f222b;--videogal-widget-bg:#003e7b;--photogal-widget-bg:#e85a00;--phototxt-bg:#733006;--trending-widget-txt-bg:#240006;--footer-bg:#000;--twitter-bg:#000;--facebook-bg:#385997;--social-feed-bg:#f5e4d5;--latestnews-txtwidget-bg:#dfdfdf;--latestvideos-txtwidget-bg:#003e7b;--cat-bignews-bg:#fff4ed;--common-btn-bg:#f6d8be;--scrolltop-bg:#000;--story-bdr-color:#fff;--alsoread-widget-bg:#fde6d2;--alsoread-thumbs-bg:#fff0e3;--tags-bg:#ffe2c8;--photocard-bg:#fde6d2;--photocard-bdr:#dbc8b8}
 *,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0;margin:0;outline:0}
-body{font-family:"Anek Devanagari",sans-serif;color:var(--primary-text);font-size:1.125rem;background:var(--body-bg);-webkit-text-size-adjust:none}
+body{font-family:"Noto Sans",sans-serif;color:var(--primary-text);font-size:1.125rem;background:var(--body-bg);-webkit-text-size-adjust:none}
 amp-img{max-width:100%;height:inherit}
 ul{list-style:none}
 .imgwrap{position:relative;height:fit-content}

@@ -2,10 +2,10 @@ import Script from "next/script";
 import { useRouter } from "next/router";
 import "../styles/globals.css";
 
-import { Anek_Devanagari } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 
-const anekDevanagari = Anek_Devanagari({
-  subsets: ["devanagari"],
+const notoSans = Noto_Sans({
+  subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
@@ -60,7 +60,7 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <SiteProvider siteSettings={siteSettings} settings={settings}>
-      <div className={anekDevanagari.className} role="main">
+      <div className={notoSans.className} role="main">
         {/* DataLayer — Custom Dimensions */}
         {!isAmpPage && (
           <DataLayer
