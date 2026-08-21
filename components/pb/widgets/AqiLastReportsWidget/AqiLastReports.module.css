@@ -1,0 +1,177 @@
+:root {
+  --data-graph-bg: #fff;
+  --data-graph-scales: #e0e3e6;
+  --select-dropdown-bg: #fff;
+  --select-bdr: #cecece;
+  --primary-text: #000;
+}
+.AQIDataWrap {
+  margin-bottom: 4rem;
+}
+.AQIDataWrap .container {
+  width: 100%;
+  max-width: 75.25rem;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+.AQIDataWrap .custom_heading {
+  margin-bottom: 1.56rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.AQIDataWrap .custom_heading .h1 {
+  color: #16191b;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.875rem;
+  text-transform: capitalize;
+}
+.AQIDataWrap .custom_heading .CateHours {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.AQIDataWrap .custom_heading .CateHours select {
+  width: 100%;
+  height: 2.625rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--select-bdr);
+  background: var(--select-dropdown-bg)
+    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e")
+    no-repeat right 0.75rem center;
+  background-size: 16px 12px;
+  padding: 0.625rem 2.5rem 0.625rem 0.5rem;
+  color: var(--primary-text);
+  font-size: 0.9375rem;
+  text-transform: uppercase;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+.AQIDataWrap .graphWrap {
+  background: var(--data-graph-bg);
+  position: relative;
+  padding: 2rem 4.0625rem;
+}
+.AQIDataWrap .graphWrap .graphHead {
+  display: flex;
+  justify-content: space-between;
+}
+.AQIDataWrap .graphWrap .rotatetitle {
+  position: absolute;
+  top: 50%;
+  left: 3rem;
+  transform: rotate(180deg) translateY(-50%);
+  transform-origin: left top;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  writing-mode: vertical-lr;
+  line-height: 1;
+}
+.AQIDataWrap .graphHead h2 {
+  font-weight: 600;
+  font-size: 26px;
+}
+.AQIDataWrap .graphHead .AQIdataUpdate {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+  align-items: center;
+}
+.AQIDataWrap .graphHead .AQIdataUpdate .updateNumbx .AQInubx {
+  padding: 8px 10px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.25rem;
+  display: flex;
+  line-height: 1;
+}
+.AQIDataWrap .graphHead .AQIdataUpdate .updateNumbx .AQInubx span {
+  font-weight: 400;
+  font-size: 0.875rem;
+}
+.AQIDataWrap .graphHead .AQIdataUpdate .updateNumbx p {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.125rem;
+}
+.AQIDataWrap .graphHead .min {
+  background: #c64a8f;
+}
+.AQIDataWrap .graphHead .max {
+  background: #8a0f14;
+}
+.AQIDataWrap .graphWrap .chart_wrapper {
+  position: relative;
+  width: 100%;
+  height: 340px;
+}
+.AQIDataWrap .graphWrap canvas#aqiChart {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+.AQIDataWrap .graphWrap .graphFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  color: #888;
+  font-size: 12px;
+}
+.AQIDataWrap .graphWrap .graphFoot .time {
+  color: var(--primary-text);
+}
+@media (width <= 768px) {
+  .AQIDataWrap .custom_heading {
+    justify-content: center;
+    gap: 1rem;
+  }
+  .AQIDataWrap .graphWrap {
+    padding: 1.25rem 1rem;
+  }
+  .AQIDataWrap .graphHead h2 {
+    font-size: 20px;
+  }
+
+  .AQIDataWrap .graphHead .AQIdataUpdate {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .AQIDataWrap .graphHead .AQIdataUpdate .updateNumbx .AQInubx {
+    font-size: 1rem;
+    padding: 6px 8px;
+  }
+
+  .AQIDataWrap .graphHead .AQIdataUpdate .updateNumbx .AQInubx span {
+    font-size: 0.75rem;
+  }
+
+  .AQIDataWrap .graphWrap .rotatetitle {
+    left: 0.75rem;
+    font-size: 0.625rem;
+  }
+
+  .AQIDataWrap .graphWrap .chart_wrapper {
+    height: 240px;
+  }
+
+  .AQIDataWrap .graphWrap .graphFoot {
+    flex-direction: row;
+    font-size: 10px;
+    margin-top: 8px;
+  }
+
+  .AQIDataWrap .graphWrap .graphFoot .time {
+    font-size: 10px;
+  }
+}

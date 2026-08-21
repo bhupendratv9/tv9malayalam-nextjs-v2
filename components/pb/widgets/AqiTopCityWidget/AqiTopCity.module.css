@@ -1,0 +1,92 @@
+:root {
+  --city-icon-bg: #e9f5fb;
+  --city-icon-stroke: #525252;
+}
+.cityAQIThumb_Wrapper .custom_heading {
+  margin-bottom: 1.56rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cityAQIThumb_Wrapper .custom_heading .h1 {
+  color: #16191b;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.875rem;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+}
+.cityAQIThumb_Wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.cityAQIThumb_Wrapper::before {
+  background-image: url(https://static.tv9hindi.com/images/citybgL.png);
+  content: "";
+  width: 56.625rem;
+  height: 52.25rem;
+  flex-shrink: 0;
+  position: absolute;
+  bottom: -230px;
+  left: -170px;
+  z-index: 0;
+}
+.cityAQIThumb_Wrapper::after {
+  background-image: url(https://static.tv9hindi.com/images/citybgR.png);
+  content: "";
+  width: 31.75rem;
+  height: 29.375rem;
+  flex-shrink: 0;
+  position: absolute;
+  top: -120px;
+  right: -230px;
+  mix-blend-mode: luminosity;
+  z-index: 0;
+}
+.cityAQIThumb_Wrapper .cityWise_Thumbs {
+  width: 75.25rem;
+  height: auto;
+  border-radius: 1.25rem;
+  border: 2px solid #fff;
+  background: rgba(255, 255, 255, 0.6);
+  margin: 0 auto 4.38rem auto;
+  padding: 4.01rem 5.75rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2.49rem;
+  position: relative;
+  z-index: 1;
+}
+.cityAQIThumb_Wrapper .cityWise_Thumbs figure {
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+  padding: 0.98rem;
+  text-align: center;
+}
+.cityAQIThumb_Wrapper .cityWise_Thumbs figure.active {
+  border: 1.5px solid #00a8fb;
+}
+.cityAQIThumb_Wrapper .cityWise_Thumbs .cardTitle {
+  color: #131313;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 2.0625rem;
+}
+
+@media (width <= 768px) {
+  .cityAQIThumb_Wrapper .cityWise_Thumbs {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.88rem;
+    padding: 1.25rem 0.75rem;
+    width: auto;
+    height: auto;
+  }
+  .cityAQIThumb_Wrapper .cityWise_Thumbs .cardTitle {
+    font-size: 0.875rem;
+  }
+}

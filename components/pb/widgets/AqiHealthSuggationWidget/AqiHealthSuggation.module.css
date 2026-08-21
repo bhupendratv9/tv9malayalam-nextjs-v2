@@ -1,0 +1,175 @@
+:root {
+  --health-advice-icon-bg: #e8e8e8;
+  --health-advice-icon-stroke: #0c0c0c;
+}
+.healthAdvice_Wrapper {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.healthAdvice_Wrapper::before {
+  background-image: url(https://images.tv9hindi.com/images/aqi-images/health_bg-lft.png);
+  content: "";
+  width: 748px;
+  height: 442px;
+  flex-shrink: 0;
+  position: absolute;
+  bottom: 0;
+  left: -170px;
+  z-index: 0;
+  background-repeat: no-repeat;
+}
+.healthAdvice_Wrapper::after {
+  background-image: url(https://images.tv9hindi.com/images/aqi-images/health_bg-rgt.png);
+  content: "";
+  width: 380px;
+  height: 470px;
+  flex-shrink: 0;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 0;
+  background-repeat: no-repeat;
+}
+.healthAdvice_Wrapper .healthadvice {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.625rem;
+}
+.healthAdvice_Wrapper .custom_heading {
+  margin-bottom: 1.56rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.healthAdvice_Wrapper .custom_heading .h1 {
+  color: #16191b;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.875rem;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+}
+.healthAdvice_Wrapper .dailyHealthWrap {
+  width: 75.25rem;
+  height: 14.375rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.7);
+  margin: 0 auto 4.38rem auto;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: 0.94rem;
+  position: relative;
+  z-index: 1;
+}
+.healthAdvice_Wrapper .dailyHealthWrap .imageWrap {
+  position: absolute;
+}
+.healthAdvice_Wrapper .dailyHealthWrap .imageWrap img {
+  display: block;
+}
+.healthAdvice_Wrapper .dailyHealthWrap .healthWrap {
+  text-align: center;
+}
+.healthAdvice_Wrapper .dailyHealthWrap .healthWrap .healthupdate {
+  border-radius: 3.75rem;
+  background: #f2f6f8;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.88rem;
+  padding: 1rem 2rem;
+  margin: 0 auto 0.625rem auto;
+  width: 46.875rem;
+}
+.healthAdvice_Wrapper .dailyHealthWrap .healthWrap .healthupdate figure {
+  text-align: center;
+}
+.healthAdvice_Wrapper .dailyHealthWrap .healthWrap .healthupdate figure .numbers {
+  color: #ff1500;
+  font-size: 2.625rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: capitalize;
+}
+.healthAdvice_Wrapper .dailyHealthWrap .healthWrap .healthupdate figure .text {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.625rem;
+  text-transform: capitalize;
+  color: #000;
+}
+.healthAdvice_Wrapper .dailyHealthWrap .healthWrap span {
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  line-height: 1.5rem;
+  display: block;
+  margin-bottom: 0.62rem;
+}
+.healthAdvice_Wrapper .dailyHealthWrap .healthWrap p {
+  color: #9d9d9d;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 20px;
+}
+@media (width <= 768px) {
+  .healthAdvice_Wrapper::before {
+    width: 300px;
+    height: 200px;
+    bottom: -30px;
+    left: -80px;
+    background-size: contain;
+  }
+  .healthAdvice_Wrapper::after {
+    width: 220px;
+    height: 250px;
+    top: -20px;
+    right: -50px;
+    background-size: contain;
+  }
+  .healthAdvice_Wrapper .custom_heading .h1 {
+    text-align: center;
+  }
+  .healthAdvice_Wrapper .dailyHealthWrap {
+    width: 100%;
+    height: auto;
+    margin: 0 auto 2rem auto;
+    padding: 0.625rem;
+    grid-template-columns: 1fr;
+  }
+  .healthAdvice_Wrapper .dailyHealthWrap .imageWrap {
+    position: unset;
+    width: 6rem;
+    margin: 0 auto;
+  }
+  .healthAdvice_Wrapper .dailyHealthWrap .healthWrap .healthupdate {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    width: auto;
+    height: auto;
+  }
+  .healthAdvice_Wrapper .dailyHealthWrap .healthWrap .healthupdate figure .numbers {
+    font-size: 1.8rem;
+  }
+  .healthAdvice_Wrapper .dailyHealthWrap .healthWrap .healthupdate figure .text {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  .healthAdvice_Wrapper .dailyHealthWrap .healthWrap span {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .healthAdvice_Wrapper .dailyHealthWrap .healthWrap p {
+    font-size: 0.75rem;
+    line-height: 1.3rem;
+    padding: 0 0.5rem;
+  }
+}

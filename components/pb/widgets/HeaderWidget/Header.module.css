@@ -1,0 +1,314 @@
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 0.62rem;
+}
+.language_menu {
+  background: #fafafa;
+  border: solid #e9e9e9;
+  border-width: 1px 0;
+}
+.language_menu .container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  align-items: center;
+  overflow-y: hidden;
+  justify-content: center;
+}
+.language_menu .container::-webkit-scrollbar {
+  display: none;
+}
+.language_menu a {
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1.375rem;
+  text-transform: capitalize;
+  color: #666;
+  padding: 0 0.5rem;
+  height: 1.375rem;
+  white-space: pre;
+}
+.tv9_navbar {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  height: 61px;
+  overflow: hidden;
+  transition: top 0.4s ease;
+}
+.tv9_navbar.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+.tv9_navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tv9_logo {
+  width: 47px;
+  height: 42px;
+}
+.tv9_navbarRHS {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.62rem;
+}
+.tv9_navbarRHS .aqi_icon,
+.tv9_navbarRHS .weather_icon,
+.tv9_navbarRHS .news_brief_icon,
+.tv9_navbarRHS .livetv_icon,
+.tv9_navbarRHS .googleSignIn,
+.tv9_navbarRHS .hamburgerMenu {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+.tv9_navbarRHS .aqi_icon svg,
+.tv9_navbarRHS .weather_icon svg {
+  display: block;
+  fill: #303030;
+}
+#loginOverlay {
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.tv9_catnavbar {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+.tv9_catnavbar.sticky {
+  position: fixed;
+  top: 61px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+.tv9_catnavbar .container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  align-items: center;
+  overflow-y: hidden;
+}
+.tv9_catnavbar .container::-webkit-scrollbar {
+  display: none;
+}
+.tv9_catnavbar .home_icon {
+  width: 19px;
+  height: 16px;
+  fill: #000;
+  vertical-align: sub;
+}
+.tv9_catnavbar a {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 2.5rem;
+  color: #000;
+  margin: 0 0.5rem;
+  white-space: nowrap;
+  text-transform: capitalize;
+  border-bottom: 2px solid #fff;
+}
+.tv9_catnavbar a:first-child {
+  margin-left: 0;
+}
+.tv9_catnavbar a.active {
+  border-bottom: 2px solid #dc0000;
+}
+.tv9_catnavbar a:first-child.active {
+  border-color: transparent;
+}
+.tv9_catnavbar a.active .home_icon {
+  fill: #dc0000;
+}
+.menuNavigation {
+  width: 100%;
+  height: 100%;
+  padding-top: 19px;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  z-index: 109;
+  background: #fff;
+  overflow: auto;
+  display: none;
+}
+.menuNavigation.active {
+  display: block;
+}
+.megaMenu_Header {
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+}
+.megaMenu_Header .tv9_logo {
+  margin-right: 20px;
+}
+.search_box {
+  display: flex;
+  border: 1px solid #e9e9e9;
+  width: calc(100% - 106px);
+}
+.search_box form {
+  width: 100%;
+  display: flex;
+}
+.search_box .s_input {
+  height: 30px;
+  outline: 0;
+  border-radius: 0;
+  width: 100%;
+  padding: 10px;
+  font-size: 13px;
+  background: #fafafa;
+  border: 0;
+}
+.search_box .s_button {
+  height: 30px;
+  background: #fafafa;
+  border: 0;
+  outline: 0;
+  border-radius: 0;
+  width: 3rem;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.search_box .search_icon {
+  width: 12px;
+  height: 12px;
+  display: block;
+  border-radius: 50%;
+  border: solid 2px #000;
+  position: relative;
+}
+.search_box .search_icon::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 2px;
+  background: #000;
+  right: -5px;
+  top: 8px;
+  transform: rotate(46deg);
+}
+.close_icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  margin-left: 15px;
+  cursor: pointer;
+  stroke: #000;
+}
+.menuNavigation ul.listItems {
+  list-style: none;
+  margin: 0;
+  column-count: 5;
+  display: block;
+}
+.menuNavigation ul.listItems > li {
+  width: 100%;
+  text-align: left;
+  padding: 5px 0;
+  margin: 0;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  line-height: 35px;
+}
+.menuNavigation ul.listItems li > a {
+  text-decoration: none;
+  text-align: center;
+  color: #000;
+  font-size: 15px;
+  line-height: 30px;
+  margin-bottom: 12px;
+}
+.menuNavigation ul.listItems li a.catHead {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #000;
+}
+.menuNavigation ul.listItems li a.catHead:after {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border: solid #000000;
+  border-width: 0 1px 1px 0;
+  margin: -1px 0 0 3px;
+  vertical-align: middle;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.listItems li span {
+  border: solid #000;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 4px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  position: absolute;
+  right: 10px;
+  top: 18px;
+  display: none;
+}
+.menuNavigation ul.listItems li ul.subItems {
+  display: block;
+  padding-left: 0;
+}
+.menuNavigation ul.listItems li ul.subItems li {
+  line-height: 22px;
+}
+@media (width <= 768px) {
+  .language_menu .container {
+    justify-content: flex-start;
+  }
+  .language_menu a:first-child {
+    padding-left: 0;
+  }
+  .menuNavigation ul.listItems {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .menuNavigation ul.listItems li ul.subItems {
+    display: none;
+  }
+  .menuNavigation ul.listItems li ul.subItems.subItemsOpen {
+    display: block;
+  }
+  .menuNavigation ul.listItems li a.catHead:after {
+    display: none;
+  }
+  .listItems li span {
+    display: block;
+    cursor: pointer;
+  }
+  .listItems li span.arrowOpen {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    top: 14px;
+  }
+}

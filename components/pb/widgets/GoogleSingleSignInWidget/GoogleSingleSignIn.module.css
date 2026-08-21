@@ -1,0 +1,228 @@
+.googleSignIn svg {
+  cursor: pointer;
+}
+.gSigninWidget_Wrapper {
+  background-color: #fff;
+  border-radius: 15px 0 0 15px;
+  padding: 25px;
+  width: 98vw;
+  max-width: 400px;
+  position: fixed;
+  right: -400px;
+  top: 10px;
+  z-index: 99999;
+  max-height: 95vh;
+  overflow-y: auto;
+  transition: right 0.5s ease-in-out;
+}
+.gSigninWidget_Wrapper::-webkit-scrollbar {
+  width: 0.25rem;
+  height: 0;
+  display: block;
+  background-color: #e4e4e4;
+  border-radius: 0.625rem;
+}
+.gSigninWidget_Wrapper::-webkit-scrollbar-thumb {
+  background: #a3a3a3;
+  border-radius: 0.625rem;
+}
+.closeWidget {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.closeWidget svg {
+  stroke: #000;
+  cursor: pointer;
+}
+.gSigninWidget_Wrapper .logoWrapper img {
+  width: 120px;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 0.625rem;
+}
+.gSigninWidget_Wrapper .loginProfile .profileImg img {
+  display: block;
+  max-width: 70px;
+  height: 70px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 70px;
+}
+.gSigninWidget_Wrapper .loginProfile .profileName {
+  color: #61677d;
+  font-size: 1.125rem;
+  text-transform: capitalize;
+  font-weight: 600;
+  text-align: center;
+}
+.gSigninWidget_Wrapper .loginProfile .signInButton {
+  background-color: #f5f9fe;
+  border: none;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  margin: 0.625rem auto;
+  cursor: pointer;
+}
+.gSigninWidget_Wrapper .loginProfile .signInButton svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 15px;
+}
+.gSigninWidget_Wrapper .loginProfile .signInButton span {
+  color: #61677d;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+}
+.gSigninWidget_Wrapper .loginProfile .profileInfo {
+  margin: 0.625rem 0;
+}
+.gSigninWidget_Wrapper .loginProfile .profileInfo p {
+  text-align: center;
+  color: #666666;
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+}
+.gSigninWidget_Wrapper .loginProfile .profileInfo a {
+  text-decoration: underline;
+  color: #666666;
+}
+.whatsappBtn_Wrap {
+  background-color: #41c352;
+  width: 100%;
+  border-radius: 14px;
+  margin: 0.625rem 0;
+}
+.whatsappBtn_Wrap a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+.whatsappBtn_Wrap svg {
+  width: 2rem;
+  height: 2rem;
+  margin-left: 15px;
+  fill: #fff;
+}
+.whatsappBtn_Wrap span {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  color: #fff;
+}
+.notificationBtn_Wrap {
+  background-color: #3461fd;
+  width: 100%;
+  border-radius: 14px;
+}
+.notificationBtn_Wrap a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+.notificationBtn_Wrap svg {
+  width: 1.25rem;
+  height: 1.375rem;
+  margin-left: 1rem;
+}
+.notificationBtn_Wrap span {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  color: #fff;
+}
+.logOutBtn {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0.625rem 0;
+  cursor: pointer;
+}
+.logOutBtn svg {
+  width: 1.625rem;
+  height: 1.625rem;
+}
+.logOutBtn span {
+  color: #dc0000;
+  font-size: 0.875rem;
+  line-height: 1.3125rem;
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+.gSigninWidget_Wrapper .loginInfo p {
+  text-align: center;
+  color: #666666;
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+}
+.gSigninWidget_Wrapper .loginInfo a {
+  text-decoration: underline;
+  color: #666666;
+}
+.languageSelect_Wrapper {
+  position: relative;
+  border-radius: 0.9375rem;
+  border: 1px solid #ddd;
+  background: #fff;
+  margin-bottom: 0.625rem;
+}
+.languageSelect_Wrapper::after {
+  content: "";
+  position: absolute;
+  top: 46%;
+  right: 15px;
+  width: 8px;
+  height: 8px;
+  -webkit-transform: translateY(-50%) rotate(45deg);
+  transform: translateY(-50%) rotate(45deg);
+  border-right: 2px solid #000;
+  border-bottom: 2px solid #000;
+  transition: 0.2s ease;
+}
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+.langselect {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 15px;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  cursor: pointer;
+  line-height: 22px;
+  position: relative;
+}
+.googleSignIn {
+  display: flex;
+}
+.googleSignIn svg {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+.loginOverlay {
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}

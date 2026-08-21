@@ -1,0 +1,91 @@
+.author_profile_wrap {
+  background: var(--color-red);
+  padding: 5px;
+  position: relative;
+  margin: 0.94rem 0 1.88rem 0;
+}
+.author_profile_wrap .author_profile {
+  background: var(--body-bg);
+  padding: 2.25rem 1.25rem 1.25rem;
+  display: flex;
+}
+.author_profile_wrap .author_profile .author_thumb {
+  width: 160px;
+}
+.author_profile_wrap .author_profile .author_thumb img {
+  background: var(--body-bg);
+  padding: 5px;
+  border: 2px solid var(--color-red);
+  border-radius: 100%;
+  width: 160px;
+  height: 160px;
+  display: block;
+}
+.author_profile_wrap .author_profile {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  gap: 20px;
+}
+.author_profile_wrap .author_profile .author_details .h2 {
+  position: absolute;
+  top: -24px;
+  background: var(--body-bg);
+  padding: 5px 10px;
+  font-size: 1.75rem;
+  color: var(--primary-text);
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.author_profile_wrap .author_profile .author_details .author_desc p {
+  color: var(--primary-text);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 2rem;
+}
+.author_profile_wrap .author_details .collapsed {
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.author_profile_wrap .author_details .expanded {
+  display: block;
+  overflow: visible;
+}
+.readMoreBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 6px;
+  color: #c0392b;
+  font-size: 0.938rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1.5;
+}
+.readMoreBtn:hover {
+  text-decoration: underline;
+}
+@media (width <= 768px) {
+  .authorDetail_Wrapper {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  .author_profile_wrap .author_details {
+    text-align: center;
+    order: 2;
+  }
+  .author_profile_wrap .author_details .h2 {
+    text-align: center;
+  }
+  .author_profile_wrap .author_profile {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  .author_profile_wrap .author_profile .author_thumb {
+    order: 1;
+  }
+}

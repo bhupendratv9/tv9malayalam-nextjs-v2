@@ -1,0 +1,94 @@
+.authorBox {
+  margin: 0 0 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.authorBox figure {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.authorBox .authorThumb {
+  width: 45px;
+  margin-right: 10px;
+}
+.authorThumb img {
+  border: 1px solid #e1e1e1;
+  display: block;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+}
+.authorBox figcaption {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  color: #4b4b4b;
+  display: flex;
+  flex-wrap: wrap;
+}
+.authorBox figcaption a {
+  color: #1450d2;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-right: 0.25rem;
+}
+.sharebox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #c9c9c9;
+  padding: 0.3125rem 0.3125rem 0.3125rem 0.5rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+  text-transform: uppercase;
+  margin-left: 0.5rem;
+}
+.sharebox span {
+  background: #5b5b5b;
+  height: 1.5rem;
+  width: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  margin-left: 0.5rem;
+}
+.sharebox svg {
+  width: 0.875rem;
+  height: 0.75rem;
+  fill: #fff;
+}
+.dFlex {
+  display: flex;
+}
+.google_badge_icon img {
+  width: 134px;
+  height: 42px;
+  display: block;
+}
+.googlePrefStickyMob {
+  display: none;
+}
+@media (width <= 768px) {
+  .google_badge_icon {
+    display: none;
+  }
+  .googlePrefStickyMob {
+    display: block;
+    position: fixed;
+    bottom: 120px;
+    right: -5px;
+    z-index: 999;
+  }
+  .googlePrefStickyMob img {
+    width: 120px;
+    height: auto;
+    display: block;
+  }
+}

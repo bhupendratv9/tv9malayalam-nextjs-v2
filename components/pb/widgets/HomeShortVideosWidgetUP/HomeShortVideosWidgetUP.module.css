@@ -1,0 +1,100 @@
+:root {
+  --webstory-widget-bg: #1f222b;
+  --color-white: #fff;
+  --border-color: #dfdfdf;
+}
+.shortvideosHomepage_Widget {
+  background-color: var(--webstory-widget-bg);
+  padding: 0.9375rem;
+  margin-bottom: 1.875rem;
+}
+.shortvideosHomepage_Widget .common_heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+.shortvideosHomepage_Widget .common_heading .h2,
+.shortvideosHomepage_Widget .common_heading .h2 a {
+  color: var(--color-white);
+  text-transform: capitalize;
+  font-size: 1.875rem;
+  font-weight: 800;
+  line-height: 1;
+  position: relative;
+}
+.shortvideosHomepage_Widget .common_heading .h2 a::after {
+  border-color: var(--color-white);
+}
+.shortvideosHomepage_Widget .common_heading .h2 a:after {
+  content: "";
+  border: solid var(--color-red);
+  vertical-align: middle;
+  border-width: 0 2px 2px 0;
+  border-radius: 2px;
+  margin-left: 5px;
+  padding: 3px;
+  display: inline-block;
+  transform: rotate(-45deg);
+}
+.shortvideosHomepage_Widget .shortWidget_Thumbs {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.shortvideosHomepage_Widget .shortWidget_Thumbs::-webkit-scrollbar {
+  display: none;
+}
+.shortvideosHomepage_Widget .shortWidget_Thumbs figure {
+  position: relative;
+  width: 19.5%;
+  margin-right: 2rem;
+  padding: 0.5rem;
+}
+.shortvideosHomepage_Widget .shortWidget_Thumbs figure::before {
+  content: "";
+  border: 1px solid #c2c2c2;
+  width: 100%;
+  height: 85%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+.shortvideosHomepage_Widget .shortWidget_Thumbs figure:last-child {
+  margin-right: 0;
+}
+.shortvideosHomepage_Widget .shortWidget_Thumbs .imgwrap {
+  position: relative;
+  height: fit-content;
+}
+.shortvideosHomepage_Widget .shortWidget_Thumbs .imgwrap img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 9 / 16;
+}
+.shortvideosHomepage_Widget .shortWidget_Thumbs .imgwrap svg {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  top: 0.625rem;
+  left: 0.625rem;
+}
+@media (width <=768px) {
+  .shortvideosHomepage_Widget {
+    margin: 0 -0.9375rem 1.875rem -0.9375rem;
+  }
+  .shortvideosHomepage_Widget .shortWidget_Thumbs {
+    padding-bottom: 0;
+    margin-right: -0.9375rem;
+  }
+  .shortvideosHomepage_Widget .shortWidget_Thumbs figure {
+    width: 64.5%;
+    flex: 0 0 auto;
+  }
+  .shortvideosHomepage_Widget .shortWidget_Thumbs figure:last-child {
+    margin-right: 1rem;
+  }
+}

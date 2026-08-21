@@ -1,0 +1,132 @@
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 0.62rem;
+}
+.tv9_footer {
+  margin-top: 1.25rem;
+}
+.tv9_footerlinks {
+  background: #fff;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+  padding: 1.25rem 0;
+}
+.tv9_footerlinks .container {
+  display: flex;
+  justify-content: center;
+}
+.footer_LHS {
+  width: 23%;
+  margin-right: 2%;
+  border-right: 1px solid #e7e7e7;
+}
+.footer_RHS {
+  width: 50%;
+}
+.footer_LHS .fsocial {
+  display: flex;
+  justify-content: center;
+}
+.footer_LHS .fsocial img {
+  display: block;
+  margin-right: 20px;
+  width: 69px;
+  height: 62px;
+}
+.fsocial_links span {
+  text-align: center;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 24px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.625rem;
+  color: #666;
+}
+.fsocial_links ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: center;
+  list-style-type: none;
+}
+.fsocial_links ul li svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+.dowoloadBtn {
+  width: 23%;
+  text-align: center;
+  border-left: 1px solid #e7e7e7;
+  margin-left: 2%;
+}
+.dowoloadBtn span {
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #666;
+  font-weight: 400;
+  margin-bottom: 10px;
+  display: block;
+}
+.download_links {
+  display: flex;
+  justify-content: center;
+}
+.download_links a,
+.download_links img {
+  display: inline-block;
+}
+.download_links img {
+  margin: 0 5px;
+}
+.footer_navlinks {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.footer_navlinks a {
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  color: #666;
+  margin-right: 15px;
+  padding-bottom: 10px;
+}
+.footer_navlinks a:last-child {
+  margin-right: 0;
+}
+.copyright {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 19px;
+  color: #666;
+  text-align: center;
+}
+@media (width <= 768px) {
+  .tv9_footerlinks {
+    padding: 20px 0 60px 0;
+  }
+  .tv9_footerlinks .container {
+    flex-wrap: wrap;
+  }
+  .footer_LHS,
+  .footer_RHS,
+  .dowoloadBtn {
+    width: 100%;
+  }
+  .footer_LHS {
+    margin-right: 0;
+    border-right: none;
+  }
+  .footer_LHS .fsocial {
+    margin-bottom: 1.25rem;
+  }
+  .footer_navlinks {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.62rem;
+  }
+}

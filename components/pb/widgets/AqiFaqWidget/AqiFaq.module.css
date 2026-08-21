@@ -1,0 +1,103 @@
+.faqWidget_Wrapper {
+  padding: 3rem 0;
+}
+.faqWidget_Wrapper .container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+.faqWidget_Wrapper .custom_heading {
+  margin-bottom: 1.56rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.faqWidget_Wrapper .custom_heading .h1 {
+  color: #16191b;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.875rem;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+}
+.faqWidget_Wrapper .faqWidgetItems_List {
+  border-radius: 0.875rem;
+  background: #fff;
+  box-shadow: 0 0 12px 0 rgba(96, 113, 121, 0.1);
+  padding: 2.62rem 3.75rem;
+}
+.faqWidgetItems_List .FaqItem {
+  margin-bottom: 1.125rem;
+  padding-bottom: 1.125rem;
+  border-bottom: 1px solid #e7eef1;
+}
+.faqWidgetItems_List .FaqItem:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.faqWidgetItems_List .FaqHeading {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  text-align: left;
+  font-size: 1.125rem;
+  line-height: 1.125rem;
+  transition: 0.4s;
+  font-weight: 600;
+  color: #000;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faqWidgetItems_List .FaqHeading span {
+  width: calc(100% - 30px);
+}
+.faqWidgetItems_List .FaqHeading::after {
+  content: "\002B";
+  color: #000;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 20px;
+  height: 1.25rem;
+  width: 1.25rem;
+  border: 2px solid #000;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.faqWidgetItems_List .FaqHeading.active::after {
+  content: "\2212";
+}
+.faqWidgetItems_List .FaqItemContent {
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  font-size: 1rem;
+  line-height: 2.25rem;
+  font-weight: 400;
+  color: #494949;
+}
+.FaqItemContent.open {
+  max-height: 500px;
+}
+@media (width <= 768px) {
+  .faqWidget_Wrapper .faqWidgetItems_List {
+    padding: 2rem 1rem;
+  }
+  .faqWidgetItems_List .FaqHeading {
+    font-size: 0.9375rem;
+    line-height: 1.125rem;
+  }
+  .faqWidgetItems_List .FaqItemContent {
+    font-size: 0.875rem;
+    line-height: 1.3125rem;
+  }
+}

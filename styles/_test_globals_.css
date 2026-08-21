@@ -1,0 +1,320 @@
+:root {
+  --body-bg: #ffffff;
+  --adcont-bg: #f9f9f9;
+  --header-bg: #ffffff;
+  --header-bdr: #ffffff;
+  --primary-text: #000;
+  --color-red: #e85a00;
+  --color-white: #fff;
+  --border-color: #dfdfdf;
+  --webstory-widget-bg: #1f222b;
+  --videogal-widget-bg: #003e7b;
+  --photogal-widget-bg: #e85a00;
+  --phototxt-bg: #733006;
+  --trending-widget-txt-bg: #240006;
+  --footer-bg: #000000;
+  --twitter-bg: #000;
+  --facebook-bg: #385997;
+  --social-feed-bg: #f5e4d5;
+  --latestnews-txtwidget-bg: #dfdfdf;
+  --latestvideos-txtwidget-bg: #003e7b;
+  --cat-bignews-bg: #fff4ed;
+  --common-btn-bg: #f6d8be;
+  --scrolltop-bg: #000;
+  --story-bdr-color: #fff;
+}
+*,
+:after,
+:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+}
+body {
+  color: var(--primary-text);
+  font-size: 1.125rem;
+  background: var(--body-bg);
+  -webkit-text-size-adjust: none;
+}
+img {
+  max-width: 100%;
+  height: inherit;
+}
+ol,
+ul {
+  list-style: none;
+}
+.imgwrap {
+  position: relative;
+  height: fit-content;
+}
+a {
+  text-decoration: none;
+  color: var(--primary-text);
+}
+a,
+button,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+.showDesktopOnly {
+  display: block;
+}
+.showMobileOnly {
+  display: none;
+}
+.adsCont {
+  text-align: center;
+  clear: both;
+  margin: 0 0 1.875rem 0;
+  position: relative;
+  height: 120px;
+  padding-top: 0.63rem;
+  z-index: 0;
+  background: var(--adcont-bg);
+  overflow: hidden;
+}
+.adsCont:before {
+  content: "विज्ञापन";
+  font-size: 0.75rem;
+  font-weight: 400;
+  display: block;
+  color: var(--primary-text);
+  text-transform: uppercase;
+  margin-bottom: 0.31rem;
+  line-height: 1;
+}
+.container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 0.9375rem;
+}
+.sticky_sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 73px;
+}
+.common_heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+}
+.common_heading .h2,
+.common_heading .h2 a {
+  color: var(--primary-text);
+  font-size: 1.875rem;
+  line-height: 1;
+  font-weight: 800;
+  text-transform: capitalize;
+  position: relative;
+}
+.common_heading .h2 a::after {
+  content: "";
+  border: solid var(--color-red);
+  border-width: 0 2px 2px 0;
+  border-radius: 2px;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-left: 5px;
+  vertical-align: middle;
+}
+.blinker {
+  display: inline-block;
+  background: rgba(176, 0, 32, 1);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(216, 2, 2, 1);
+  margin: 0 5px 0 0;
+  height: 10px;
+  width: 10px;
+  transform: scale(1);
+  animation: pulse-red 2s infinite;
+}
+@keyframes pulse-red {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(176, 0, 32, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(176, 0, 32, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(176, 0, 32, 0);
+  }
+}
+@keyframes pulse-white {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(176, 0, 32, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(176, 0, 32, 0);
+  }
+}
+.bounce {
+  -moz-animation: bounce 2s infinite;
+  -webkit-animation: bounce 2s infinite;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%,
+  100%,
+  20%,
+  50%,
+  80% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+.mainWrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.mainCol {
+  width: calc(100% - 386px);
+}
+.rhsCol {
+  width: 356px;
+  margin-left: 30px;
+}
+.rhsCol .adsCont {
+  height: 300px;
+}
+.breadcrumb {
+  margin-bottom: 1.25rem;
+  line-height: 1.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.breadcrumb span {
+  position: relative;
+  font-weight: 400;
+  font-size: 0.875rem;
+  text-transform: capitalize;
+}
+.breadcrumb span a {
+  color: var(--primary-text);
+  text-decoration: underline;
+}
+.breadcrumb span::after {
+  content: "/";
+  display: inline-block;
+  margin: 0 3px 0 10px;
+  color: #c1ac9b;
+}
+.breadcrumb span.breadcrumb_last {
+  color: #524444;
+}
+.breadcrumb span.breadcrumb_last::after {
+  display: none;
+}
+.catName {
+  font-size: 0.8125rem;
+  line-height: 1.0731rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.catName a {
+  color: var(--color-red);
+}
+.icon_BG {
+  width: 1.875rem;
+  height: 1.5625rem;
+  background: var(--color-red);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon_BG svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: transparent;
+  stroke: #fff;
+}
+.viewMoreBtn a {
+  background-color: #dbd9d7;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.875rem;
+  height: 38px;
+  padding: 0 0.9375rem;
+  position: relative;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  width: 100%;
+  text-align: center;
+  font-family: sans-serif;
+}
+.viewMoreBtn a::after {
+  content: "";
+  border: solid var(--color-red);
+  border-width: 0 2px 2px 0;
+  border-radius: 2px;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-left: 5px;
+}
+.common_border {
+  margin: 0 0 1.875rem 0;
+  background: var(--border-color);
+  width: auto;
+  height: 0.3125rem;
+}
+.flexAlignCenter {
+  display: flex;
+  align-items: center;
+}
+@media (width <= 768px) {
+  .showDesktopOnly {
+    display: none;
+  }
+  .showMobileOnly {
+    display: block;
+  }
+  .adsCont {
+    height: 300px;
+    margin: 0 -0.9375rem 1.875rem -0.9375rem;
+  }
+  .mainCol {
+    width: 100%;
+  }
+  .rhsCol {
+    width: 100%;
+    margin-left: 0;
+  }
+}

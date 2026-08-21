@@ -1,0 +1,245 @@
+*,
+:after,
+:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+}
+body {
+  color: #000;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  background: #fff;
+  -webkit-text-size-adjust: none;
+}
+a {
+  color: #000;
+  text-decoration: none;
+}
+ol,
+ul {
+  list-style: none;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+.onlyWebADS {
+  display: block;
+}
+.onlyMobileADS {
+  display: none;
+}
+.adsCont {
+  text-align: center;
+  clear: both;
+  margin: 0 0 20px;
+  width: 100%;
+  position: relative;
+  height: 300px;
+  padding-top: 2px;
+  background: #f9f9f9;
+}
+.adsCont:before {
+  content: "விளம்பரம்";
+  font-size: 10px;
+  line-height: 16px;
+  display: block;
+  color: #777;
+}
+.adsCont.Topads {
+  height: 110px;
+}
+.adsCont.adsContainer {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+.sticky_sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 5px;
+}
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+.tv9common_heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  position: relative;
+  width: 100%;
+}
+.tv9common_heading:before {
+  border-top: 1px solid #cfcfcf;
+  content: "";
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+}
+.tv9common_heading .h1,
+.tv9common_heading .h2 {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 30px;
+  background: #fff;
+  padding-right: 10px;
+  text-transform: capitalize;
+}
+.tv9common_heading a.view_more {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #dc0000;
+  text-transform: capitalize;
+  border: 1px solid #d7d7d7;
+  padding: 3px 10px;
+  border-radius: 30px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.tv9common_heading a.view_more svg {
+  width: 13px;
+  height: 8px;
+  margin-left: 3px;
+  fill: #dc0000;
+}
+.blinker {
+  display: inline-block;
+  background: rgba(216, 2, 2, 1);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(216, 2, 2, 1);
+  margin: 0 8px;
+  height: 10px;
+  width: 10px;
+  transform: scale(1);
+  animation: pulse-red 2s infinite;
+}
+@keyframes pulse-red {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(216, 2, 2, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(216, 2, 2, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(216, 2, 2, 0);
+  }
+}
+@keyframes pulse-white {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(216, 2, 2, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(216, 2, 2, 0);
+  }
+}
+.tv9wrapperMain {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.tv9wrapperMain.has-right-sidebar {
+  margin-top: 0.9375rem;
+}
+.main_col {
+  width: calc(100% - 320px);
+}
+.rhs_col {
+  width: 300px;
+  margin-left: 20px;
+}
+.breadcrumb {
+  margin: 0 0 10px 0;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.breadcrumb::-webkit-scrollbar {
+  display: none;
+}
+.breadcrumb span {
+  position: relative;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  text-transform: capitalize;
+  margin-right: 3px;
+}
+.breadcrumb span a {
+  color: #666666;
+}
+.breadcrumb span::after {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border: solid #666666;
+  border-width: 0 1px 1px 0;
+  margin: -1px 0 0 3px;
+  vertical-align: middle;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.breadcrumb span.breadcrumb_last::after {
+  display: none;
+}
+.breadcrumb span.breadcrumb_last a {
+  color: #000;
+}
+.AQIWrapperMain,
+.WeatherBody_Main {
+  background-color: #f2f6f8;
+  margin: -20px 0;
+  padding: 20px 0;
+}
+
+@media (width <= 768px) {
+  .onlyWebADS {
+    display: none;
+  }
+  .onlyMobileADS {
+    display: block;
+  }
+  .main_col {
+    width: 100%;
+  }
+  .rhs_col {
+    width: 100%;
+    margin-left: 0;
+  }
+  .breadcrumb {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}

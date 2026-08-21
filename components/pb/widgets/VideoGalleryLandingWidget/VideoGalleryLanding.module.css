@@ -1,0 +1,99 @@
+.videoGalleryLanding_Wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.videoGalleryLanding_Wrapper figure {
+  background: var(--latestvideos-txtwidget-bg);
+}
+.videoGalleryLanding_Wrapper .imgwrap img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+.videoGalleryLanding_Wrapper .imgwrap svg {
+  width: 1.875rem;
+  height: 1.875rem;
+  fill: #fff;
+}
+.videoGalleryLanding_Wrapper .card_title {
+  padding: 0.81rem;
+}
+.videoGalleryLanding_Wrapper .card_title .h3 {
+  color: var(--color-white);
+  font-size: 1rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.videoGalleryLanding_Wrapper .card_title .h3 a {
+  color: var(--color-white);
+}
+.videoGalleryLanding_Wrapper .card_title .media_info {
+  display: inline-block;
+  margin-bottom: 0.625rem;
+  line-height: 1;
+}
+.videoGalleryLanding_Wrapper .card_title .media_info svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: #ffc900;
+  vertical-align: middle;
+}
+.videoGalleryLanding_Wrapper .card_title .media_info span {
+  color: #ffc900;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  margin-right: 0.3125rem;
+  text-transform: uppercase;
+}
+.videoGalleryLanding_Wrapper .loadMoreBtn {
+  background-color: #dbd9d7;
+  border: 0;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 1.875rem auto;
+  height: 38px;
+  padding: 0 0.9375rem;
+  position: relative;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  width: 100%;
+  max-width: 150px;
+  text-align: center;
+  cursor: pointer;
+  font-family: sans-serif;
+  grid-column: span 3;
+}
+.videoGalleryLanding_Wrapper .loadMoreBtn::after {
+  content: "";
+  border: solid var(--color-red);
+  border-width: 0 2px 2px 0;
+  border-radius: 2px;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-left: 5px;
+}
+@media (width <= 768px) {
+    .videoGalleryLanding_Wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        gap:0.62rem
+    }
+    .videoGalleryLanding_Wrapper .card_title .h3 {
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+    }
+    .videoGalleryLanding_Wrapper .loadMoreBtn {
+        grid-column: span 2;
+    }
+}

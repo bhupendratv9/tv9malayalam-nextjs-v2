@@ -1,0 +1,68 @@
+.relatedVideosWidget_Wrapper {
+  margin-bottom: 1.875rem;
+}
+.relatedVideosWidget_Wrapper .flexFlow_Wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.relatedVideosWidget_Wrapper .flexFlow_Wrapper::-webkit-scrollbar {
+  display: none;
+}
+.relatedVideosWidget_Wrapper .flexFlow_Wrapper figure {
+  width: 24.5%;
+  margin-right: 1rem;
+  background: var(--latestvideos-txtwidget-bg);
+}
+.relatedVideosWidget_Wrapper .flexFlow_Wrapper figure:last-child {
+  margin-right: 0;
+}
+.relatedVideosWidget_Wrapper .imgwrap {
+  position: relative;
+}
+.relatedVideosWidget_Wrapper .imgwrap img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+.relatedVideosWidget_Wrapper .playIcon {
+  width: 2.8125rem;
+  height: 2.8125rem;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+}
+.relatedVideosWidget_Wrapper .imgwrap svg {
+  width: 1.875rem;
+  height: 1.875rem;
+}
+.relatedVideosWidget_Wrapper .card_title {
+  padding: 0.81rem;
+}
+.relatedVideosWidget_Wrapper .card_title .h3 {
+  color: var(--color-white);
+  font-size: 1rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+@media (width <= 768px) {
+  .relatedVideosWidget_Wrapper .flexFlow_Wrapper {
+    margin-right: -0.9375rem;
+  }
+  .relatedVideosWidget_Wrapper .flexFlow_Wrapper figure {
+    width: 64.5%;
+    flex: 0 0 auto;
+  }
+  .relatedVideosWidget_Wrapper .flexFlow_Wrapper figure:last-child {
+    margin-right: 1rem;
+  }
+}

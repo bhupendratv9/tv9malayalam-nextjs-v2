@@ -1,0 +1,127 @@
+:root {
+  --aqi-polluted-city-bg: #e7eef1;
+  --polluted-city-card-bg: #fff;
+}
+.pollutedCitiesWidget_Wrapper {
+  background-color: var(--aqi-polluted-city-bg);
+  padding: 3.88rem;
+  position: relative;
+  overflow: hidden;
+}
+.pollutedCitiesWidget_Wrapper::after {
+  background-image: url(https://static.tv9hindi.com/images/pollutedcity-bg.png);
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: -250px;
+  mix-blend-mode: plus-lighter;
+  width: 31.0625rem;
+  height: 39.8125rem;
+}
+.pollutedCitiesWidget_Wrapper .container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  position: relative;
+  z-index: 1;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+.pollutedCitiesWidget_Wrapper .pollutedCity_Wrap .custom_heading {
+  margin-bottom: 1.56rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pollutedCitiesWidget_Wrapper .pollutedCity_Wrap .custom_heading .h1 {
+  color: #16191b;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.875rem;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+}
+.pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking {
+  border-radius: 0.875rem;
+  background: var(--polluted-city-card-bg);
+  box-shadow: 0 0 12px 0 rgba(96, 113, 121, 0.1);
+  overflow: auto;
+  padding: 1.25rem 1.31rem;
+  position: relative;
+  z-index: 1;
+}
+.pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking table td,
+.pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking table th {
+  padding: 1.31rem 1.88rem 1.06rem 1.88rem;
+}
+.pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking table td a {
+  color: var(--primary-text);
+}
+.pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking table thead th {
+  color: #000;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.125rem;
+  text-transform: uppercase;
+  text-align: left;
+}
+.pollutedCitiesWidget_Wrapper
+  .cityWiseTable_Ranking
+  table
+  thead
+  th:first-child {
+  border-radius: 0.625rem 0 0 0.625rem;
+}
+.pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking table thead th:last-child {
+  border-radius: 0 0.625rem 0.625rem 0;
+}
+.pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking table tbody tr {
+  border-bottom: 1px solid #ecebeb;
+}
+.pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking table tbody tr:last-child {
+  border-bottom: none;
+}
+.pollutedCitiesWidget_Wrapper
+  .cityWiseTable_Ranking
+  table
+  tbody
+  tr
+  td:last-child {
+  font-weight: 700;
+}
+.theme-dark .pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking {
+  box-shadow: none;
+  border: 1px solid #3f3f3f;
+}
+.mostPollutedCityTable thead {
+  background-color: #ffdcd9;
+}
+.leastPollutedCityTable thead {
+  background-color: #e1f1df;
+}
+
+@media (width <= 768px) {
+  .pollutedCitiesWidget_Wrapper {
+    padding: 1.88rem 0;
+  }
+  .pollutedCitiesWidget_Wrapper .container {
+    grid-template-columns: 1fr;
+  }
+  .pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking table td,
+  .pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking table th {
+    font-size: 1rem;
+    padding: 1rem 0.75rem;
+  }
+  .pollutedCitiesWidget_Wrapper .cityWiseTable_Ranking {
+    padding: 0.75rem;
+  }
+}

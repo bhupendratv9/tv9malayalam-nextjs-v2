@@ -1,0 +1,298 @@
+.weatherParameters_Wrapper {
+  margin-bottom: 1.75rem;
+}
+.weatherParameters_Wrapper .custom_heading {
+  margin-bottom: 1.56rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.weatherParameters_Wrapper .custom_heading .h2 {
+  color: #16191b;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.875rem;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+}
+.weatherParameters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  width: 75.25rem;
+  height: auto;
+  margin: 0 auto;
+}
+.weatherParameters .weatherParameter_Card {
+  border-radius: 1.25rem;
+  border: 1px solid #d4e3ee;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+.weatherParameters .weatherParameter_Card::before {
+  content: "";
+  width: 100%;
+  height: 8.1875rem;
+  background-image: url(https://static.tv9hindi.com/images/weather/line-pattern-bg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.weatherParameters .weatherParameter_Card:first-child::before {
+  height: 18.5625rem;
+}
+.weatherParameters .weatherParameter_Card .weatherParameter_Card__Top img {
+  width: 120px;
+  height: 120px;
+  margin: 2.31rem auto 3.12rem auto;
+  display: block;
+}
+.weatherParameters .weatherParameter_Card .cardInfo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  align-items: center;
+  justify-items: center;
+}
+.weatherParameters .weatherParameter_Card .cardInfo p {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  color: #000;
+  display: flex;
+  align-items: center;
+}
+.weatherParameters .weatherParameter_Card .cardInfo p svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  display: block;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+.weatherParameters .weatherParameter_Card .cardInfo span {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+  color: #000;
+}
+.weatherParameters .weatherParameter_Card .cardInfo span strong {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 2.0625rem;
+  color: #000;
+}
+.weatherParameters .weatherParameter_Card .cardInfo .direction_icon {
+  width: 23px;
+  height: 21px;
+  display: block;
+  rotate: 99deg;
+}
+.weatherParameters .weatherParameter_Card .lineSeperator_Horizontal {
+  width: 15.625rem;
+  height: 0.0625rem;
+  background: linear-gradient(90deg, #fff 0, #7d7d7d 50.48%, #fff 100%);
+  margin: 1.44rem auto;
+}
+.weatherParameters .weatherParameter_Card .weatherParameter_Card__Footer {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #000;
+  border-radius: 0rem 0rem 1.25rem 1.25rem;
+  background: #d7eaf4;
+  text-align: center;
+  padding: 0 1rem;
+  margin-top: 1.2rem;
+  width: 100%;
+  height: 3.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flexAlign_Center {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+.lineSeperator_Vertical {
+  position: absolute;
+  width: 0.0625rem;
+  height: 4.6875rem;
+}
+.lineSeperator_Vertical::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url(https://static.tv9hindi.com/images/weather/line-seperator.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 0.0625rem;
+  height: 4.6875rem;
+  z-index: 1;
+}
+.weatherParameters .weatherParameter_Mid .weatherParameter_Card:first-child {
+  margin-bottom: 1.2rem;
+}
+.weatherParameters .weatherParameter_Right .weatherParameter_Card:first-child {
+  margin-bottom: 1.2rem;
+}
+.weatherParameters
+  .weatherParameter_Mid
+  .weatherParameter_Card:first-child::before,
+.weatherParameters
+  .weatherParameter_Right
+  .weatherParameter_Card:first-child::before {
+  height: 8.1875rem;
+}
+.weatherParameters .weatherParameter_Mid img,
+.weatherParameters .weatherParameter_Right img {
+  width: 70px;
+  height: 70px;
+  display: block;
+}
+.weatherParameters .weatherParameter_Mid .weatherParameter_Card__Top img {
+  width: 80px;
+  height: 80px;
+  margin: 1rem auto 1.56rem auto;
+  display: block;
+}
+.weatherParameters .weatherParameter_Mid .weatherParameter_Card__Header,
+.weatherParameters .weatherParameter_Right .weatherParameter_Card__Header {
+  display: grid;
+  grid-template-columns: 1fr 18px;
+  gap: 1.2rem;
+  align-items: center;
+  padding: 1.3rem 1.8rem;
+  position: relative;
+}
+.weatherParameters .weatherParameter_Mid .weatherParameter_Card__Header p,
+.weatherParameters .weatherParameter_Right .weatherParameter_Card__Header p {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.125rem;
+  color: #000;
+  text-transform: capitalize;
+}
+.weatherParameters .weatherParameter_Mid .weatherParameter_Card__Header svg,
+.weatherParameters .weatherParameter_Right .weatherParameter_Card__Header svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  display: block;
+  cursor: pointer;
+}
+.weatherParameters .weatherParameter_Card .cardInfo span.textBtn {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+  color: #000;
+  border-radius: 1.25rem;
+  background: #ffcc00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 1.75rem;
+  padding: 0 0.625rem;
+  position: relative;
+  margin-top: 0.5rem;
+}
+.weatherParameters
+  .weatherParameter_Card
+  .weatherParameter_Card__Body
+  .progress_wrapper {
+  width: 12.9375rem;
+  height: 0.8125rem;
+  margin: 0.5rem auto auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.weatherParameters
+  .weatherParameter_Card
+  .weatherParameter_Card__Body
+  .progress_wrapper
+  .progress_bar {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  border-radius: 6px;
+  background: linear-gradient(
+    to right,
+    #4caf50 0,
+    #cddc39 20%,
+    #ffc107 40%,
+    #ff9800 50%,
+    #e91e63 70%,
+    #9c27b0 85%,
+    #f44336 100%
+  );
+}
+.weatherParameters
+  .weatherParameter_Card
+  .weatherParameter_Card__Body
+  .progress_wrapper
+  .progress_bar
+  .thumb {
+  position: absolute;
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  background: #fff;
+  border: 4px solid #ff9800;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.uvBar {
+  position: relative;
+  width: 12.8125rem;
+  height: 1.5rem;
+  border-radius: 6px;
+  background: linear-gradient(
+    to right,
+    #6dd400 0,
+    #f7e400 25%,
+    #f88800 50%,
+    #f70000 75%,
+    #b400f7 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin: 0.5rem auto auto;
+}
+.uvThumb {
+  position: absolute;
+  top: -4px;
+  height: 32px;
+  width: 4px;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  transition:
+    left 0.3s ease,
+    background-color 0.3s ease;
+}
+.uvLabel {
+  position: absolute;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+@media (width <= 768px) {
+  .weatherParameters {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+}

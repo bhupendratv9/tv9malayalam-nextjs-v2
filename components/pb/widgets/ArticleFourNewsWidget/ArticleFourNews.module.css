@@ -1,0 +1,89 @@
+.fourNewsWidget_Wrapper {
+  background-color: #f4f4f4;
+  padding: 1.25rem;
+  margin-bottom: 1.88rem;
+}
+.fourNewsWidget_Wrapper .tv9common_heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  position: relative;
+  width: 100%;
+}
+.fourNewsWidget_Wrapper .tv9common_heading .h2 {
+  background-color: #f4f4f4;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 30px;
+  padding-right: 10px;
+  text-transform: capitalize;
+}
+.fourNewsWidget_Wrapper .newsGridWrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.fourNewsWidget_Wrapper .newsGridWrapper figure {
+  position: relative;
+  margin-bottom: 0;
+}
+.fourNewsWidget_Wrapper .newsGridWrapper .imgThumb {
+  margin-bottom: 0.625rem;
+  position: relative;
+  height: max-content;
+}
+.fourNewsWidget_Wrapper .newsGridWrapper .imgThumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 4px;
+}
+.fourNewsWidget_Wrapper .newsGridWrapper .card_title .h3 {
+  font-size: 1rem;
+  line-height: 1.625rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin-bottom: 0;
+}
+.fourNewsWidget_Wrapper .newsGridWrapper .icon_BG {
+  position: absolute;
+  background: #e21b22;
+  height: 20px;
+  width: 24px;
+  justify-content: center;
+  border-radius: 4px;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+}
+.fourNewsWidget_Wrapper .newsGridWrapper .icon_BG svg {
+  height: 14px;
+  width: 14px;
+  fill: transparent;
+  margin: 0;
+}
+@media (max-width: 767px) {
+  .fourNewsWidget_Wrapper {
+    margin: 0 -10px;
+  }
+  .fourNewsWidget_Wrapper .newsGridWrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .fourNewsWidget_Wrapper .newsGridWrapper::-webkit-scrollbar {
+    display: none;
+  }
+  .fourNewsWidget_Wrapper .newsGridWrapper figure {
+    width: 68%;
+    flex: 0 0 auto;
+  }
+}

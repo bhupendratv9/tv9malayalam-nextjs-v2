@@ -1,0 +1,107 @@
+.photoGallery_Wrapper {
+  background: #e4e4e4;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.photoGallery_Wrapper .tv9common_heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  position: relative;
+  width: 100%;
+}
+.photoGallery_Wrapper .tv9common_heading .h1,
+.photoGallery_Wrapper .tv9common_heading .h2 {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 30px;
+  padding-right: 10px;
+  text-transform: capitalize;
+}
+.photoGallery_Wrapper .tv9common_heading a.view_more {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #dc0000;
+  text-transform: capitalize;
+  border: 1px solid #d7d7d7;
+  padding: 3px 10px;
+  border-radius: 30px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.photoGallery_Wrapper .tv9common_heading a.view_more svg {
+  width: 13px;
+  height: 8px;
+  margin-left: 3px;
+  fill: #dc0000;
+}
+.photoGallery_Wrapper .photoGallerySlider {
+    padding-bottom: 25px;
+}
+.photoGallery_Wrapper .photoGallerySlider .imgThumb {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+.photoGallery_Wrapper .photoGallerySlider .imgThumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+.photoGallery_Wrapper .photoGallerySlider .card_title .h3 {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+.photoGallery_Wrapper .photoGallerySlider :global(.splide__pagination) {
+  bottom: 0;
+}
+.photoGallery_Wrapper .photoGallerySlider :global(.splide__pagination__page) {
+  opacity: 1;
+  background: #9d9d9d;
+  height: 8px;
+  width: 8px;
+  margin: 2px 6px;
+}
+.photoGallery_Wrapper .photoGallerySlider :global(.splide__pagination__page.is-active) {
+  background: #4b4b4b;
+  height: 7px;
+  width: 18px;
+  border-radius: 20px;
+}
+.photoGallery_Wrapper .photoGallerySlider .icon_BG {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 22px;
+  text-transform: uppercase;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+.photoGallery_Wrapper .photoGallerySlider .icon_BG svg {
+  margin-right: 3px;
+}
+.photoGallery_Wrapper .photoGallerySlider .photo_count {
+  background: #e21b22;
+  border-radius: 30px;
+  padding: 2px 12px;
+}
+.photoGallery_Wrapper .photoGallerySlider .photo_count svg {
+  height: 13px;
+  width: 13px;
+}

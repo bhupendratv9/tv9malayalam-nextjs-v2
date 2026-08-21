@@ -1,0 +1,96 @@
+:root {
+  --photogal-widget-bg: #e85a00;
+  --color-white: #fff;
+  --border-color: #dfdfdf;
+}
+.photoGalleryHP_Widget {
+  background: var(--photogal-widget-bg);
+  padding: 0.9375rem;
+  margin-bottom: 1.875rem;
+}
+.photoGalleryHP_Widget .common_heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+.photoGalleryHP_Widget .common_heading .h2,
+.photoGalleryHP_Widget .common_heading a {
+  color: var(--color-white);
+  font: 800 1.875rem/1 inherit;
+  text-transform: capitalize;
+}
+.photoGalleryHP_Widget .common_heading a::after {
+  content: "";
+  display: inline-block;
+  margin-left: 5px;
+  padding: 3px;
+  border: solid var(--color-white);
+  border-width: 0 2px 2px 0;
+  border-radius: 2px;
+  transform: rotate(-45deg);
+}
+.photoGallery_Wrapper {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  gap: 1rem;
+}
+.photoGallery_Wrapper figure {
+  width: 24.5%;
+  background: var(--phototxt-bg);
+}
+.photoGallery_Wrapper .imgwrap img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+.photoGallery_Wrapper .card_title {
+  padding: 0.625rem;
+}
+.photoGallery_Wrapper .card_title .h3 a {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--color-white);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.875rem;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  max-height: 58px;
+}
+.photoGallery_Wrapper .media_info {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+.photoGallery_Wrapper .media_info svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: transparent;
+  stroke: #ffc900;
+  vertical-align: middle;
+}
+.photoGallery_Wrapper .media_info span {
+  color: #ffc900;
+  font-size: 0.8125rem;
+  margin-right: 0.3125rem;
+  text-transform: uppercase;
+}
+
+@media (width<=768px) {
+  .photoGalleryHP_Widget {
+    margin: 0 -0.9375rem 1.875rem;
+  }
+  .photoGallery_Wrapper {
+    scrollbar-width: none;
+  }
+  .photoGallery_Wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  .photoGallery_Wrapper figure {
+    width: 64.5%;
+    flex: 0 0 auto;
+  }
+}

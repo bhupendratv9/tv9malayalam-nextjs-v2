@@ -1,0 +1,100 @@
+.videoGallery_Wrapper {
+  background: #202020;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.videoGallery_Wrapper .tv9common_heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  position: relative;
+  width: 100%;
+}
+.videoGallery_Wrapper .tv9common_heading .h1,
+.videoGallery_Wrapper .tv9common_heading .h2 {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 30px;
+  padding-right: 10px;
+  text-transform: capitalize;
+}
+.videoGallery_Wrapper .tv9common_heading .h1 a,
+.videoGallery_Wrapper .tv9common_heading .h2 a {
+  color: #fff;
+}
+.videoGallery_Wrapper .tv9common_heading a.view_more {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+  text-transform: capitalize;
+  border: 1px solid #d7d7d7;
+  padding: 3px 10px;
+  border-radius: 30px;
+  background: #202020;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.videoGallery_Wrapper .tv9common_heading a.view_more svg {
+  width: 13px;
+  height: 8px;
+  margin-left: 3px;
+  fill: #fff;
+}
+.videoGallery_Wrapper .videoGallerySlider {
+    padding-bottom: 25px;
+}
+.videoGallery_Wrapper .videoGallerySlider .imgThumb {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+.videoGallery_Wrapper .videoGallerySlider .imgThumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+.videoGallery_Wrapper .videoGallerySlider .card_title .h3 {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+.videoGallery_Wrapper .videoGallerySlider :global(.splide__pagination) {
+  bottom: 0;
+}
+.videoGallery_Wrapper .videoGallerySlider :global(.splide__pagination__page) {
+  opacity: 1;
+  background: #9d9d9d;
+  height: 8px;
+  width: 8px;
+  margin: 2px 6px;
+}
+.videoGallery_Wrapper .videoGallerySlider :global(.splide__pagination__page.is-active) {
+  background: #4b4b4b;
+  height: 7px;
+  width: 18px;
+  border-radius: 20px;
+}
+.videoGallery_Wrapper .videoGallerySlider .icon_BG {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.videoGallery_Wrapper .videoGallerySlider svg {
+  height: 24px;
+  width: 24px;
+}

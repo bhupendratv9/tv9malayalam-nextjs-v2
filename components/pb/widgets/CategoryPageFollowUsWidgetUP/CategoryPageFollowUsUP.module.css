@@ -1,0 +1,62 @@
+.followUs_Links {
+  margin-bottom: 1.875rem;
+}
+.followUs_Links .h2 {
+  color: var(--primary-text);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  line-height: 2.125rem;
+  text-align: center;
+  margin-bottom: 0.625rem;
+}
+.followBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.followBtn a {
+  margin: 0 0.62rem 0 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  border-radius: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.followBtn a:last-child {
+  margin-right: 0;
+}
+.followBtn .tw_icon {
+  background: var(--twitter-bg);
+}
+.followBtn .tw_icon svg {
+  width: 1rem;
+  height: 1rem;
+  fill: var(--color-white);
+}
+.followBtn .fb_icon {
+  background: #385997;
+}
+.followBtn .fb_icon svg {
+  width: 1rem;
+  height: 1rem;
+  fill: #fff;
+}
+.followBtn .in_icon {
+  background: linear-gradient(180deg, #fbc506 0, #ffa360 0.01%, #bc2a8d 100%);
+}
+.followBtn .in_icon svg {
+  width: 1rem;
+  height: 1rem;
+  fill: #fff;
+}
+.followBtn .yt_icon {
+  background: #cd201f;
+}
+.followBtn .yt_icon svg {
+  width: 1rem;
+  height: 1rem;
+  fill: #fff;
+}

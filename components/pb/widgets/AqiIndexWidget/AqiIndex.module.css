@@ -1,0 +1,552 @@
+.AQI_Main_Widget {
+  padding-bottom: 3.26rem;
+}
+.AQI_Main_Widget .custom_heading {
+  margin-bottom: 1.56rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.AQI_Main_Widget .custom_heading .h1 {
+  color: #16191b;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.875rem;
+  text-transform: capitalize;
+}
+.AQI_Main_Widget .tabLinks_Wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.AQI_Main_Widget .tabLinks_Wrap .tabLinks {
+  border-radius: 1.25rem 1.25rem 0rem 0rem;
+  background: #000;
+  display: flex;
+  align-items: center;
+  padding: 2px 2px 0 2px;
+}
+.AQI_Main_Widget .tabLinks_Wrap .tabLinks button,
+.AQI_Main_Widget .tabLinks_Wrap .tabLinks a {
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 11.5625rem;
+  height: 3.3125rem;
+}
+.AQI_Main_Widget .tabLinks_Wrap .tabLinks a.active,
+.AQI_Main_Widget .tabLinks_Wrap .tabLinks button.active {
+  color: #000;
+  border-radius: 1.125rem 1.125rem 0rem 0rem;
+  background: #fff;
+  border: 0;
+}
+.AQI_Main_Widget .tabLinks_Wrap .tabLinks svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: block;
+  margin-right: 0.5rem;
+}
+.AQI_Main_Widget .tabLinks_Wrap .tabLinks .aqi_icon {
+  fill: #fff;
+}
+.AQI_Main_Widget .tabLinks_Wrap .tabLinks .weather_icon {
+  fill: #fff;
+  stroke: #fff;
+}
+.AQI_Main_Widget .tabLinks_Wrap .tabLinks .active svg.aqi_icon {
+  fill: #000;
+}
+.AQI_Main_Widget .tabLinks_Wrap .tabLinks .active svg.weather_icon {
+  stroke: #000;
+}
+.AQI_Main_Widget .searchDropdown {
+  position: relative;
+}
+.AQI_Main_Widget .locationSearchInput {
+  display: flex;
+  width: 14.4375rem;
+  height: 2.625rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 0.25rem;
+  border: 1px solid #cecece;
+  background: #fff;
+  padding: 0.94rem;
+  color: #000;
+  font-size: 0.9375rem;
+}
+.AQI_Main_Widget .searchResults {
+  border: 1px solid #cecece;
+  width: 14.4375rem;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+  background: #fff;
+  position: absolute;
+  top: 42px;
+  z-index: 1;
+  border-radius: 0.25rem;
+}
+.AQI_Main_Widget .searchResults .resultItem {
+  background-color: transparent;
+  padding: 10px;
+  cursor: pointer;
+  border: 0;
+  border-bottom: 1px solid #ecebeb;
+  font-size: 0.9375rem;
+  width: 100%;
+  text-align: left;
+}
+.AQI_Main_Widget .searchResults .resultItem:hover {
+  background-color: #dbf1fd;
+}
+
+.AQI_Main_Widget .searchResults::-webkit-scrollbar {
+  width: 3px;
+  height: 0;
+  display: block;
+  border-radius: 5px;
+  background-color: #d9d9d9;
+  border-radius: 10px;
+}
+
+.AQI_Main_Widget .searchResults::-webkit-scrollbar-thumb {
+  background: #22badc;
+  border-radius: 5px;
+}
+.AQI_Main_Widget .AQIContent_Wrapper {
+  border-radius: 0 0.875rem 0.875rem;
+  background-color: #fff;
+  box-shadow: 0 0 12px 0 rgba(96, 113, 121, 0.1);
+  width: 100%;
+  height: 23.9375rem;
+  position: relative;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.AQI_Main_Widget .AQIContent_Wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://static.tv9hindi.com/images/aqi-bg.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .rangeInfo {
+  position: relative;
+  width: 16.48806rem;
+  height: 11rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .rangeInfo .aqiValue {
+  display: block;
+  color: #000;
+  font-size: 4rem;
+  font-weight: 600;
+  line-height: 1;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .rangeInfo .aqiText {
+  display: block;
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .rangeInfo .aqiRange {
+  display: block;
+  color: #000;
+  font-size: 1.25rem;
+  font-weight: 400;
+  text-transform: capitalize;
+  margin-top: 0.625rem;
+}
+.AQI_Main_Widget .AQIContent_Wrapper.goodAQI .rangeInfo::before,
+.AQI_Main_Widget .AQIContent_Wrapper.hazardousAQI .rangeInfo::before,
+.AQI_Main_Widget .AQIContent_Wrapper.moderateAQI .rangeInfo::before,
+.AQI_Main_Widget .AQIContent_Wrapper.poorAQI .rangeInfo::before,
+.AQI_Main_Widget .AQIContent_Wrapper.severeAQI .rangeInfo::before,
+.AQI_Main_Widget .AQIContent_Wrapper.unhealthyAQI .rangeInfo::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.AQI_Main_Widget .AQIContent_Wrapper.goodAQI .rangeInfo::before {
+  background-image: url(https://static.tv9hindi.com/images/goodAQI.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper.moderateAQI .rangeInfo::before {
+  background-image: url(https://static.tv9hindi.com/images/moderateAQI.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper.poorAQI .rangeInfo::before {
+  background-image: url(https://static.tv9hindi.com/images/poorAQI.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper.unhealthyAQI .rangeInfo::before {
+  background-image: url(https://static.tv9hindi.com/images/unhealthyAQI.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper.severeAQI .rangeInfo::before {
+  background-image: url(https://static.tv9hindi.com/images/severeAQI.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper.hazardousAQI .rangeInfo::before {
+  background-image: url(https://static.tv9hindi.com/images/hazardousAQI.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper .AQIRange_Wrap {
+  width: 35%;
+  text-align: center;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .AQIRange_Wrap .locationName {
+  color: #000;
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1.9375rem;
+  text-transform: capitalize;
+  margin-bottom: 1.06rem;
+}
+.AQI_Main_Widget .rangeScale_Wrapper {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+}
+.AQI_Main_Widget .rangeScale_Wrapper .colorBar {
+  display: flex;
+  width: 23.25rem;
+}
+.AQI_Main_Widget .rangeScale_Wrapper .segment {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.AQI_Main_Widget .rangeScale_Wrapper .segment span {
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+}
+.AQI_Main_Widget .rangeScale_Wrapper .rangeBar {
+  position: relative;
+  height: 0.42856rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.AQI_Main_Widget .rangeScale_Wrapper .range {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.AQI_Main_Widget .rangeScale_Wrapper .range span {
+  font-weight: 600;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .AQIDetail_Wrap {
+  width: 45%;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .AQIDetail_Wrap small {
+  color: #000;
+  font-size: 1.25rem;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.44rem;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .AQIDetail_Wrap .AQICateg {
+  height: 2.8125rem;
+  border-radius: 0.5rem;
+  background: #afaeae;
+  color: #000;
+  font-family: Prata, serif;
+  font-size: 1.625rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2.12rem;
+  padding: 0 0.625rem;
+  position: relative;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .AQIDetail_Wrap .AQICateg::before {
+  content: "";
+  width: 28px;
+  height: 28px;
+  background-repeat: no-repeat;
+  margin-right: 0.3125rem;
+  background-size: 100%;
+}
+.AQI_Main_Widget .AQIContent_Wrapper.goodAQI .AQIDetail_Wrap .AQICateg {
+  background: #ecffeb;
+  color: #34a12b;
+}
+.AQI_Main_Widget .AQIContent_Wrapper.moderateAQI .AQIDetail_Wrap .AQICateg {
+  background: #fffee2;
+  color: #d4cc0f;
+}
+.AQI_Main_Widget .AQIContent_Wrapper.poorAQI .AQIDetail_Wrap .AQICateg {
+  background: #ffeae2;
+  color: #ff5f20;
+}
+.AQI_Main_Widget .AQIContent_Wrapper.unhealthyAQI .AQIDetail_Wrap .AQICateg {
+  background: #ffeaf5;
+  color: #fc0185;
+}
+.AQI_Main_Widget .AQIContent_Wrapper.severeAQI .AQIDetail_Wrap .AQICateg {
+  background: #fbe4ff;
+  color: #a302b9;
+}
+.AQI_Main_Widget .AQIContent_Wrapper.hazardousAQI .AQIDetail_Wrap .AQICateg {
+  background: #ffe8e5;
+  color: #ff1500;
+}
+.AQI_Main_Widget .AQIContent_Wrapper.goodAQI .AQIDetail_Wrap .AQICateg::before {
+  background-image: url(https://static.tv9hindi.com/images/goodEmoji.svg);
+}
+.AQI_Main_Widget
+  .AQIContent_Wrapper.moderateAQI
+  .AQIDetail_Wrap
+  .AQICateg::before {
+  background-image: url(https://static.tv9hindi.com/images/moderateEmoji.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper.poorAQI .AQIDetail_Wrap .AQICateg::before {
+  background-image: url(https://static.tv9hindi.com/images/poorEmoji.svg);
+}
+.AQI_Main_Widget
+  .AQIContent_Wrapper.unhealthyAQI
+  .AQIDetail_Wrap
+  .AQICateg::before {
+  background-image: url(https://static.tv9hindi.com/images/unhealthyEmoji.svg);
+}
+.AQI_Main_Widget
+  .AQIContent_Wrapper.severeAQI
+  .AQIDetail_Wrap
+  .AQICateg::before {
+  background-image: url(https://static.tv9hindi.com/images/severeEmoji.svg);
+}
+.AQI_Main_Widget
+  .AQIContent_Wrapper.hazardousAQI
+  .AQIDetail_Wrap
+  .AQICateg::before {
+  background-image: url(https://static.tv9hindi.com/images/hazardousEmoji.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper .PMIndex_Wrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .PMIndex_Wrap .PM_Index {
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 8px 0 rgba(96, 113, 121, 0.25);
+  padding: 1rem 1.1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.04rem;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .PMIndex_Wrap .PM_Index .pm {
+  border-radius: 0.25rem;
+  border: 1px solid #e2e2e2;
+  background: #fff;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .PMIndex_Wrap .PM_Index .pm span {
+  padding: 0.69rem 2.05rem 0.47rem 1.92rem;
+  background-color: #e9f5fb;
+  display: block;
+  color: #0d0d0d;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.125rem;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .PMIndex_Wrap .PM_Index .pm strong {
+  display: block;
+  color: #0d0d0d;
+  font-size: 1.9375rem;
+  font-weight: 700;
+  line-height: 1.625rem;
+  padding: 0.69rem 2.19rem 0.59rem 2.06rem;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .AQI_Caricature {
+  position: relative;
+  width: 10.71681rem;
+  height: 8.76831rem;
+  margin-left: 0.9375rem;
+}
+.AQI_Main_Widget .AQIContent_Wrapper.goodAQI .AQI_Caricature::before,
+.AQI_Main_Widget .AQIContent_Wrapper.hazardousAQI .AQI_Caricature::before,
+.AQI_Main_Widget .AQIContent_Wrapper.moderateAQI .AQI_Caricature::before,
+.AQI_Main_Widget .AQIContent_Wrapper.poorAQI .AQI_Caricature::before,
+.AQI_Main_Widget .AQIContent_Wrapper.severeAQI .AQI_Caricature::before,
+.AQI_Main_Widget .AQIContent_Wrapper.unhealthyAQI .AQI_Caricature::before {
+  content: "";
+  position: absolute;
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+}
+.AQI_Main_Widget .AQIContent_Wrapper.goodAQI .AQI_Caricature::before {
+  background-image: url(https://static.tv9hindi.com/images/good-boy.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper.moderateAQI .AQI_Caricature::before {
+  background-image: url(https://static.tv9hindi.com/images/moderate-boy.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper.poorAQI .AQI_Caricature::before {
+  background-image: url(https://static.tv9hindi.com/images/poor-boy.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper.unhealthyAQI .AQI_Caricature::before {
+  background-image: url(https://static.tv9hindi.com/images/unhealthy-boy.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper.severeAQI .AQI_Caricature::before {
+  background-image: url(https://static.tv9hindi.com/images/severe-boy.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper.hazardousAQI .AQI_Caricature::before {
+  background-image: url(https://static.tv9hindi.com/images/hazardous-boy.svg);
+}
+.AQI_Main_Widget .AQIContent_Wrapper .lastUpdatedTime {
+  color: #9d9d9d;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  transform: rotate(-90deg);
+  position: absolute;
+  right: -85px;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .poweredBy {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .poweredBy a {
+  display: flex;
+  align-items: center;
+}
+.AQI_Main_Widget .AQIContent_Wrapper .poweredBy span {
+  margin-right: 0.62rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.0075rem;
+  text-transform: uppercase;
+}
+@media (width <= 768px) {
+  .AQI_Main_Widget .tabLinks_Wrap {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  .AQI_Main_Widget .tabLinks_Wrap .tabLinks {
+    width: 100%;
+    margin-top: 0.62rem;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper {
+    height: 40.375rem;
+    align-items: flex-start;
+    padding: 0.8rem;
+    flex-wrap: wrap;
+    padding-bottom: 40.375rem;
+    border-radius: 0rem 0rem 0.875rem 0.875rem;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper::before {
+    background-image: url(https://static.tv9hindi.com/images/aqi-bg-mob.svg);
+    background-size: cover;
+    border-radius: 0rem 0rem 0.875rem 0.875rem;
+  }
+  .AQI_Main_Widget .rangeScale_Wrapper {
+    position: unset;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 0.9375rem;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .AQIDetail_Wrap,
+  .AQI_Main_Widget .AQIContent_Wrapper .AQIRange_Wrap {
+    width: 100%;
+    text-align: center;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .AQIDetail_Wrap {
+    position: relative;
+  }
+  .AQI_Main_Widget .rangeScale_Wrapper .colorBar {
+    width: 100%;
+  }
+  .AQI_Main_Widget .rangeScale_Wrapper .segment span {
+    font-size: 0.6875rem;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .AQIDetail_Wrap .AQICateg {
+    margin: 0 auto 1.25rem auto;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .lastUpdatedTime {
+    position: static;
+    transform: unset;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.3125rem;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper.goodAQI .AQI_Caricature::before,
+  .AQI_Main_Widget .AQIContent_Wrapper.hazardousAQI .AQI_Caricature::before,
+  .AQI_Main_Widget .AQIContent_Wrapper.moderateAQI .AQI_Caricature::before,
+  .AQI_Main_Widget .AQIContent_Wrapper.poorAQI .AQI_Caricature::before,
+  .AQI_Main_Widget .AQIContent_Wrapper.severeAQI .AQI_Caricature::before,
+  .AQI_Main_Widget .AQIContent_Wrapper.unhealthyAQI .AQI_Caricature::before {
+    background-position: center;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .AQI_Caricature {
+    position: absolute;
+    width: 5.4575rem;
+    height: 4.46519rem;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .PMIndex_Wrap .PM_Index .pm span {
+    font-size: 1.125rem;
+    padding: 0.69rem 1.5rem 0.47rem 1.5rem;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .PMIndex_Wrap .PM_Index .pm strong {
+    font-size: 1.75rem;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .PMIndex_Wrap {
+    display: block;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .AQIDetail_Wrap small {
+    margin-bottom: 5.46519rem;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .AQIRange_Wrap .locationName {
+    margin-bottom: 0.63rem;
+    font-size: 1.625rem;
+    line-height: 1;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .poweredBy {
+    position: static;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .poweredBy span {
+    font-size: 0.62rem;
+    margin-right: 0;
+  }
+  .AQI_Main_Widget .AQIContent_Wrapper .poweredBy img {
+    width: 28px;
+  }
+}

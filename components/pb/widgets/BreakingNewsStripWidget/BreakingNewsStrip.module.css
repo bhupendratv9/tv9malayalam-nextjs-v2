@@ -1,0 +1,148 @@
+.tv9BreakingBar {
+  display: grid;
+  align-items: center;
+  box-shadow: 0px 2px 10px 0px #00000040;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  grid-template-columns: 200px 1fr;
+  background: linear-gradient(90deg, #14213d 0%, #1c2f52 60%, #24345a 100%);
+  position: relative;
+  height: 3.125rem;
+  margin-bottom: 1.25rem;
+}
+
+.tv9BreakingBar:after {
+  content: "";
+  background-image: url(https://static.tv9hindi.com/wp-content/uploads/2026/08/bigbreaking-bg.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: right bottom;
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 209px;
+  height: 50px;
+}
+
+.tv9BreakingBar .breakingLabel {
+  position: relative;
+  background: linear-gradient(99.79deg, #e90304 4.4%, #b30000 47.82%);
+  display: flex;
+  align-items: center;
+  height: 3.125rem;
+  padding: 0.75rem;
+}
+
+.tv9BreakingBar .breakingLabel::after {
+  content: "";
+  position: absolute;
+  right: -18px;
+  top: 0;
+  width: 36px;
+  height: 100%;
+  background: #14213d;
+  transform: skewX(-16deg);
+  border-left: 5px solid #2d7cff;
+}
+
+.tv9BreakingBar .breakingLabel::before {
+  content: "";
+  position: absolute;
+  right: -14px;
+  top: 0;
+  width: 36px;
+  height: 100%;
+  background: #14213d;
+  transform: skewX(-16deg);
+  border-left: 5px solid #fff;
+}
+
+.tv9BreakingBar .breakingLabel span {
+  display: inline-block;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-transform: uppercase;
+  font-style: italic;
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+}
+
+.tv9BreakingBar .breakingNewsList {
+  position: relative;
+  padding: 0.625rem;
+  background: linear-gradient(90deg, #14213d 0%, #1c2f52 60%, #24345a 100%);
+  display: flex;
+  align-items: center;
+}
+
+.tv9BreakingBar .breakingNewsList a {
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1;
+  text-transform: capitalize;
+  color: #fff;
+  display: inline-block;
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+}
+
+.blinker {
+  display: inline-block;
+  background: rgba(176, 0, 32, 1);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(216, 2, 2, 1);
+  margin: 0 8px 0 0;
+  height: 10px;
+  width: 10px;
+  transform: scale(1);
+  animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(176, 0, 32, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(176, 0, 32, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(176, 0, 32, 0);
+  }
+}
+
+@media (max-width: 767px) {
+  .tv9BreakingBar {
+    grid-template-columns: 115px 1fr;
+    margin: 0 -15px 20px;
+    border-radius: 0;
+  }
+
+  .tv9BreakingBar:after {
+    content: none;
+  }
+
+  .tv9BreakingBar .breakingLabel {
+    padding: 0.5rem;
+  }
+
+  .tv9BreakingBar .breakingLabel span {
+    font-size: 0.875rem;
+    line-height: 1;
+  }
+
+  .tv9BreakingBar .breakingNewsList {
+    padding: 0.5rem;
+  }
+
+  .tv9BreakingBar .breakingNewsList a {
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+  }
+}

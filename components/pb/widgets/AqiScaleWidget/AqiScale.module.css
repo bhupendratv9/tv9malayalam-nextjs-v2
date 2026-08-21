@@ -1,0 +1,155 @@
+.AQIScaleWidget_Wrapper {
+  background: #fff;
+  padding: 3rem 0;
+}
+
+.AQIScaleWidget_Wrapper .container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.AQIScaleWidget_Wrapper .custom_heading {
+  margin-bottom: 1.56rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.AQIScaleWidget_Wrapper .custom_heading .h1 {
+  color: #16191b;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.875rem;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+}
+
+.AQIScaleWidget_Wrapper .AQIScale_Thumbs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.88rem;
+}
+
+.AQIScaleWidget_Wrapper .AQIScale_Thumbs li {
+  border-radius: 1.25rem;
+  border: 1px solid #ececec;
+  background: #fff;
+  width: auto;
+  height: 10.625rem;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2rem;
+}
+
+.AQIScaleWidget_Wrapper .AQIScale_Thumbs .AQInfo {
+  text-align: center;
+}
+
+.AQIScaleWidget_Wrapper .AQIScale_Thumbs .AQInfo strong {
+  color: #000;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.125rem;
+  text-transform: uppercase;
+  display: block;
+}
+
+.AQIScaleWidget_Wrapper .AQIScale_Thumbs .AQInfo small {
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  display: block;
+}
+
+.AQIScaleWidget_Wrapper .AQIScale_Thumbs .AQInfo .AQIType {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 0.9375rem;
+  text-transform: capitalize;
+  padding: 1rem;
+  border-bottom: 0.1875rem solid;
+}
+
+.AQIScaleWidget_Wrapper .AQIScale_Thumbs .goodAQI::before,
+.AQIScaleWidget_Wrapper .AQIScale_Thumbs .hazardousAQI::before,
+.AQIScaleWidget_Wrapper .AQIScale_Thumbs .moderateAQI::before,
+.AQIScaleWidget_Wrapper .AQIScale_Thumbs .poorAQI::before,
+.AQIScaleWidget_Wrapper .AQIScale_Thumbs .severeAQI::before,
+.AQIScaleWidget_Wrapper .AQIScale_Thumbs .unhealthyAQI::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 7.77588rem;
+  height: 7.5rem;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.goodAQI::before {
+  background-image: url(https://static.tv9hindi.com/images/goodAQI.svg);
+}
+
+.moderateAQI::before {
+  background-image: url(https://static.tv9hindi.com/images/moderateAQI.svg);
+}
+
+.poorAQI::before {
+  background-image: url(https://static.tv9hindi.com/images/poorAQI.svg);
+}
+
+.unhealthyAQI::before {
+  background-image: url(https://static.tv9hindi.com/images/unhealthyAQI.svg);
+}
+
+.severeAQI::before {
+  background-image: url(https://static.tv9hindi.com/images/severeAQI.svg);
+}
+
+.hazardousAQI::before {
+  background-image: url(https://static.tv9hindi.com/images/hazardousAQI.svg);
+}
+
+.goodAQI .AQIType {
+  color: #34a12b;
+}
+
+.moderateAQI .AQIType {
+  color: #d4cc0f;
+}
+
+.poorAQI .AQIType {
+  color: #ff5f20;
+}
+
+.unhealthyAQI .AQIType {
+  color: #fc0185;
+}
+
+.severeAQI .AQIType {
+  color: #a302b9;
+}
+
+.hazardousAQI .AQIType {
+  color: #fa140a;
+}
+
+@media (width <= 768px) {
+  .AQIScaleWidget_Wrapper .AQIScale_Thumbs {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.94rem;
+  }
+
+  .AQIScaleWidget_Wrapper .AQIScale_Thumbs li {
+    height: 9.46781rem;
+  }
+}

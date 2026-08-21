@@ -1,0 +1,17 @@
+.mStickyAD_Wrapper {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mStickyAD_Wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    z-index: 99; /* above page content, below footer nav (999) and recommended (999) */
+    min-height: 50px;
+    background: #000;
+    transition: bottom 0.5s ease-in-out;
+  }
+}

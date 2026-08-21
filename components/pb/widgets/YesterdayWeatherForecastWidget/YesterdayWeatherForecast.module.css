@@ -1,0 +1,376 @@
+.weatherForecastDayWise {
+  margin-bottom: 1.75rem;
+}
+.weatherForecastDayWise .container {
+  max-width: 75.25rem;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 10px;
+}
+.weatherForecastDayWise .custom_heading {
+  margin-bottom: 1.56rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.weatherForecastDayWise .custom_heading .h2 {
+  color: #16191b;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.875rem;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+}
+.weatherForecastDayWise .weatherForecastDayWise__Slider .forecastCard {
+  position: relative;
+  background: #fff;
+  border-radius: 1.125rem;
+  border: 1px solid #d7eaf4;
+  padding: 0.69rem;
+  z-index: 0;
+  cursor: pointer;
+  overflow: hidden;
+  width: 100%;
+}
+.weatherForecastDayWise .weatherForecastDayWise__Slider .forecastCard::before {
+  content: "";
+  width: 100%;
+  height: 3.625rem;
+  background-image: url(https://static.tv9hindi.com/images/weather/line-pattern-bg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard
+  .forecastCard__Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.62rem;
+  padding-bottom: 0.62rem;
+  border-bottom: 1px solid #e8e8e8;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard
+  .forecastCard__Header__Day {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.125rem;
+  color: #0b0a0a;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard
+  .forecastCard__Header__Icon {
+  width: 1.32581rem;
+  height: 1.32581rem;
+  background-color: #525252;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard
+  .forecastCard__Header__Icon
+  svg {
+  width: 1.32581rem;
+  height: 1.32581rem;
+  fill: #fff;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard
+  .forecastCard__Body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard
+  .forecastCard__Body__Temp__Value {
+  display: flex;
+  align-items: center;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #222121;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard
+  .forecastCard__Body__Temp__Value
+  img {
+  margin-right: 0.62rem;
+}
+.weatherForecastDayWise .weatherForecastDayWise__Slider .forecastCard.active {
+  background: #0181d0;
+  color: #fff;
+  overflow: visible;
+  margin-bottom: 10px;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard.active::before {
+  display: none;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard.active::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 20px;
+  height: 20px;
+  background-color: #0181d0;
+  border-radius: 4px;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard.active
+  .forecastCard__Header__Day {
+  color: #fff;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard.active
+  .forecastCard__Header__Icon {
+  background-color: #fff;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard.active
+  .forecastCard__Header__Icon
+  svg {
+  fill: #0182cf;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard.active
+  .forecastCard__Body__Temp__Value {
+  color: #fff;
+}
+.weatherForecastDayWise
+  .weatherForecastDayWise__Slider
+  .forecastCard.active
+  .forecastCard__Body__Temp__Value
+  img {
+  filter: brightness(0) invert(1);
+}
+.weatherForecastDayWise__Detail {
+  border-radius: 1.25rem;
+  background: linear-gradient(90deg, #0181d0 28.37%, #1bb5d0 100%);
+  padding: 1.8rem 2.5rem;
+  margin-top: 0.62rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+}
+.weatherForecastDayWise__Detail.hide {
+    display: none;
+}
+.weatherForecastDayWise__Detail .lineSeperator_Vertical {
+  position: relative;
+  background: linear-gradient(90deg, #d8f1fe 0%, #7fcdf5 50.48%, #d8f1fe 100%);
+  width: 0.0625rem;
+  height: 4.6875rem;
+}
+.weatherForecastDayWise__Detail .lineSeperator_Vertical::before {
+  display: none;
+}
+.weatherForecastDayWise__Detail .date span {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.625rem;
+  color: #fff;
+}
+.weatherForecastDayWise__Detail .date strong {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.625rem;
+  color: #fff;
+  display: block;
+}
+.weatherForecastDayWise__Detail .weatherCondition {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 0.44rem;
+  max-width: 22rem;
+}
+.weatherForecastDayWise__Detail .weatherCondition .weatherCondition__Text p {
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #fff;
+}
+.weatherForecastDayWise__Detail .weatherCondition .weatherCondition__Text span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.1875rem;
+  color: #fff;
+}
+.weatherForecastDayWise__Detail .weatherInfo .weatherInfo__Value {
+  display: flex;
+  align-items: center;
+}
+.weatherForecastDayWise__Detail .weatherInfo .weatherInfo__Value__Text p {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5625rem;
+  color: #fff;
+}
+.weatherForecastDayWise__Detail .weatherInfo .weatherInfo__Value img {
+  width: 28px;
+  height: 28px;
+  margin-right: 0.62rem;
+  filter: brightness(0) invert(1);
+}
+.weatherForecastDayWise__Detail
+  .weatherInfo
+  .weatherInfo__Value:last-child
+  img {
+  width: 28px;
+  height: 20px;
+}
+.weatherForecastDayWise__Detail .twilight {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+.weatherForecastDayWise__Detail .twilight .twilightValue {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 0.44rem;
+}
+.weatherForecastDayWise__Detail .twilight .twilightValue__Text span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.1875rem;
+  color: #fff;
+  display: block;
+}
+.weatherForecastDayWise__Detail .twilight .twilightValue__Text strong {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.1875rem;
+  color: #fff;
+  display: block;
+}
+.progressArc {
+  background: transparent;
+  display: block;
+}
+.arcLabel {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.1875rem;
+  margin-top: -10px;
+  color: #fff;
+}
+.weatherForecastDayWise__Table {
+  width: 100%;
+  overflow: auto;
+  max-height: 538px;
+}
+.weatherForecastDayWise__Table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+.weatherForecastDayWise__Table table thead {
+  background: #f2f6f8;
+  position: sticky;
+  top: 0;
+}
+.weatherForecastDayWise__Table table tbody tr:nth-child(odd) {
+  background: #fff;
+  border-radius: 1rem;
+}
+.weatherForecastDayWise__Table table tbody tr:nth-child(odd) td:first-child {
+  border-radius: 1rem 0 0 1rem;
+}
+.weatherForecastDayWise__Table table tbody tr:nth-child(odd) td:last-child {
+  border-radius: 0 1rem 1rem 0;
+}
+.weatherForecastDayWise__Table table th {
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000;
+  padding: 1rem;
+  white-space: nowrap;
+  text-align: center;
+}
+.weatherForecastDayWise__Table table td {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000;
+  padding: 1rem;
+  text-align: center;
+  white-space: nowrap;
+}
+.weatherForecastDayWise__Table table td img {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.62rem;
+  vertical-align: middle;
+}
+.weatherForecastDayWise__Table table tbody td:nth-child(3) {
+  font-weight: 700;
+}
+@media (width <= 768px) {
+  .weatherForecastDayWise__Detail {
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .weatherForecastDayWise__Detail .lineSeperator_Vertical {
+    width: 100%;
+    height: 0.0625rem;
+    margin: 0.625rem 0;
+  }
+  .weatherForecastDayWise__Detail .date {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .weatherForecastDayWise__Detail .date span {
+    margin-right: 0.62rem;
+  }
+  .weatherForecastDayWise__Detail .weatherInfo {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 0.62rem;
+  }
+  .weatherForecastDayWise__Detail .weatherInfo .weatherInfo__Value {
+    width: 48%;
+  }
+  .weatherForecastDayWise__Detail .twilight {
+    gap: 0.62rem;
+  }
+  .weatherForecastDayWise__Detail .twilight .twilightValue__Text strong {
+    font-size: 0.875rem;
+  }
+  .weatherForecastDayWise__Slider .splide__arrow {
+    display: none;
+  }
+}
