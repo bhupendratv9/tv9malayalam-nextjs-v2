@@ -5,9 +5,9 @@ import styles from "./DetailMainContent.module.css";
 import ArticleFormat from "../detail/ArticleFormat";
 import VideoFormat from "../detail/VideoFormat";
 import PhotoFormat from "../detail/PhotoFormat";
-import DetailPageAuthorUP from "../DetailPageAuthorWidgetUP/DetailPageAuthorUP";
+import DetailPageAuthor from "../DetailPageAuthorWidget/DetailPageAuthor";
 import { getValue, formatIstDate, normalizeArticleInput, buildTags, processEmbedHtml } from "@/lib/helper/widgetHelper";
-import { decodeHtml } from "@/lib/helper/commonHelper";
+import { decodeHtml, getHref } from "@/lib/helper/commonHelper";
 import { ICONS_SVG } from "@/lib/constants";
 
 export default function LiveBlogDetailMainContentWidget({
@@ -58,16 +58,16 @@ export default function LiveBlogDetailMainContentWidget({
   );
 
   const liveTvUrl = String(
-    config?.live_tv_url || dataConfig?.live_tv_url || "https://www.tv9hindi.com/live-tv",
+    config?.live_tv_url || dataConfig?.live_tv_url || "#",
   );
   const youtubeUrl = String(
-    config?.youtube_url || dataConfig?.youtube_url || "https://www.youtube.com/@TV9UPUK?sub_confirmation=1",
+    config?.youtube_url || dataConfig?.youtube_url || "#",
   );
-  const facebookUrl = String(
-    config?.facebook_url || dataConfig?.facebook_url || "https://www.facebook.com/Tv9UttarPradesh/",
+  const googleNewsUrl = String(
+    config?.google_news_url || dataConfig?.google_news_url || "#",
   );
-  const twitterUrl = String(
-    config?.twitter_url || dataConfig?.twitter_url || "https://x.com/tv9uttarpradesh?lang=en",
+  const whatsappUrl = String(
+    config?.whatsapp_url || dataConfig?.whatsapp_url || "#",
   );
 
   const updatedText = formatIstDate(modifiedGmt || createdGmt);
@@ -85,20 +85,23 @@ export default function LiveBlogDetailMainContentWidget({
 
   return (
     <>
-      <div className={`${styles.articleBody} ${styles.liveBodyCont}`}>
+      <div className={styles.detailPage_Content}>
         {liveblogstatus !== "closed" && (
-          <div className={styles.live_blog_tag}>
-            <span className={styles.blinker}></span>
+          <div className={styles.liveBlink}>
+            <div className={styles.blinker}>
+              <div className={styles.dot}></div>
+              <div className={styles.pulse}></div>
+            </div>
             <span>live now</span>
           </div>
         )}
 
         <h1 className={styles.articleHD}>{title}</h1>
 
-        {excerpt && <div className={styles.excerpt}> <h2 className={styles.short_desc}>{excerpt}</h2> </div>}
+        {excerpt && <h2 className={styles.short_desc}>{excerpt}</h2>}
 
         {/* Author box */}
-        <DetailPageAuthorUP
+        <DetailPageAuthor
           authorUrl={authorUrl}
           authorName={authorName}
           authorImage={authorImage}
@@ -116,7 +119,7 @@ export default function LiveBlogDetailMainContentWidget({
         {/* Live Blog Entries */}
         <div className={styles.liveblogdetail_wrap}>
           <div className={styles.blogHeading}>
-            LIVE NEWS & UPDATES
+            <h2>LIVE NEWS & UPDATES</h2>
           </div>
           {liveblogstatus === "closed" && (
             <div className={styles.liveblogClosed_Message}>The liveblog has ended</div>
@@ -153,7 +156,7 @@ export default function LiveBlogDetailMainContentWidget({
           <div className={styles.tagsWrapper}>
             {tags.map((tag, index) => (
               <AppLink
-                href={`/topic/${encodeURIComponent(tag.slug || tag.name)}`}
+                href={getHref(`/topic/${encodeURIComponent(tag.slug || tag.name)}`)}
                 rel="topic"
                 key={`${tag.slug}-${index}`}
               >
@@ -179,36 +182,35 @@ export default function LiveBlogDetailMainContentWidget({
                 </svg>
               </AppLink>
               <AppLink
-                href={facebookUrl}
+                href={googleNewsUrl}
                 target="_blank"
-                title="Facebook"
+                title="Google News"
                 rel="noreferrer"
               >
                 <svg>
-                  <use href={`${ICONS_SVG}#fb-follow`} />
+                  <use href={`${ICONS_SVG}#icon_googleNews`} />
                 </svg>
               </AppLink>
               <AppLink
-                href={twitterUrl}
+                href={whatsappUrl}
                 target="_blank"
-                title="twitter follow"
+                title="whatsapp follow"
                 rel="noreferrer"
               >
                 <svg className={styles.whatsapp}>
-                  <use href={`${ICONS_SVG}#icTwitter`} />
+                  <use href={`${ICONS_SVG}#whats_iconff`} />
                 </svg>
               </AppLink>
             </div>
           </div>
           <div className={styles.liveTVBadge}>
-            <AppLink href={liveTvUrl}>
+            <AppLink href={getHref(liveTvUrl)}>
               <i className={styles.blinker} />
               <span>LIVE</span>
               <span>TV</span>
             </AppLink>
           </div>
         </div>
-	      <div className="common_border"></div>
       </div>
     </>
   );
@@ -299,22 +301,20 @@ function LiveBlogEntries({ entries = [], styles: s = {} }) {
   }, [hasMore, visibleCount]);
 
   return (
-    <div className={s.liveBlog_Listing} ref={containerRef}>
+    <div className={s.blogPost_List} ref={containerRef}>
       <ul>
         {visibleEntries.map((entry) => (
           <li key={entry.id} data-tv9lb-post-id={entry.id}>
-            <div className={s.lb_timestamp}>
+            <div className={s.timestamp}>
               <span className={s.blogTime}>{formatIstDate(entry.date || entry.modified)}</span>
             </div>
-            <div className={s.lb_list_wrap}>
-              {entry.title && <h3 className={s.h3}>{entry.title}</h3>}
-              {entry.content && (
-                <div
-                  className={s.aboutBlog_Wrapper}
-                  dangerouslySetInnerHTML={{ __html: processEntryHtml(entry.content) }}
-                />
-              )}
-            </div>
+            {entry.title && <h3 className={s.h3}>{entry.title}</h3>}
+            {entry.content && (
+              <div
+                className={s.aboutBlog_Wrapper}
+                dangerouslySetInnerHTML={{ __html: processEntryHtml(entry.content) }}
+              />
+            )}
           </li>
         ))}
       </ul>

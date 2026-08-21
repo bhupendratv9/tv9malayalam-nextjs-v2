@@ -24,6 +24,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 8 | Web-story AMP `SITE_LANGUAGE` → `SITE_LANGUAGE_VALUE` | **Resolved** |
 | 9 | `#webstory-icon` missing from sprite | **Open** |
 | 10 | Weather / AQI clicks miss `basePath` (`AppLink` + `USE_LINK=0`) | **Resolved** — see §10 |
+| 11 | Article detail page looks UP, not malayalamtv9 | **Resolved** — see §11 (widget CSS + `LayoutRightSidebar` class names) |
 | 5 | Logo, `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
@@ -77,7 +78,7 @@ UP globals (`:root` tokens, UP layout) do not match Malayalam site chrome. Widge
 
 ### Resolution
 
-Active global sheet is the old Malayalam `globals.css`. **Open:** ad label is still Tamil (`விளம்பரம்`). Font is **Noto Sans** — see §6.
+Active global sheet is the old Malayalam `globals.css`. **Open:** ad label is still Tamil (`விளம்பரம்`). Font is **Noto Sans** — see §6. After this swap, layout class names must be ML (`tv9wrapperMain` / `main_col` / `rhs_col`) — see §11.
 
 ---
 
@@ -85,11 +86,7 @@ Active global sheet is the old Malayalam `globals.css`. **Open:** ad label is st
 
 ### Changes
 
-`components/pb/widgets/DetailMainContentWidget/DetailMainContent.js` — added:
-
-```js
-import Link from "next/link";
-```
+Originally added `import Link from "next/link"` on `DetailMainContent.js`. §11 later switched tags to `AppLink` + `getHref(...)` (same file).
 
 ### Root cause
 
@@ -97,7 +94,7 @@ UP `DetailMainContent` rendered `<Link>` for tags without importing `next/link`.
 
 ### Resolution
 
-Added the import. Tags on article detail should render.
+Crash is gone. Tags now use `AppLink` + `getHref` so they keep `basePath` when `USE_LINK=0`. See §11.
 
 ---
 
@@ -176,6 +173,7 @@ Path includes `basePath`; `#ytShort` + `#rgt-arrow` added to the sprite; `ViewMo
 | `globals.css` ad label | `styles/globals.css` | copied from old ML (Tamil) | Malayalam copy |
 | `#webstory-icon` | `public/images/icons.svg` | ML widgets request `#webstory-icon`; sprite does not have it | **Open** — see §9 |
 | Weather / AQI click | `AppLink` `href="/aqi"` / `"/weather-forecast"` | **Resolved** — see §10 | `getHref(...)` so `USE_LINK=0` still includes `basePath` |
+| Article detail **style** | UP `DetailMainContent` + UP layout class names vs ML `globals.css` | **Resolved** — see §11 | ML widget CSS/markup + `LayoutRightSidebar` `tv9wrapperMain` / `main_col` / `rhs_col` |
 
 ---
 
@@ -354,17 +352,61 @@ Relative `/aqi` and `/weather-forecast` (and city AQI) hrefs now go through `get
 
 ---
 
+## 11. Article detail page style (example Kerala pension URL)
+
+Example:
+
+`http://localhost:3000/tv9malayalam-nextjs/kerala/kerala-welfare-pension-july-distribution-begins-today-will-beneficiaries-get-rs-3000-2218429.html`
+
+vs production `https://www.malayalamtv9.com/kerala/kerala-welfare-pension-july-distribution-begins-today-will-beneficiaries-get-rs-3000-2218429.html` and original `tv9malayalam-nextjs-original`.
+
+This URL does **not** use `breaking-strip-widget`. `articleBody` in the HTML is JSON-LD only, not the layout wrapper.
+
+### Changes
+
+Copied original ML article chrome (hex CSS, not UP `var(--…)` tokens). Kept `decodeHtml` and `AppLink` + `getHref` for tags / relative live-TV.
+
+| File | What we did |
+|---|---|
+| `DetailMainContentWidget/DetailMainContent.module.css` | replaced with original ML sheet + sticky Google badge rule |
+| `DetailMainContentWidget/DetailMainContent.js` | `detailPage_Content`, `DetailPageAuthor`, YouTube / Google News / WhatsApp |
+| `detail/ArticleFormat.js` | `.featuredImage` + caption inside figure |
+| `detail/PhotoFormat.js` | original ML `photoSummaryGrid` |
+| `detail/LiveblogFormat.js` | caption nested in `.featuredImage` |
+| `PhotoDetailMainContent.js`, `LiveBlogDetailMainContent.js` | same author + Follow Us + wrapper classes |
+| `InfiniteScrollArticleWidget/InfiniteScrollArticle.js` | `detailPage_Content` / `.featuredImage` so it matches the new CSS |
+| `public/images/icons.svg` | copied `#icon_googleNews`, `#whats_iconff` |
+| `layout/LayoutRightSidebar.js` | UP `mainWrapper` / `mainCol` / `rhsCol` → ML `tv9wrapperMain` / `main_col` / `rhs_col` so §2 globals grid applies |
+
+Social URL defaults are `#` (CMS `dataConfig` can set Malayalam YouTube / Google News / WhatsApp / live TV). Do not change `tv9up-nextjs`.
+
+### Root cause
+
+Two layers:
+
+1. **Widget chrome.** Globals were swapped to old ML (§2) but article widgets stayed the UP engine: `articleBody` / huge H1 / red hero frame / `DetailPageAuthorUP` / Facebook+Twitter pointing at TV9 UP, plus CSS variables that no longer exist in `globals.css`. Original Malayalam detail CSS never needed those tokens.
+2. **Page grid (why it still looked broken after the widget swap).** ML `globals.css` lays out article + sidebar with `.tv9wrapperMain` / `.main_col` (`calc(100% - 320px)`) / `.rhs_col` (`300px`). The UP layout file still emitted `.mainWrapper` / `.mainCol` / `.rhsCol` (only defined in unused `_test_globals_.css`). Live HTML had `mainWrapper has-right-sidebar` — two-column grid never applied.
+
+### Resolution
+
+Article / photo / live-blog detail use original ML markup + CSS. `LayoutRightSidebar` class names match ML globals. Hard-refresh the Kerala pension URL: headline `1.625rem`, grey caption bar, ML author row, Follow Us YouTube / Google News / WhatsApp, **article left column + 300px right sidebar**.
+
+**Still open (not this page’s article chrome):** AMP `CssAMP.js` still has UP article rules; `VideoDetailMainContentWidget.js` (root, registered) is old global-class markup; other UP widgets still call missing `:root` tokens (home-up, galleries, AQI tables); Tamil ad label; `<html lang="ma">`.
+
+---
+
 ## How CSS loads
 
-1. `pages/_app.js` → `styles/globals.css` (site-wide).
-2. Widget `*.module.css` — per component (still UP modules).
-3. Splide CSS — imported in slider widgets, not `_app.js`.
-4. `_document.js` CDN Splide `<link>` — commented out.
+1. `pages/_app.js` → `styles/globals.css` (site-wide). Includes ML layout: `.tv9wrapperMain` / `.main_col` / `.rhs_col`.
+2. `layout/LayoutRightSidebar.js` must emit those same class names (not UP `mainWrapper` / `mainCol` / `rhsCol`).
+3. Widget `*.module.css` — per component (article detail module is ML; many others still UP).
+4. Splide CSS — imported in slider widgets, not `_app.js`.
+5. `_document.js` CDN Splide `<link>` — commented out.
 
 ---
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + malayalamtv9 rewrite pattern; ML `globals.css`; `Link` import; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10).
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + malayalamtv9 rewrite pattern; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10); article detail ML chrome + layout grid (§11).
 
 **Open:** logo; several `alphaup` env APIs; infinite-scroll `BASE_PATH`; page keys; `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.

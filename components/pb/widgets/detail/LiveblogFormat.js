@@ -27,11 +27,10 @@ export default function LiveblogFormat({ article, config }) {
               style={{ width: "100%", height: "auto" }}
             />
           </AppLink>
+          {imageCaption && (
+            <div className={styles.image_caption}><span>{imageCaption}</span></div>
+          )}
         </div>
-      )}
-      
-      {imageCaption && (
-        <div className={styles.image_caption}><span>{imageCaption}</span></div>
       )}
       <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
     </>

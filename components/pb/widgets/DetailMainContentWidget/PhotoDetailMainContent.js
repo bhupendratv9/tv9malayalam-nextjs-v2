@@ -5,9 +5,9 @@ import styles from "./DetailMainContent.module.css";
 import ArticleFormat from "../detail/ArticleFormat";
 import VideoFormat from "../detail/VideoFormat";
 import PhotoFormat from "../detail/PhotoFormat";
-import DetailPageAuthorUP from "../DetailPageAuthorWidgetUP/DetailPageAuthorUP";
+import DetailPageAuthor from "../DetailPageAuthorWidget/DetailPageAuthor";
 import { ICONS_SVG } from "@/lib/constants";
-import { decodeHtml } from "@/lib/helper/commonHelper";
+import { decodeHtml, getHref } from "@/lib/helper/commonHelper";
 
 function getValue(obj, path, defaultValue = null) {
   if (!obj || typeof obj !== "object") return defaultValue;
@@ -144,16 +144,16 @@ export default function PhotoDetailMainContentWidget({
   );
 
   const liveTvUrl = String(
-    config?.live_tv_url || dataConfig?.live_tv_url || "https://www.tv9hindi.com/live-tv",
+    config?.live_tv_url || dataConfig?.live_tv_url || "#",
   );
   const youtubeUrl = String(
-    config?.youtube_url || dataConfig?.youtube_url || "https://www.youtube.com/@TV9UPUK?sub_confirmation=1",
+    config?.youtube_url || dataConfig?.youtube_url || "#",
   );
-  const facebookUrl = String(
-    config?.facebook_url || dataConfig?.facebook_url || "https://www.facebook.com/Tv9UttarPradesh/",
+  const googleNewsUrl = String(
+    config?.google_news_url || dataConfig?.google_news_url || "#",
   );
-  const twitterUrl = String(
-    config?.twitter_url || dataConfig?.twitter_url || "https://x.com/tv9uttarpradesh?lang=en",
+  const whatsappUrl = String(
+    config?.whatsapp_url || dataConfig?.whatsapp_url || "#",
   );
 
   const updatedText = formatIstDate(modifiedGmt || createdGmt);
@@ -171,13 +171,13 @@ export default function PhotoDetailMainContentWidget({
 
   return (
     <>
-      <div className={styles.articleBody}>
+      <div className={styles.detailPage_Content}>
         <h1 className={styles.articleHD}>{title}</h1>
 
-        {excerpt && <div className={styles.excerpt}> <h2 className={styles.short_desc}>{excerpt}</h2> </div>}
+        {excerpt && <h2 className={styles.short_desc}>{excerpt}</h2>}
 
         {/* Author box */}
-        <DetailPageAuthorUP
+        <DetailPageAuthor
           authorUrl={authorUrl}
           authorName={authorName}
           authorImage={authorImage}
@@ -195,7 +195,7 @@ export default function PhotoDetailMainContentWidget({
         {/* Google sticky badge */}
         {googleStickyImage && (
           <div className={styles.googlePrefStickyMob}>
-            <Link
+            <AppLink
               href={googleBadgeUrl}
               target="_blank"
               title="google"
@@ -208,7 +208,7 @@ export default function PhotoDetailMainContentWidget({
                 alt="google button"
                 unoptimized
               />
-            </Link>
+            </AppLink>
           </div>
         )}
 
@@ -216,13 +216,13 @@ export default function PhotoDetailMainContentWidget({
         {tags.length > 0 && (
           <div className={styles.tagsWrapper}>
             {tags.map((tag, index) => (
-              <Link
-                href={`/topic/${encodeURIComponent(tag.slug || tag.name)}`}
+              <AppLink
+                href={getHref(`/topic/${encodeURIComponent(tag.slug || tag.name)}`)}
                 rel="topic"
                 key={`${tag.slug}-${index}`}
               >
                 {tag.name}
-              </Link>
+              </AppLink>
             ))}
           </div>
         )}
@@ -243,36 +243,35 @@ export default function PhotoDetailMainContentWidget({
                 </svg>
               </AppLink>
               <AppLink
-                href={facebookUrl}
+                href={googleNewsUrl}
                 target="_blank"
-                title="Facebook"
+                title="Google News"
                 rel="noreferrer"
               >
                 <svg>
-                  <use href={`${ICONS_SVG}#fb-follow`} />
+                  <use href={`${ICONS_SVG}#icon_googleNews`} />
                 </svg>
               </AppLink>
               <AppLink
-                href={twitterUrl}
+                href={whatsappUrl}
                 target="_blank"
-                title="twitter follow"
+                title="whatsapp follow"
                 rel="noreferrer"
               >
                 <svg className={styles.whatsapp}>
-                  <use href={`${ICONS_SVG}#icTwitter`} />
+                  <use href={`${ICONS_SVG}#whats_iconff`} />
                 </svg>
               </AppLink>
             </div>
           </div>
           <div className={styles.liveTVBadge}>
-            <AppLink href={liveTvUrl}>
+            <AppLink href={getHref(liveTvUrl)}>
               <i className={styles.blinker} />
               <span>LIVE</span>
               <span>TV</span>
             </AppLink>
           </div>
         </div>
-	      <div className="common_border"></div>
       </div>
     </>
   );

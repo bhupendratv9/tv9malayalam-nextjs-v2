@@ -18,16 +18,16 @@ export default function LayoutRightSidebar({ children }) {
   return (
     <main className="container">
       <div
-        className={`mainWrapper ${
+        className={`tv9wrapperMain ${
           rightSidebar.length > 0 ? "has-right-sidebar" : ""
         }`}
       >
         
-        <section className="mainCol">
+        <section className="main_col">
           {mainContent}
         </section>
 
-        <aside className="rhsCol">
+        <aside className="rhs_col">
           {rightSidebar}
         </aside>
 

@@ -41,7 +41,7 @@ function ArticleCard({ article, position }) {
   const category = article.categories?.[0] || null;
 
   return (
-    <div className={styles.articleBody} data-article-id={article.id} data-permalink={permalink} data-position={position}>
+    <div className={styles.detailPage_Content} data-article-id={article.id} data-permalink={permalink} data-position={position}>
       {/* Category badge */}
       {category && (
         <div className={styles.categoryBadge}>
@@ -79,7 +79,7 @@ function ArticleCard({ article, position }) {
 
       {/* Featured image */}
       {mainImage && (
-        <div className={styles.featured_image}>
+        <div className={styles.featuredImage}>
           <Image
             src={mainImage}
             alt={title}
@@ -89,11 +89,11 @@ function ArticleCard({ article, position }) {
             unoptimized
             style={{ width: "100%", height: "auto" }}
           />
-        </div>
-      )}
-      {imageCaption && mainImage && (
-        <div className={styles.image_caption}>
-          <span>{imageCaption}</span>
+          {imageCaption && (
+            <div className={styles.image_caption}>
+              <span>{imageCaption}</span>
+            </div>
+          )}
         </div>
       )}
 

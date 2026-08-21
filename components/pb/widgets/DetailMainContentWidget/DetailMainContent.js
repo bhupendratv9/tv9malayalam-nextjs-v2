@@ -6,9 +6,9 @@ import styles from "./DetailMainContent.module.css";
 import ArticleFormat from "../detail/ArticleFormat";
 import VideoFormat from "../detail/VideoFormat";
 import PhotoFormat from "../detail/PhotoFormat";
-import DetailPageAuthorUP from "../DetailPageAuthorWidgetUP/DetailPageAuthorUP";
+import DetailPageAuthor from "../DetailPageAuthorWidget/DetailPageAuthor";
 import { getValue, formatIstDate, normalizeArticleInput, buildTags } from "@/lib/helper/widgetHelper";
-import { decodeHtml } from "@/lib/helper/commonHelper";
+import { decodeHtml, getHref } from "@/lib/helper/commonHelper";
 import { ICONS_SVG } from "@/lib/constants";
 
 export default function DetailMainContentWidget({
@@ -30,14 +30,12 @@ export default function DetailMainContentWidget({
 
   const title = decodeHtml(String(getValue(article, "title", "")));
   const excerpt = decodeHtml(String(getValue(article, "excerpt", "")));
-  const permalink = String(getValue(article, "permalink", "#"));
   const modifiedGmt = String(getValue(article, "modified_at", ""));
   const createdGmt = String(getValue(article, "published_at", ""));
   const postFormat = String(
     getValue(article, "post_format", "post"),
   ).toLowerCase();
 
-  const authorId = getValue(article, ["author", "id"], "");
   const authorObj = getValue(article, "author", {});
   const authorName = String(authorObj?.display_name || "");
   const authorUrl = String(authorObj?.link || "#");
@@ -54,22 +52,21 @@ export default function DetailMainContentWidget({
   );
 
   const liveTvUrl = String(
-    config?.live_tv_url || dataConfig?.live_tv_url || "https://www.tv9hindi.com/live-tv",
+    config?.live_tv_url || dataConfig?.live_tv_url || "#",
   );
   const youtubeUrl = String(
-    config?.youtube_url || dataConfig?.youtube_url || "https://www.youtube.com/@TV9UPUK?sub_confirmation=1",
+    config?.youtube_url || dataConfig?.youtube_url || "#",
   );
-  const facebookUrl = String(
-    config?.facebook_url || dataConfig?.facebook_url || "https://www.facebook.com/Tv9UttarPradesh/",
+  const googleNewsUrl = String(
+    config?.google_news_url || dataConfig?.google_news_url || "#",
   );
-  const twitterUrl = String(
-    config?.twitter_url || dataConfig?.twitter_url || "https://x.com/tv9uttarpradesh?lang=en",
+  const whatsappUrl = String(
+    config?.whatsapp_url || dataConfig?.whatsapp_url || "#",
   );
 
   const updatedText = formatIstDate(modifiedGmt || createdGmt);
   const tags = buildTags(article);
 
-  // Select format component based on post_format
   let FormatComponent = ArticleFormat;
   if (postFormat === "video") FormatComponent = VideoFormat;
   else if (
@@ -81,12 +78,11 @@ export default function DetailMainContentWidget({
 
   return (
     <>
-      <div className={styles.articleBody}>
+      <div className={styles.detailPage_Content}>
         <h1 className={styles.articleHD}>{title}</h1>
-        {excerpt && <div className={styles.excerpt}> <h2 className={styles.short_desc}>{excerpt}</h2> </div>}
-       
-        {/* Author box */}
-        <DetailPageAuthorUP
+        {excerpt && <h2 className={styles.short_desc}>{excerpt}</h2>}
+
+        <DetailPageAuthor
           authorUrl={authorUrl}
           authorName={authorName}
           authorImage={authorImage}
@@ -95,13 +91,11 @@ export default function DetailMainContentWidget({
           googleBadgeImage={googleBadgeImage}
         />
 
-        {/* Format-specific content (article / video / photo) */}
         <FormatComponent
           article={article}
           config={{ ...config, ...dataConfig }}
         />
 
-        {/* Google sticky badge */}
         {googleStickyImage && (
           <div className={styles.googlePrefStickyMob}>
             <Link
@@ -119,25 +113,22 @@ export default function DetailMainContentWidget({
               />
             </Link>
           </div>
-
         )}
 
-        {/* Tags */}
         {tags.length > 0 && (
           <div className={styles.tagsWrapper}>
             {tags.map((tag, index) => (
-              <Link
-                href={`/topic/${encodeURIComponent(tag.slug || tag.name)}`}
+              <AppLink
+                href={getHref(`/topic/${encodeURIComponent(tag.slug || tag.name)}`)}
                 rel="topic"
                 key={`${tag.slug}-${index}`}
               >
                 {tag.name}
-              </Link>
+              </AppLink>
             ))}
           </div>
         )}
 
-        {/* Follow us + Live TV */}
         <div className={styles.flexWrap}>
           <div className={styles.followUs}>
             <span>Follow Us</span>
@@ -153,36 +144,35 @@ export default function DetailMainContentWidget({
                 </svg>
               </AppLink>
               <AppLink
-                href={facebookUrl}
+                href={googleNewsUrl}
                 target="_blank"
-                title="Facebook"
+                title="Google News"
                 rel="noreferrer"
               >
                 <svg>
-                  <use href={`${ICONS_SVG}#fb-follow`} />
+                  <use href={`${ICONS_SVG}#icon_googleNews`} />
                 </svg>
               </AppLink>
               <AppLink
-                href={twitterUrl}
+                href={whatsappUrl}
                 target="_blank"
-                title="twitter follow"
+                title="whatsapp follow"
                 rel="noreferrer"
               >
                 <svg className={styles.whatsapp}>
-                  <use href={`${ICONS_SVG}#icTwitter`} />
+                  <use href={`${ICONS_SVG}#whats_iconff`} />
                 </svg>
               </AppLink>
             </div>
           </div>
           <div className={styles.liveTVBadge}>
-            <AppLink href={liveTvUrl}>
+            <AppLink href={getHref(liveTvUrl)}>
               <i className={styles.blinker} />
               <span>LIVE</span>
               <span>TV</span>
             </AppLink>
           </div>
         </div>
-	      <div className="common_border"></div>
       </div>
     </>
   );
