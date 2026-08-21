@@ -223,7 +223,7 @@ function buildMetaTags(data = {}) {
 
   const tags = [];
   tags.push(`<meta name="description" content="${escHtml(excerpt)}">`);
-  tags.push(`<meta property="og:locale" content="${SITE_LANGUAGE}">`);
+  tags.push(`<meta property="og:locale" content="${SITE_LANGUAGE_VALUE}">`);
   tags.push(`<meta property="og:site_name" content="${escHtml(siteName)}">`);
   tags.push(`<meta property="og:type" content="article">`);
   tags.push(`<meta property="og:title" content="${escHtml(title)}">`);

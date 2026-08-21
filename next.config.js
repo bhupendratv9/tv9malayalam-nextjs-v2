@@ -2,7 +2,7 @@
 const path = require('path');
 
 const nextConfig = {
-  basePath: '/tv9malayalam-nextjs-v2',
+  basePath: '/tv9malayalam-nextjs',
   trailingSlash: false,
   images: { unoptimized: true },
   sassOptions: { includePaths: [path.resolve('styles')] },
