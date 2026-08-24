@@ -30,6 +30,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 14 | Short-videos listing: empty SVG + no title under thumbs | **Resolved** — see §14 (ML listing markup/CSS, `#ytShort`) |
 | 15 | Photo gallery view more → `/photo-gallery` 404 | **Resolved** — see §15 (S3 `photo-gallery-landing.json` 403; use `listing`) |
 | 16 | City weather icon → `/weather-forecast` missing `basePath` | **Resolved** — see §10 leftover (`TodaysWeatherInCity.js`) |
+| 17 | Google SSO does not work | **Leave** — see §17 (same as UP: no hardcoded client ID; CMS) |
 | 5 | Logo, `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
@@ -523,6 +524,38 @@ Same class as §13: §12 kept the click on **localhost**. Alpha publish had a wo
 ### Resolution
 
 Photo gallery uses the shared listing page + `category=photo-gallery`. Reload `/photo-gallery` — listing should 200. Dedicated `photo-gallery-landing.json` is still missing on CDN (same leftover as `video-landing.json`).
+
+---
+
+## 17. Google SSO does not work
+
+Fork copied UP SSO, which reads CMS `sso_enabled` + `google_sso_client_id`. Original Malayalam hardcoded the Google client ID and always rendered the sign-in widget. Malayalam CMS `site-global-settings.json` has **neither** field.
+
+### Changes
+
+None (RCA only). Do not change `tv9up-nextjs`.
+
+### Root cause
+
+1. **Empty Google client ID (homepage — `header` widget).** `Header.js` always mounts `GoogleSingleSignIn`. Init is:
+
+   `clientId = siteSettings?.google_sso_client_id || GOOGLE_SSO_CLIENT_ID`
+
+   - `lib/constants.js` (UP copy): `GOOGLE_SSO_CLIENT_ID = ""`
+   - Malayalam CMS settings: no `google_sso_client_id`
+   - Original ML: `GOOGLE_SSO_CLIENT_ID = "540494264173-alrp4h4kf8opo7f4gtq95lk8mrv938ar.apps.googleusercontent.com"`
+
+   GIS never initializes (`if (resolvedClientId && window.google?.accounts?.id)` is false). Header person icon opens the drawer; **Continue with Google** is a dead custom button (GIS never `renderButton`).
+
+2. **HeaderUP pages hide SSO entirely.** `HeaderUP.js` only renders `#GSignIn` + `GoogleSingleSignInUP` when `siteSettings.sso_enabled === "1"`. CMS has no `sso_enabled` → icon never appears on 404 / pages that use `header-up`. Homepage uses `header` (not `header-up`), so this is a second failure mode, not the home-page one.
+
+3. **Sprite leftover.** Drawer button uses `#gIC`; current `icons.svg` (UP) has no `#gIC`. Original ML sprite does. Cosmetic until GIS `renderButton` replaces the button.
+
+4. **Localhost after GIS works.** Callback POSTs `{ token, domain: window.location.hostname }` to `https://e.tv9news.com/sso_login`. Hostname `localhost` may be rejected by that API even with a valid token. Google Cloud authorized origin for GIS is `http://localhost:3000` (path `/tv9malayalam-nextjs` is not part of origin).
+
+### Resolution
+
+**Leave.** UP has no real fallback (`GOOGLE_SSO_CLIENT_ID = ""`). Client ID and `sso_enabled` come from CMS. Do not hardcode the original ML client ID. Add `google_sso_client_id` + `sso_enabled` in Malayalam site settings when SSO should work.
 
 ---
 
