@@ -75,7 +75,9 @@ import AuthorDetailWidget from "./widgets/AuthorDetailWidget/AuthorDetail";
 
 // ─── AQI Widgets ───
 import AqiPerimeterWidget from "./widgets/AqiPerimeterWidget/AqiPerimeter";
-import AqiFaqWidget from "./widgets/AqiWeatherFaqWidget/AqiWeatherFaq";
+
+import AqiFaqWidget from "./widgets/AqiFaqWidget/AqiFaq";
+
 import AqiIndexWidget from "./widgets/AqiIndexWidget/AqiIndex";
 import AqiRelatedNewsWidget from "./widgets/AqiWeatherRelatedNewsWidget/AqiWeatherRelatedNews";
 import AqiTopCityWidget from "./widgets/AqiTopCityWidget/AqiTopCity";
