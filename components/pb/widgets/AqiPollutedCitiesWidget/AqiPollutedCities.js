@@ -66,7 +66,7 @@ function getCityLists(data, response, language = DEFAULT_CITY_LANGUAGE) {
   return { highest: [], lowest: [] };
 }
 
-function CityTable({ cities = [], type = "highest" }) {
+function CityTable({ cities = [], type = "highest", rankLabel, cityLabel }) {
   if (!cities.length) {
     return null;
   }
@@ -79,8 +79,8 @@ function CityTable({ cities = [], type = "highest" }) {
       <table>
         <thead>
           <tr>
-            <th>தரவரிசை</th>
-            <th>நகரம்</th>
+            <th>{rankLabel || "Rank"}</th>
+            <th>{cityLabel || "City"}</th>
             <th>AQI</th>
           </tr>
         </thead>
@@ -106,6 +106,8 @@ function CityTable({ cities = [], type = "highest" }) {
 CityTable.propTypes = {
   cities: PropTypes.array,
   type: PropTypes.oneOf(["highest", "lowest"]),
+  rankLabel: PropTypes.string,
+  cityLabel: PropTypes.string,
 };
 
 export default function AqiPollutedCitiesWidget({
@@ -134,7 +136,12 @@ export default function AqiPollutedCitiesWidget({
             <div className={styles.custom_heading}>
               <h2 className={styles.h1}>{highestTitle}</h2>
             </div>
-            <CityTable cities={mostPollutedCities} type="highest" />
+            <CityTable
+              cities={mostPollutedCities}
+              type="highest"
+              rankLabel={dataConfig.rank_label}
+              cityLabel={dataConfig.city_label}
+            />
           </div>
         )}
 
@@ -143,7 +150,12 @@ export default function AqiPollutedCitiesWidget({
             <div className={styles.custom_heading}>
               <h2 className={styles.h1}>{lowestTitle}</h2>
             </div>
-            <CityTable cities={leastPollutedCities} type="lowest" />
+            <CityTable
+              cities={leastPollutedCities}
+              type="lowest"
+              rankLabel={dataConfig.rank_label}
+              cityLabel={dataConfig.city_label}
+            />
           </div>
         )}
       </div>
@@ -157,5 +169,7 @@ AqiPollutedCitiesWidget.propTypes = {
   dataConfig: PropTypes.shape({
     highest_title: PropTypes.string,
     lowest_title: PropTypes.string,
+    city_label: PropTypes.string,
+    rank_label: PropTypes.string,
   }),
 };

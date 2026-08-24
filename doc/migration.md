@@ -31,6 +31,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 15 | Photo gallery view more → `/photo-gallery` 404 | **Resolved** — see §15 (S3 `photo-gallery-landing.json` 403; use `listing`) |
 | 16 | City weather icon → `/weather-forecast` missing `basePath` | **Resolved** — see §10 leftover (`TodaysWeatherInCity.js`) |
 | 17 | Google SSO does not work | **Leave** — see §17 (same as UP: no hardcoded client ID; CMS) |
+| 18 | `/aqi` polluted-cities `city_label` / `rank_label` still Tamil | **Resolved** — see §18 (`CityTable` uses CMS labels) |
 | 5 | Logo, `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
@@ -556,6 +557,40 @@ None (RCA only). Do not change `tv9up-nextjs`.
 ### Resolution
 
 **Leave.** UP has no real fallback (`GOOGLE_SSO_CLIENT_ID = ""`). Client ID and `sso_enabled` come from CMS. Do not hardcode the original ML client ID. Add `google_sso_client_id` + `sso_enabled` in Malayalam site settings when SSO should work.
+
+---
+
+## 18. `/aqi` polluted-cities labels still Tamil
+
+CMS [`aqi.json`](https://api.tv9tamil.com/pagebuilder-apis/development/tv9malayalam/aqi.json) `aqi-polluted-cities-widget` `data_config` has Malayalam `city_label` (`നഗരം`) and `rank_label` (`റാങ്ക്`). Table headings on `/aqi` still show Tamil (`நகரம்` / `தரவரிசை`). City rows from the AQI endpoint are fine.
+
+### Changes
+
+`components/pb/widgets/AqiPollutedCitiesWidget/AqiPollutedCities.js` — `CityTable` reads `rank_label` / `city_label` from CMS `dataConfig`. Do not change `tv9up-nextjs`.
+
+### Root cause
+
+`components/pb/widgets/AqiPollutedCitiesWidget/AqiPollutedCities.js` **never reads** `dataConfig.city_label` or `dataConfig.rank_label`. `CityTable` hardcodes Tamil:
+
+```js
+<th>தரவரிசை</th>
+<th>நகரம்</th>
+```
+
+Copied from UP (`tv9up-nextjs` has the same Tamil `<th>`). Section titles *do* use CMS (`title_less_populated_city` / `title_highest_populated_city`), so headings look Malayalam while column labels stay Tamil.
+
+Same fork already wires CMS labels correctly in `AqiPerimeterWidget`:
+
+```js
+<th>{dataConfig.rank_label}</th>
+<th>{dataConfig.city_label}</th>
+```
+
+`CityTable` also never receives `dataConfig`, so even a later lookup inside the table would need that prop.
+
+### Resolution
+
+**Resolved.** `CityTable` now uses `dataConfig.rank_label` and `dataConfig.city_label` (same as `AqiPerimeterWidget`). Fallback `Rank` / `City` only if CMS omits them.
 
 ---
 
