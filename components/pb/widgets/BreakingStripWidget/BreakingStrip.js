@@ -7,7 +7,7 @@ export default function BreakingStripWidget({ widget }) {
       <section className={styles.tv9_breakingStrip}>
         <strong>NEWS UPDATE</strong>
         <AppLink href="#">
-         தமிழக காவல்துறைக்கு புது ரத்தம் பாய்ச்சிய முதல்வர் விஜய்!
+        മുഖ്യമന്ത്രി വിജയ് തമിഴ്‌നാട് പോലീസിന് പുതുജീവൻ പകർന്നുനൽകി!
         </AppLink>
       </section>
     </div>
