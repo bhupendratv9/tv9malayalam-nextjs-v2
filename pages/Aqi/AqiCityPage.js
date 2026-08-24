@@ -54,7 +54,14 @@ export default function AqiCityPage({ pageData, queryParams = {} }) {
   }
 
   const headerSections = sections.filter((s) => s.position === "header");
-  const contentSections = sections.filter((s) => s.position !== "header" && s.position !== "footer");
+  // Page-level Breadcrumb below is the city trail. Skip CMS breadcrumb-widget
+  // (aqi-detail.json has empty data_config; query.category="aqi" would render "Malayalam News / aqi").
+  const contentSections = sections.filter(
+    (s) =>
+      s.position !== "header" &&
+      s.position !== "footer" &&
+      s.type !== "breadcrumb-widget",
+  );
   const footerSections = sections.filter((s) => s.position === "footer");
   const hasRightSidebar = contentSections.some((s) => s.position === "right-sidebar");
   const Layout = hasRightSidebar ? LayoutRightSidebar : DefaultLayout;

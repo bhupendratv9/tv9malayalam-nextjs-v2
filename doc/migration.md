@@ -34,6 +34,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 18 | `/aqi` polluted-cities `city_label` / `rank_label` still Tamil | **Resolved** — see §18 (`CityTable` uses CMS labels) |
 | 19 | `/aqi` FAQ still Tamil after CMS Malayalam items | **Open** — see §19 (registry uses `AqiWeatherFaq.js`; ignores `dataConfig.items`) |
 | 20 | `/aqi` default city is Chennai not Thiruvananthapuram | **Resolved** — see §20 (default **Kochi** via `DEFAULT_AQI_CITY_SLUG`) |
+| 21 | AQI city page shows two breadcrumbs (`Malayalam News / aqi`) | **Resolved** — see §21 (`AqiCityPage` skips CMS `breadcrumb-widget`) |
 | 5 | Logo, `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
@@ -634,6 +635,24 @@ Nearby leftovers (not the index default): `AqiTopCity.js` `DEFAULT_TOP_CITIES[0]
 ### Resolution
 
 **Resolved.** Default is **Kochi**. `AqiIndex.js` uses `DEFAULT_AQI_CITY_SLUG` from `aqiEvents.js` (`kochi`). Landing `/aqi` no longer restores `localStorage.aqiCity` (that was keeping Chennai). City pages still use the URL slug.
+
+---
+
+## 21. AQI city page shows two breadcrumbs (`Malayalam News / aqi`)
+
+`/aqi` shows only `Malayalam TV9 → AQI`. `/aqi/chennai-air-quality-index-today` also showed `Malayalam News → aqi`.
+
+### Changes
+
+`pages/Aqi/AqiCityPage.js` — skip CMS `breadcrumb-widget` in `contentSections`; keep the page-level `Breadcrumb`. Do not change `tv9up-nextjs`.
+
+### Root cause
+
+Both pages hardcode a `Breadcrumb`. Both CMS JSONs also include `breadcrumb-widget` with empty `data_config`. Landing GSSP does not pass `category`, so the widget returns null. City GSSP passes `category: "aqi"`, so `BreadcrumbWidget` fallback renders `breadcrumb_home_title` (`Malayalam News`) + `aqi`.
+
+### Resolution
+
+**Resolved.** City page keeps `Malayalam TV9 → AQI → {City} Air Quality Index Today` and does not render the CMS widget.
 
 ---
 
