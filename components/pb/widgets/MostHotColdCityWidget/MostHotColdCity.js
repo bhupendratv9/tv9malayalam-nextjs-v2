@@ -5,6 +5,7 @@ import Image from "next/image";
 import AppLink from "@/components/AppLink";
 import styles from "./MostHotColdCity.module.css";
 import PropTypes from "prop-types";
+import { getHref } from "@/lib/helper/commonHelper";
 import {
   DEFAULT_WEATHER_SITE,
   buildHotColdWidgetData,
@@ -40,7 +41,7 @@ const CityWeatherTable = memo(function CityWeatherTable({
               <tr key={`${city.slug}-${city.rank}`}>
                 <td>{city.rank}</td>
                 <td>
-                  <AppLink href={buildWeatherCityUrl(city.slug)}>{city.name}</AppLink>
+                  <AppLink href={getHref(buildWeatherCityUrl(city.slug))}>{city.name}</AppLink>
                 </td>
                 <td>
                   <span

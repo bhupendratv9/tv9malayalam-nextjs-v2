@@ -29,7 +29,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 13 | Short-video detail 404 after staying on localhost | **Resolved** — see §13 (`.env` `SHORT_VIDEO_API_BASE_URL` `alphaup` → `alphamalayalam`) |
 | 14 | Short-videos listing: empty SVG + no title under thumbs | **Resolved** — see §14 (ML listing markup/CSS, `#ytShort`) |
 | 15 | Photo gallery view more → `/photo-gallery` 404 | **Resolved** — see §15 (S3 `photo-gallery-landing.json` 403; use `listing`) |
-| 16 | City weather icon → `/weather-forecast` missing `basePath` | **Resolved** — see §10 leftover (`TodaysWeatherInCity.js`) |
+| 16 | City weather icon → `/weather-forecast` missing `basePath` | **Resolved** — see §10 leftover (`TodaysWeatherInCity.js`; popular/hot-cold city cards too) |
 | 17 | Google SSO does not work | **Leave** — see §17 (same as UP: no hardcoded client ID; CMS) |
 | 18 | `/aqi` polluted-cities `city_label` / `rank_label` still Tamil | **Resolved** — see §18 (`CityTable` uses CMS labels) |
 | 19 | `/aqi` FAQ still Tamil after CMS Malayalam items | **Open** — see §19 (registry uses `AqiWeatherFaq.js`; ignores `dataConfig.items`) |
@@ -362,7 +362,9 @@ Wrapped live-registry Weather/AQI `AppLink` hrefs with `getHref(...)` so plain `
 
 Relative `/aqi` and `/weather-forecast` (and city AQI) hrefs now go through `getHref`, which prefixes `SITE_URL` (`http://localhost:3000/tv9malayalam-nextjs`). Tab/header icons resolve from the copied sprite symbols.
 
-**Follow-up:** city page `TodaysWeatherInCity.js` still had `weatherHref = "/weather-forecast"` without `getHref`. Clicking the weather tab from `/weather-forecast/chennai-weather-update` went to `http://localhost:3000/weather-forecast` (no `basePath`) → 404. Now `getHref("/weather-forecast")`. Do not change `tv9up-nextjs`.
+**Follow-up:** city page `TodaysWeatherInCity.js` still had `weatherHref = "/weather-forecast"` without `getHref`. Clicking the weather tab from `/weather-forecast/chennai-weather-update` went to `http://localhost:3000/weather-forecast` (no `basePath`) → 404. Now `getHref("/weather-forecast")`.
+
+**Follow-up (popular cities):** `MostPopularCityWeather.js` / `MostHotColdCity.js` used `AppLink href={buildWeatherCityUrl(...)}` without `getHref`. Same as UP `HomepageWeather.js` city cards: wrap `getHref(buildWeatherCityUrl(...))`. Clicks now stay on `/tv9malayalam-nextjs/weather-forecast/{city}-weather-update`. Do not change `tv9up-nextjs`.
 
 ---
 

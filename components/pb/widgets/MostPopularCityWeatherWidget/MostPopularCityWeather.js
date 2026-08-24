@@ -2,7 +2,7 @@ import Image from "next/image";
 import AppLink from "@/components/AppLink";
 import styles from "./MostPopularCityWeather.module.css";
 import PropTypes from "prop-types";
-import { decodeHtml } from "@/lib/helper/commonHelper";
+import { decodeHtml, getHref } from "@/lib/helper/commonHelper";
 import {
   DEFAULT_WEATHER_SITE,
   getPopularCityNames,
@@ -36,7 +36,7 @@ export default function MostPopularCityWeatherWidget({ title = "", items = [], d
           <div className={styles.citiesThumb_Wrapper}>
             {cities.map((city) => (
               <div className={styles.cityCard} key={city.slug}>
-                <AppLink href={buildWeatherCityUrl(city.slug)}>
+                <AppLink href={getHref(buildWeatherCityUrl(city.slug))}>
                   <span className={styles.view_icon}>
                     <svg>
                       <use href={`${ICONS_SVG}#view_icon`} />
