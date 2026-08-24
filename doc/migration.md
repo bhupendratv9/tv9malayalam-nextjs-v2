@@ -32,6 +32,8 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 16 | City weather icon → `/weather-forecast` missing `basePath` | **Resolved** — see §10 leftover (`TodaysWeatherInCity.js`) |
 | 17 | Google SSO does not work | **Leave** — see §17 (same as UP: no hardcoded client ID; CMS) |
 | 18 | `/aqi` polluted-cities `city_label` / `rank_label` still Tamil | **Resolved** — see §18 (`CityTable` uses CMS labels) |
+| 19 | `/aqi` FAQ still Tamil after CMS Malayalam items | **Open** — see §19 (registry uses `AqiWeatherFaq.js`; ignores `dataConfig.items`) |
+| 20 | `/aqi` default city is Chennai not Thiruvananthapuram | **Resolved** — see §20 (default **Kochi** via `DEFAULT_AQI_CITY_SLUG`) |
 | 5 | Logo, `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
@@ -591,6 +593,47 @@ Same fork already wires CMS labels correctly in `AqiPerimeterWidget`:
 ### Resolution
 
 **Resolved.** `CityTable` now uses `dataConfig.rank_label` and `dataConfig.city_label` (same as `AqiPerimeterWidget`). Fallback `Rank` / `City` only if CMS omits them.
+
+---
+
+## 19. `/aqi` FAQ still Tamil after CMS Malayalam items
+
+See prior RCA: `widgetRegistry` maps `aqi-faq-widget` → `AqiWeatherFaq.js` (hardcoded Tamil Chennai). CMS `dataConfig.items` is ignored.
+
+### Resolution
+
+**Open.**
+
+---
+
+## 20. `/aqi` default city is Chennai, not Thiruvananthapuram
+
+`http://localhost:3000/tv9malayalam-nextjs/aqi` index widget opens on Chennai.
+
+### Changes
+
+`lib/helper/aqiEvents.js` — `DEFAULT_AQI_CITY_SLUG = "kochi"`.
+`AqiIndex.js` — landing city from that slug; no `localStorage.aqiCity` restore. Do not change `tv9up-nextjs`.
+
+### Root cause
+
+`aqi-index-widget` (`AqiIndexWidget/AqiIndex.js`) hardcodes:
+
+```js
+const DEFAULT_CITY_NAME = "Chennai";
+```
+
+On `/aqi` there is no `query.city`. `resolveActiveCity()` always does `getCityData("Chennai", cityList)`. CMS `aqi.json` has no `default_city` on this widget — only `title` / `endpoint` / `language`.
+
+`lib/helper/aqiEvents.js` already has `DEFAULT_AQI_CITY_SLUG = "thiruvananthapuram"`. Perimeter / health widgets use that. **The index widget does not import it.**
+
+Also: if the browser has `localStorage.aqiCity` from an earlier Chennai visit, a client effect overrides the SSR city.
+
+Nearby leftovers (not the index default): `AqiTopCity.js` `DEFAULT_TOP_CITIES[0]` is Chennai; FAQ live file is Chennai (see §19). Top-city slug is `thiruvanthapuram` (typo, missing `a`).
+
+### Resolution
+
+**Resolved.** Default is **Kochi**. `AqiIndex.js` uses `DEFAULT_AQI_CITY_SLUG` from `aqiEvents.js` (`kochi`). Landing `/aqi` no longer restores `localStorage.aqiCity` (that was keeping Chennai). City pages still use the URL slug.
 
 ---
 

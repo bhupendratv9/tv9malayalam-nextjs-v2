@@ -16,7 +16,7 @@ import { ICONS_SVG } from "@/lib/constants";
 
 const IMAGE_BASE = "https://images.tv9hindi.com/images";
 
-const DEFAULT_CITY_NAME = "Chennai";
+const DEFAULT_CITY_NAME = "Kochi";
 const CITY_SLUG_SUFFIX = "-air-quality-index-today";
 const DEFAULT_CITY_LANGUAGE = "hi";
 
@@ -338,7 +338,7 @@ function buildDisplayTitle(
 ) {
   if (isCityPage && cityData) {
     const localizedCityName = getLocalizedCityName(cityData, language);
-    return `${localizedCityName} में आज का वायु गुणवत्ता सूचकांक - ${cityData.city_name} Air Quality Index (AQI) Today`;
+    return `${localizedCityName} ഇന്നത്തെ വായു ഗുണനിലവാര സൂചിക... - ${cityData.city_name} Air Quality Index (AQI) Today`;
   }
 
   return decodeHtml(dataConfigTitle) || "एयर क्वालिटी इंडेक्स - (AQI) आज";
@@ -453,22 +453,6 @@ export default function AqiIndexWidget({
   useEffect(() => {
     setActiveCity(initialCity);
   }, [initialCity]);
-
-  useEffect(() => {
-    if (isCityPage || !cityList.length) return;
-    try {
-      const storedCity = localStorage.getItem("aqiCity");
-      if (!storedCity) return;
-
-      const hit = pickCity(storedCity, cityList, cityLanguage);
-      if (!hit) return;
-
-      setActiveCity(hit);
-      setSearchQuery(storedCity);
-    } catch (e) {
-      console.warn("LocalStorage not accessible", e);
-    }
-  }, [isCityPage, cityList, cityLanguage]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
