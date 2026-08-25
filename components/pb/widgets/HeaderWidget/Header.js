@@ -8,22 +8,38 @@ import { getHref, SITE_URL } from "@/lib/helper/commonHelper";
 import styles from "./Header.module.css";
 import GoogleSingleSignIn from "../GoogleSingleSignInWidget/GoogleSingleSignIn";
 
+// const megaMenuItems = [
+//   { label: "சமீபத்திய செய்திகள்", href: "/latest-news" },
+//   { label: "தமிழ்நாடு", href: "/tamil-nadu" },
+//   { label: "இந்தியா", href: "/india" },
+//   { label: "உலகம்", href: "/world" },
+//   { label: "விளையாட்டு", href: "/sports" },
+//   { label: "பொழுதுபோக்கு", href: "/entertainment" },
+//   { label: "லைஃப்ஸ்டைல்", href: "/lifestyle" },
+//   { label: "வணிகம்", href: "/business" },
+//   { label: "டெக்னாலஜி", href: "/technology" },
+//   { label: "ஆன்மீகம்", href: "/religion" },
+//   { label: "வைரல்", href: "/trending" },
+//   { label: "ஹெஃல்த்", href: "/health" },
+//   { label: "ஷார்ட் வீடியோஸ்", href: "/videos/short-videos" },
+//   { label: "வலை கதைகள்", href: "/web-stories" },
+//   { label: "போட்டோ கேலரி", href: "/photo-gallery" },
+// ];
+
 const megaMenuItems = [
-  { label: "சமீபத்திய செய்திகள்", href: "/latest-news" },
-  { label: "தமிழ்நாடு", href: "/tamil-nadu" },
-  { label: "இந்தியா", href: "/india" },
-  { label: "உலகம்", href: "/world" },
-  { label: "விளையாட்டு", href: "/sports" },
-  { label: "பொழுதுபோக்கு", href: "/entertainment" },
-  { label: "லைஃப்ஸ்டைல்", href: "/lifestyle" },
-  { label: "வணிகம்", href: "/business" },
-  { label: "டெக்னாலஜி", href: "/technology" },
-  { label: "ஆன்மீகம்", href: "/religion" },
-  { label: "வைரல்", href: "/trending" },
-  { label: "ஹெஃல்த்", href: "/health" },
-  { label: "ஷார்ட் வீடியோஸ்", href: "/videos/short-videos" },
-  { label: "வலை கதைகள்", href: "/web-stories" },
-  { label: "போட்டோ கேலரி", href: "/photo-gallery" },
+  { label: "Kerala", href: "/kerala" },
+  { label: "Business", href: "/business" },
+  { label: "Lifestyle", href: "/lifestyle" },
+  { label: "Religion", href: "/religion" },
+  { label: "Short Videos", href: "/videos/short-videos" },
+  { label: "India", href: "/india" },
+  { label: "Education", href: "/education" },
+  { label: "World", href: "/world" },
+  { label: "Web Story", href: "/web-stories" },
+  { label: "Entertainment", href: "/entertainment" },
+  { label: "Sports", href: "/sports" },
+  { label: "Technology", href: "technology" },
+  { label: "Photo", href: "/photo-gallery" },
 ];
 
 export default function HeaderWidget({ navItems }) {

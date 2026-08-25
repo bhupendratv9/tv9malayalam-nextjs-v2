@@ -7,7 +7,7 @@ import styles from "../DetailMainContentWidget/DetailMainContent.module.css";
 import { decodeHtml, getHref } from "@/lib/helper/commonHelper";
 import { formatIstDate, buildTags } from "@/lib/helper/widgetHelper";
 
-const BASE_PATH = "/tv9up-nextjs";
+const BASE_PATH = "/tv9malayalam-nextjs";
 
 /**
  * Normalize the raw API response to extract article data.

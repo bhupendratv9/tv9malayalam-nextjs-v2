@@ -167,7 +167,7 @@ Path includes `basePath`; `#ytShort` + `#rgt-arrow` added to the sprite; `ViewMo
 | Logo | `.env` `NEXT_PUBLIC_SITE_LOGO_URL` | **Resolved** — see §22 | Malayalam SVG `tv9-malyalam-logo.svg` |
 | Short video env URL | `.env` `SHORT_VIDEO_API_BASE_URL` | **Resolved** — see §13 | `alphamalayalam/.../short-video-detail` |
 | Next-article API | `.env` `NEXT_ARTICLE_API_URL` | still `alphaup` | `alphamalayalam/.../detail/{id}` |
-| Infinite scroll path | `InfiniteScrollArticleWidget` | `BASE_PATH = "/tv9up-nextjs"` | `/tv9malayalam-nextjs` |
+| Infinite scroll path | `InfiniteScrollArticleWidget` | **Resolved** — see §23 | `BASE_PATH = "/tv9malayalam-nextjs"` |
 | Double-basePath strip | `lib/server/homePageBuilder.js` | **Resolved** — see §8 | UP-style collapse `/tv9malayalam-nextjs/tv9malayalam-nextjs/` |
 | Page-builder fallback name | `lib/constants.js` | `PAGE_BUILDER_SITE_NAME = "tv9up"` | `tv9malayalam` |
 | Font | `pages/_app.js` + AMP | **Resolved** — see §6 | Noto Sans like old ML |
@@ -677,6 +677,24 @@ Copy of UP env. Header/footer read `siteSettings.logo_url` (already Malayalam fr
 
 ---
 
+## 23. Infinite-scroll next-article fetch still used `/tv9up-nextjs`
+
+`InfiniteScrollArticle.js` hardcodes `BASE_PATH` for the client `fetch` to `/api/article/{id}`. Next.js API routes live under the app `basePath`.
+
+### Changes
+
+`components/pb/widgets/InfiniteScrollArticleWidget/InfiniteScrollArticle.js` — `BASE_PATH = "/tv9malayalam-nextjs"` (matches `next.config.js`). Do not change `tv9up-nextjs`.
+
+### Root cause
+
+Copy of UP. UP is correct with `/tv9up-nextjs`. This app’s `basePath` is `/tv9malayalam-nextjs`, so scroll-to-next-article requested the UP prefix (404 locally). First article is server-rendered; only the chain fetch used this path.
+
+### Resolution
+
+**Resolved.** Fetch is now `/tv9malayalam-nextjs/api/article/{id}`. Reload an article detail page and scroll to the bottom to confirm the next article loads.
+
+---
+
 ## How CSS loads
 
 1. `pages/_app.js` → `styles/globals.css` (site-wide). Includes ML layout: `.tv9wrapperMain` / `.main_col` / `.rhs_col`.
@@ -689,6 +707,6 @@ Copy of UP env. Header/footer read `siteSettings.logo_url` (already Malayalam fr
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22).
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22); infinite-scroll fetch `BASE_PATH` (§23).
 
-**Open:** next-article `alphaup` env API; infinite-scroll `BASE_PATH`; page keys (`video-landing.json` still 403); `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.
+**Open:** next-article `alphaup` env API; page keys (`video-landing.json` still 403); `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.
