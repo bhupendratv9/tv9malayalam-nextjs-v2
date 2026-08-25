@@ -35,7 +35,8 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 19 | `/aqi` FAQ still Tamil after CMS Malayalam items | **Open** — see §19 (registry uses `AqiWeatherFaq.js`; ignores `dataConfig.items`) |
 | 20 | `/aqi` default city is Chennai not Thiruvananthapuram | **Resolved** — see §20 (default **Kochi** via `DEFAULT_AQI_CITY_SLUG`) |
 | 21 | AQI city page shows two breadcrumbs (`Malayalam News / aqi`) | **Resolved** — see §21 (`AqiCityPage` skips CMS `breadcrumb-widget`) |
-| 5 | Logo, `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
+| 22 | Logo env still tv9up | **Resolved** — see §22 (`.env` `NEXT_PUBLIC_SITE_LOGO_URL` → Malayalam SVG) |
+| 5 | `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
 
@@ -67,7 +68,7 @@ UP copy still pointed at UP `basePath`, site name, menus, and `alphaup` APIs. Ma
 
 ### Resolution
 
-Retargeted env + `basePath` + short-video constants fallback as above. **Open leftovers** (logo, `SHORT_VIDEO_API_BASE_URL`, next-article API, infinite-scroll path, menus `.json` 404) are listed in §5.
+Retargeted env + `basePath` + short-video constants fallback as above. **Open leftovers** (next-article API, infinite-scroll path, menus `.json` 404) are listed in §5. Logo env is **Resolved** (§22).
 
 ---
 
@@ -163,7 +164,7 @@ Path includes `basePath`; `#ytShort` + `#rgt-arrow` added to the sprite; `ViewMo
 
 | Area | File | Root cause | Open resolution |
 |---|---|---|---|
-| Logo | `.env` `NEXT_PUBLIC_SITE_LOGO_URL` | still tv9up logo URL | Malayalam logo (or `siteSettings.logo_url`) |
+| Logo | `.env` `NEXT_PUBLIC_SITE_LOGO_URL` | **Resolved** — see §22 | Malayalam SVG `tv9-malyalam-logo.svg` |
 | Short video env URL | `.env` `SHORT_VIDEO_API_BASE_URL` | **Resolved** — see §13 | `alphamalayalam/.../short-video-detail` |
 | Next-article API | `.env` `NEXT_ARTICLE_API_URL` | still `alphaup` | `alphamalayalam/.../detail/{id}` |
 | Infinite scroll path | `InfiniteScrollArticleWidget` | `BASE_PATH = "/tv9up-nextjs"` | `/tv9malayalam-nextjs` |
@@ -658,6 +659,24 @@ Both pages hardcode a `Breadcrumb`. Both CMS JSONs also include `breadcrumb-widg
 
 ---
 
+## 22. Logo env still tv9up
+
+`.env` `NEXT_PUBLIC_SITE_LOGO_URL` was `https://images.tv9up.com/uploads/tv9up-logo.svg`.
+
+### Changes
+
+`.env` — `NEXT_PUBLIC_SITE_LOGO_URL=https://images.malayalamtv9.com/uploads/tv9-malyalam-logo.svg` (same file as live [malayalamtv9.com](https://www.malayalamtv9.com/) / CMS `siteSettings.logo_url`). Do not change `tv9up-nextjs`.
+
+### Root cause
+
+Copy of UP env. Header/footer read `siteSettings.logo_url` (already Malayalam from CMS). Web-story AMP (`WebStoryDetailAMP.js`) uses `NEXT_PUBLIC_SITE_LOGO_URL` when there is no `siteSettings` in that render path.
+
+### Resolution
+
+**Resolved.** Env fallback matches the live Malayalam logo. Restart `npm run dev` so Next picks up `NEXT_PUBLIC_*`. Header Tamil hardcoded fallback (`appstatic.tv9tamil.com/images/logo.jpg`) is unused while CMS `logo_url` is set.
+
+---
+
 ## How CSS loads
 
 1. `pages/_app.js` → `styles/globals.css` (site-wide). Includes ML layout: `.tv9wrapperMain` / `.main_col` / `.rhs_col`.
@@ -670,6 +689,6 @@ Both pages hardcode a `Breadcrumb`. Both CMS JSONs also include `breadcrumb-widg
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15).
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22).
 
-**Open:** logo; next-article `alphaup` env API; infinite-scroll `BASE_PATH`; page keys (`video-landing.json` still 403); `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.
+**Open:** next-article `alphaup` env API; infinite-scroll `BASE_PATH`; page keys (`video-landing.json` still 403); `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.

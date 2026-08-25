@@ -238,7 +238,7 @@ export default function TodaysWeatherInCityWidget({
               <svg className={styles.weather_icon}>
                 <use href={`${ICONS_SVG}#sun_icon`} />
               </svg>
-              வானிலை
+              കാലാവസ്ഥ
             </AppLink>
           </div>
           <SearchDropdown

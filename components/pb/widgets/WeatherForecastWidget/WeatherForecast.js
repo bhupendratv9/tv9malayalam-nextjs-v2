@@ -215,7 +215,7 @@ export default function WeatherForecastWidget({
     feelsLike: getWeatherLabel("feels-like", siteName),
     humidity: getWeatherLabel("humidity", siteName),
     poweredBy: getWeatherLabel("powered-by", siteName),
-    weatherConditions: getWeatherLabel("weather-conditions", siteName, "வானிலை நிலவரம்"),
+    weatherConditions: getWeatherLabel("weather-conditions", siteName, "കാലാവസ്ഥാ സാഹചര്യങ്ങൾ"),
     aqi: getWeatherLabel("aqi", siteName, "वायु गुणवत्ता सूचकांक"),
     aqiIs: getWeatherLabel("aqi-is", siteName, "वायु गुणवत्ता सूचकांक है"),
   };
@@ -239,7 +239,7 @@ export default function WeatherForecastWidget({
               <svg className={styles.weather_icon}>
                 <use href={`${ICONS_SVG}#sun_icon`} />
               </svg>
-              வானிலை
+              കാലാവസ്ഥ
             </AppLink>
           </div>
           <SearchDropdown

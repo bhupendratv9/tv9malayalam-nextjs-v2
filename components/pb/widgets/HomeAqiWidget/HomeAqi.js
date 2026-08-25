@@ -10,7 +10,7 @@ export default function HomeAqiWidget() {
         <div className={styles.widget_tab_links}>
             <div className={styles.tabLinks}>
                 <AppLink href={getHref("/aqi")} className={styles.active}><svg className="aqi_icon"><use href={`${ICONS_SVG}#wind_icon`}></use></svg>AQI</AppLink>
-                <AppLink href={getHref("/weather-forecast")}><svg className={styles.weather_icon}><use href={`${ICONS_SVG}#sun_icon`}></use></svg>வானிலை</AppLink>
+                <AppLink href={getHref("/weather-forecast")}><svg className={styles.weather_icon}><use href={`${ICONS_SVG}#sun_icon`}></use></svg>കാലാവസ്ഥ</AppLink>
             </div>
         </div>
 

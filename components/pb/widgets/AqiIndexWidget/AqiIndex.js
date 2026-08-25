@@ -513,7 +513,7 @@ export default function AqiIndexWidget({
             </button>
             <AppLink href={getHref("/weather-forecast")}>
               <svg className={styles.weather_icon}><use href={`${ICONS_SVG}#sun_icon`}></use></svg>
-              வானிலை
+              കാലാവസ്ഥ
             </AppLink>
           </div>
           <div className={styles.searchDropdown} ref={searchRef}>
