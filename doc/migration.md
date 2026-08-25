@@ -36,6 +36,8 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 20 | `/aqi` default city is Chennai not Thiruvananthapuram | **Resolved** — see §20 (default **Kochi** via `DEFAULT_AQI_CITY_SLUG`) |
 | 21 | AQI city page shows two breadcrumbs (`Malayalam News / aqi`) | **Resolved** — see §21 (`AqiCityPage` skips CMS `breadcrumb-widget`) |
 | 22 | Logo env still tv9up | **Resolved** — see §22 (`.env` `NEXT_PUBLIC_SITE_LOGO_URL` → Malayalam SVG) |
+| 23 | Infinite-scroll fetch `BASE_PATH` | **Resolved** — see §23 (`/tv9malayalam-nextjs`) |
+| 24 | Header home SVG empty (`#ic_home`) | **Resolved** — see §24 |
 | 5 | `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
@@ -695,6 +697,24 @@ Copy of UP. UP is correct with `/tv9up-nextjs`. This app’s `basePath` is `/tv9
 
 ---
 
+## 24. Header home SVG empty (`#ic_home`)
+
+Category navbar home link uses `<use href=".../icons.svg#ic_home">`. The sprite file loaded (200); the house icon did not paint.
+
+### Changes
+
+`public/images/icons.svg` — copied `#ic_home` from original ML sprite. Kept UP `#IconHome` for `HeaderUP`. Do not change `tv9up-nextjs`.
+
+### Root cause
+
+Same class of bug as `#ytShort` / `#p_icon`. This tree’s sprite is the UP copy (`#IconHome`). Malayalam `Header.js` (and `Sports9HeaderWidget.js`) request `#ic_home`. File 200s; fragment missing → empty SVG.
+
+### Resolution
+
+**Resolved.** Hard-refresh home so the sprite is not served from cache. The category-bar house icon should show (black; red when that link is active).
+
+---
+
 ## How CSS loads
 
 1. `pages/_app.js` → `styles/globals.css` (site-wide). Includes ML layout: `.tv9wrapperMain` / `.main_col` / `.rhs_col`.
@@ -707,6 +727,6 @@ Copy of UP. UP is correct with `/tv9up-nextjs`. This app’s `basePath` is `/tv9
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22); infinite-scroll fetch `BASE_PATH` (§23).
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff` / `#ic_home`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22); infinite-scroll fetch `BASE_PATH` (§23); header home icon `#ic_home` (§24).
 
 **Open:** next-article `alphaup` env API; page keys (`video-landing.json` still 403); `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.
