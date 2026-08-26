@@ -26,21 +26,18 @@ import GoogleSingleSignIn from "../GoogleSingleSignInWidget/GoogleSingleSignIn";
 //   { label: "போட்டோ கேலரி", href: "/photo-gallery" },
 // ];
 
-const megaMenuItems = [
-  { label: "Kerala", href: "/kerala" },
-  { label: "Business", href: "/business" },
-  { label: "Lifestyle", href: "/lifestyle" },
-  { label: "Religion", href: "/religion" },
-  { label: "Short Videos", href: "/videos/short-videos" },
-  { label: "India", href: "/india" },
-  { label: "Education", href: "/education" },
-  { label: "World", href: "/world" },
-  { label: "Web Story", href: "/web-stories" },
-  { label: "Entertainment", href: "/entertainment" },
-  { label: "Sports", href: "/sports" },
-  { label: "Technology", href: "technology" },
-  { label: "Photo", href: "/photo-gallery" },
-];
+function mapDrawerItems(items = []) {
+  return items.map((item) => ({
+    label: item.title || item.label || "",
+    href: item.url || item.href || "#",
+    subItems: Array.isArray(item.children) && item.children.length
+      ? item.children.map((child) => ({
+          label: child.title || child.label || "",
+          href: child.url || child.href || "#",
+        }))
+      : undefined,
+  }));
+}
 
 export default function HeaderWidget({ navItems }) {
   const { siteSettings } = useSiteSettings();
@@ -53,6 +50,7 @@ export default function HeaderWidget({ navItems }) {
     Array.isArray(navItems) && navItems.length > 0
       ? navItems
       : DEFAULT_NAV_ITEMS;
+  const drawerItems = mapDrawerItems(menuItems);
 
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
@@ -325,9 +323,9 @@ export default function HeaderWidget({ navItems }) {
             </div>
           </div>
           <ul className={styles.listItems}>
-            {megaMenuItems.map((item, index) => (
+            {drawerItems.map((item, index) => (
               <li
-                key={item.href}
+                key={item.href || index}
                 className={item.subItems ? styles.hassubmenu : ""}
                 onClick={
                   item.subItems ? (e) => toggleSubmenu(index, e) : undefined

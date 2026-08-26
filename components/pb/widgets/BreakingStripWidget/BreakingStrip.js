@@ -1,15 +1,9 @@
-import AppLink from "@/components/AppLink";
-import styles from "./BreakingStrip.module.css";
+import BreakingNewsStrip from "../BreakingNewsStripWidget/BreakingNewsStrip";
 
-export default function BreakingStripWidget({ widget }) {
+export default function BreakingStripWidget(props) {
   return (
     <div className="container">
-      <section className={styles.tv9_breakingStrip}>
-        <strong>NEWS UPDATE</strong>
-        <AppLink href="#">
-        മുഖ്യമന്ത്രി വിജയ് തമിഴ്‌നാട് പോലീസിന് പുതുജീവൻ പകർന്നുനൽകി!
-        </AppLink>
-      </section>
+      <BreakingNewsStrip {...props} />
     </div>
   );
 }

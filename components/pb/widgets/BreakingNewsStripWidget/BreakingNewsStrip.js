@@ -51,9 +51,13 @@ export default function BreakingNewsStrip({
   // Extract metadata (text_column5/text_column6) from the raw API structure
   // These fields are siblings to `posts` inside items[0].items[0]
   const rawItems = items?.[0]?.items?.[0]
+    || (items?.[0]?.text_column5 || items?.[0]?.posts ? items[0] : null)
     || data?.data?.items?.[0]?.items?.[0]
+    || data?.data?.items?.[0]
     || data?.items?.[0]?.items?.[0]
+    || data?.items?.[0]
     || section?.data?.data?.items?.[0]?.items?.[0]
+    || section?.data?.data?.items?.[0]
     || {};
   const apiLabel = rawItems.text_column5 || "";
   const apiColor = rawItems.text_column6 || "";
