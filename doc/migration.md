@@ -33,7 +33,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 16 | City weather icon → `/weather-forecast` missing `basePath` | **Resolved** — see §10 leftover (`TodaysWeatherInCity.js`; popular/hot-cold city cards too) |
 | 17 | Google SSO does not work | **Leave** — see §17 (same as UP: no hardcoded client ID; CMS) |
 | 18 | `/aqi` polluted-cities `city_label` / `rank_label` still Tamil | **Resolved** — see §18 (`CityTable` uses CMS labels) |
-| 19 | `/aqi` FAQ still Tamil after CMS Malayalam items | **Open** — see §19 (registry uses `AqiWeatherFaq.js`; ignores `dataConfig.items`) |
+| 19 | `/aqi` FAQ city + AQI still hardcoded | **Resolved** — see §19 (live city / AQI; copy unchanged) |
 | 20 | `/aqi` default city is Chennai not Thiruvananthapuram | **Resolved** — see §20 (default **Kochi** via `DEFAULT_AQI_CITY_SLUG`) |
 | 21 | AQI city page shows two breadcrumbs (`Malayalam News / aqi`) | **Resolved** — see §21 (`AqiCityPage` skips CMS `breadcrumb-widget`) |
 | 22 | Logo env still tv9up | **Resolved** — see §22 (`.env` `NEXT_PUBLIC_SITE_LOGO_URL` → Malayalam SVG) |
@@ -604,13 +604,21 @@ Same fork already wires CMS labels correctly in `AqiPerimeterWidget`:
 
 ---
 
-## 19. `/aqi` FAQ still Tamil after CMS Malayalam items
+## 19. `/aqi` FAQ city name and AQI value
 
-See prior RCA: `widgetRegistry` maps `aqi-faq-widget` → `AqiWeatherFaq.js` (hardcoded Tamil Chennai). CMS `dataConfig.items` is ignored.
+`aqi-faq-widget` is registered to `AqiFaqWidget/AqiFaq.js`. Malayalam copy is already in that file. City name and AQI numbers were still hardcoded Kochi 42 / 116.
+
+### Changes
+
+`components/pb/widgets/AqiFaqWidget/AqiFaq.js` — same five FAQ strings. First two items swap `Kochi` / `42` / `(Good)` / `116` / `(Poor)` / `Sunday 23 August` from `https://webapi.tv9.com/apis/aqi/{slug}` (`city_name`, `aqidata[0].aqi`, `yesterday_aqi`). City from `queryParams.city` (city page) or default Kochi (`resolveAqiCitySlug`). Items 3–5 unchanged. Do not change `tv9up-nextjs`.
+
+### Root cause
+
+FAQ markup was copied as static copy. Health / perimeter widgets already fetch the city AQI API; FAQ did not. CMS `data_config` on Malayalam `aqi-faq-widget` is still `null`.
 
 ### Resolution
 
-**Open.**
+**Resolved.** `/aqi` FAQ uses Kochi live values. `/aqi/{city}-air-quality-index-today` uses that city’s live values. Malayalam sentences are the same.
 
 ---
 

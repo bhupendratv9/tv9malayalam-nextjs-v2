@@ -51,9 +51,9 @@ const DEFAULT_TOP_CITIES = [
     alt: "തിരുവനന്തപുരം",
   },
   {
-    id: "bengaluru",
-    cityName: "Bengaluru",
-    slug: "bengaluru",
+    id: "bangalore",
+    cityName: "Bangalore",
+    slug: "bangalore",
     title: "ബെംഗളൂരു",
     image: `${IMAGE_BASE}/Bengalur.svg`,
     alt: "ബെംഗളൂരു",

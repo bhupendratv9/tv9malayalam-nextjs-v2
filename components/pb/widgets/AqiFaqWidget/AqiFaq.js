@@ -1,7 +1,21 @@
-  import PropTypes from "prop-types";
-
-import { useState } from "react";
+import PropTypes from "prop-types";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import styles from "./AqiFaq.module.css";
+import {
+  parseAqiCitySlug,
+  resolveAqiCitySlug,
+} from "@/lib/helper/aqiEvents";
+
+const DEFAULT_AQI_BASE_API = "https://webapi.tv9.com/apis/aqi";
+
+const AQI_CATEGORIES = [
+  { min: 0, max: 50, category: "Good" },
+  { min: 51, max: 100, category: "Moderate" },
+  { min: 101, max: 150, category: "Poor" },
+  { min: 151, max: 200, category: "Unhealthy" },
+  { min: 201, max: 300, category: "Severe" },
+  { min: 301, max: 2000, category: "Hazardous" },
+];
 
 const DEFAULT_FAQ_ITEMS = [
   {
@@ -24,7 +38,7 @@ const DEFAULT_FAQ_ITEMS = [
     answer: [
       "മോശം വായു ആരോഗ്യത്തെ ഗുരുതരമായി പ്രതികൂലമായി ബാധിക്കുന്നു, പ്രത്യേകിച്ച് വായുവിൽ PM2.5, PM10, സൾഫർ ഡൈ ഓക്സൈഡ്, നൈട്രജൻ ഓക്സൈഡുകൾ, ഓസോൺ തുടങ്ങിയ ദോഷകരമായ വസ്തുക്കൾ അടങ്ങിയിരിക്കുമ്പോൾ",
       "ശ്വസനവ്യവസ്ഥയെ ബാധിച്ചേക്കാം, ശ്വാസകോശത്തിൽ അസ്വസ്ഥത, ചുമ, ശ്വസിക്കാൻ ബുദ്ധിമുട്ട് എന്നിവ ഉണ്ടാകാം. ആസ്ത്മ, ബ്രോങ്കൈറ്റിസ് തുടങ്ങിയ രോഗങ്ങൾ വർദ്ധിക്കുന്നു. ദീർഘകാല മലിനീകരണം ക്രോണിക് ഒബ്സ്ട്രക്റ്റീവ് പൾമണറി ഡിസീസ് (COPD) ഉണ്ടാക്കാൻ കാരണമാകും. ദോഷകരമായ കണികകൾ രക്തപ്രവാഹത്തിൽ പ്രവേശിക്കുകയും ഹൃദയാഘാതം, ഉയർന്ന രക്തസമ്മർദ്ദം, പക്ഷാഘാതം എന്നിവയ്ക്കുള്ള സാധ്യത വർദ്ധിപ്പിക്കുകയും ചെയ്യും.",
-      "മലിനീകരണവുമായി ദീർഘനേരം സമ്പർക്കം പുലർത്തുന്നത് ശരീരത്തിന്റെ പ്രതിരോധശേഷി ദുർബലപ്പെടുത്തുന്നു, ഇത് അണുബാധയ്ക്കുള്ള സാധ്യത വർദ്ധിപ്പിക്കുന്നു. മലിനീകരണത്തിൽ അടങ്ങിയിരിക്കുന്ന വിഷ കണികകൾ മാനസികാരോഗ്യത്തെ ബാധിക്കുകയും തലവേദന, ക്ഷോഭം, വിഷാദം എന്നിവയ്ക്ക് കാരണമാവുകയും ചെയ്യും. ചില ഗവേഷണങ്ങൾ അനുസരിച്ച്, ഇത് ഓർമ്മശക്തിയെയും വൈജ്ഞാനിക ശേഷിയെയും പ്രതികൂലമായി ബാധിക്കും.",
+      "മലിനീകരണവുമായി ദീർഘനേരം സമ്പർക്കം പുലർത്തുന്നത് ശരീരത്തിന്റെ പ്രതിരോധശേഷി ദുർബലപ്പെടുത്തുന്നു, ഇത് അണുബാധയ്ക്കുള്ള സാധ്യത വർദ്ധിപ്പിക്കുന്നു. മലിനീകരണത്തിൽ അടങ്ങിയിരിക്കുന്ന വിഷ കണികകൾ മാനസികാരോഗ്യത്തെ ബാധിക്കുകയും തലവേദന, ക്ഷോഭം, വിഷാദം എന്നിവയ്ക്ക് കാരണമാകും. ചില ഗവേഷണങ്ങൾ അനുസരിച്ച്, ഇത് ഓർമ്മശക്തിയെയും വൈജ്ഞാനിക ശേഷിയെയും പ്രതികൂലമായി ബാധിക്കും.",
       "ഗർഭിണികളിലെ വായുസഞ്ചാരം കുറയുന്നത് ഗര്‍ഭസ്ഥ ശിശുവിന്റെ വികാസത്തെ പ്രതികൂലമായി ബാധിക്കും. കുട്ടികളിൽ ശ്വാസകോശ വികസനം മന്ദഗതിയിലാകുകയും ശ്വസന പ്രശ്നങ്ങൾ വർദ്ധിക്കുകയും ചെയ്തേക്കാം. മലിനമായ വായു ചർമ്മത്തിൽ പ്രകോപനം, ചൊറിച്ചിൽ, അലർജി എന്നിവയ്ക്ക് കാരണമാകും. കണ്ണുകൾ കത്തുന്നതും ചുവപ്പിക്കുന്നതും വെള്ളമൂറുന്നതും ഒരു സാധാരണ പ്രശ്നമാണ്.",
       "ദീർഘനേരം വായു മലിനീകരണവുമായി സമ്പർക്കം പുലർത്തുന്നത് ശ്വാസകോശ അർബുദ സാധ്യത വർദ്ധിപ്പിക്കുന്നു. വായുവിന്റെ ഗുണനിലവാരം മോശമാകുന്നതിന്റെ ദീർഘകാല പ്രത്യാഘാതങ്ങൾ ആരോഗ്യത്തെ ഗുരുതരമായി ബാധിക്കുകയും ജീവിത നിലവാരവും ആയുർദൈർഘ്യവും കുറയ്ക്കുകയും ചെയ്യും. ഇതിൽ നിന്ന് സ്വയം പരിരക്ഷിക്കുന്നതിന്, മാസ്ക് ധരിക്കുക, ഇൻഡോർ എയർ പ്യൂരിഫയർ ഉപയോഗിക്കുക, മലിനീകരണം ഒഴിവാക്കാൻ നടപടികൾ സ്വീകരിക്കുക എന്നിവ ആവശ്യമാണ്.",
     ],
@@ -48,10 +62,126 @@ const DEFAULT_FAQ_ITEMS = [
   },
 ];
 
-export default function AqiFaqWidget({ title = "FAQ'S", dataConfig = {} }) {
-  const heading = dataConfig.title || title || "FAQ'S";
+function getAQICategory(aqi) {
+  const value = Number(aqi);
+  if (Number.isNaN(value)) return "Unknown";
+  const match = AQI_CATEGORIES.find((item) => value >= item.min && value <= item.max);
+  return match?.category || "Unknown";
+}
 
+function getCityAqiRecord(response) {
+  if (!response || !Array.isArray(response.aqidata)) return null;
+  return response.aqidata[0] || null;
+}
+
+function formatYesterdayFaqDate(isoValue) {
+  if (!isoValue) return "";
+  const parsed = new Date(isoValue);
+  if (Number.isNaN(parsed.getTime())) return "";
+  parsed.setDate(parsed.getDate() - 1);
+  const weekday = parsed.toLocaleDateString("en-US", { weekday: "long" });
+  const day = parsed.getDate();
+  const month = parsed.toLocaleDateString("en-US", { month: "long" });
+  return `${weekday} ${day} ${month}`;
+}
+
+function applyReplacements(text, pairs) {
+  return pairs.reduce((out, [from, to]) => {
+    if (from == null || to == null || to === "") return out;
+    return out.split(from).join(String(to));
+  }, text);
+}
+
+function fillCityFaqItems(live) {
+  if (!live?.cityName) return DEFAULT_FAQ_ITEMS;
+
+  const todayPairs = [
+    ["Kochi", live.cityName],
+    ["42", live.aqi],
+    ["(Good)", `(${live.todayCategory})`],
+  ];
+  const yesterdayPairs = [
+    ["Sunday 23 August", live.yesterdayDate],
+    ["Kochi", live.cityName],
+    ["116", live.yesterdayAqi],
+    ["(Poor)", `(${live.yesterdayCategory})`],
+  ];
+
+  return DEFAULT_FAQ_ITEMS.map((item, index) => {
+    if (index > 1) return item;
+    const pairs = index === 0 ? todayPairs : yesterdayPairs;
+    return {
+      ...item,
+      question: applyReplacements(item.question, pairs),
+      answer: item.answer.map((text) => applyReplacements(text, pairs)),
+    };
+  });
+}
+
+async function fetchAqiCityData(citySlug, aqiBaseApi) {
+  if (!citySlug || !aqiBaseApi) return null;
+  try {
+    const response = await fetch(`${aqiBaseApi}/${citySlug}`, {
+      headers: { Accept: "application/json" },
+    });
+    if (!response.ok) return null;
+    return await response.json();
+  } catch (error) {
+    console.error("[AqiFaq] Error fetching AQI data:", error);
+    return null;
+  }
+}
+
+export default function AqiFaqWidget({
+  title = "FAQ'S",
+  dataConfig = {},
+  queryParams = {},
+}) {
+  const heading = dataConfig.title || title || "FAQ'S";
+  const aqiBaseApi = dataConfig.aqi_base_api || DEFAULT_AQI_BASE_API;
+
+  const [citySlug, setCitySlug] = useState(() => resolveAqiCitySlug(queryParams));
+  const [aqiResponse, setAqiResponse] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const loadData = useCallback(
+    async (slug) => {
+      if (!slug) return;
+      const data = await fetchAqiCityData(slug, aqiBaseApi);
+      setAqiResponse(data);
+    },
+    [aqiBaseApi]
+  );
+
+  useEffect(() => {
+    if (queryParams?.city) {
+      setCitySlug(parseAqiCitySlug(queryParams.city));
+    }
+  }, [queryParams?.city]);
+
+  useEffect(() => {
+    if (!citySlug) return;
+    loadData(citySlug);
+  }, [citySlug, loadData]);
+
+  const faqItems = useMemo(() => {
+    const record = getCityAqiRecord(aqiResponse);
+    const cityName = aqiResponse?.city_name || "";
+    if (!record || !cityName) return DEFAULT_FAQ_ITEMS;
+
+    const aqi = record.aqi;
+    const yesterdayAqi = record.yesterday_aqi;
+    const yesterdayDate = formatYesterdayFaqDate(aqiResponse.lastupdated);
+
+    return fillCityFaqItems({
+      cityName,
+      aqi,
+      yesterdayAqi,
+      todayCategory: getAQICategory(aqi),
+      yesterdayCategory: getAQICategory(yesterdayAqi),
+      yesterdayDate,
+    });
+  }, [aqiResponse]);
 
   const toggleFaq = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -65,8 +195,8 @@ export default function AqiFaqWidget({ title = "FAQ'S", dataConfig = {} }) {
         </div>
 
         <div className={styles.faqWidgetItems_List}>
-          {DEFAULT_FAQ_ITEMS.map((item, index) => (
-            <div className={styles.FaqItem} key={index}>
+          {faqItems.map((item, index) => (
+            <div className={styles.FaqItem} key={item.id || index}>
               <h3
                 className={`${styles.FaqHeading} ${
                   activeIndex === index ? styles.active : ""
@@ -97,5 +227,7 @@ AqiFaqWidget.propTypes = {
   title: PropTypes.string,
   dataConfig: PropTypes.shape({
     title: PropTypes.string,
+    aqi_base_api: PropTypes.string,
   }),
+  queryParams: PropTypes.object,
 };
