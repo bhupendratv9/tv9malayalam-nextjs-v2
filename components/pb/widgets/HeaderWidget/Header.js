@@ -46,8 +46,8 @@ export default function HeaderWidget({ navItems }) {
   const { siteSettings } = useSiteSettings();
   const router = useRouter();
   const [isSticky, setIsSticky] = useState(false);
-  const logoUrl = siteSettings?.logo_url || "https://appstatic.tv9tamil.com/images/logo.jpg";
-  const siteName = siteSettings?.site_name || "TV9 Tamil";
+  const logoUrl = siteSettings?.logo_url || "https://images.malayalamtv9.com/uploads/tv9-malyalam-logo.svg";
+  const siteName = siteSettings?.site_name || "Malayalam TV9";
   // Use API data if available, otherwise fall back to defaults
   const menuItems =
     Array.isArray(navItems) && navItems.length > 0
@@ -202,8 +202,8 @@ export default function HeaderWidget({ navItems }) {
                   width={80}
                   height={72}
                   src={logoUrl}
-                  alt="Tamil News, முக்கியச் செய்திகள், Online Tamil News, Tamil News Live, Tamil nadu News, தமிழ் நியூஸ்"
-                  title="Tamil News, முக்கியச் செய்திகள், Online Tamil News, Tamil News Live, Tamil nadu News, தமிழ் நியூஸ்"
+                  alt="Malayalam News, പ്രധാന വാർത്തകൾ, Online Malayalam News, Malayalam News Live, തമിഴ് വാർത്തകൾ"
+                  title="Malayalam News, പ്രധാന വാർത്തകൾ, Online Malayalam News, Malayalam News Live, തമിഴ് വാർത്തകൾ"
                   style={{ width: "auto", height: "auto" }}
                 />
               </AppLink>
@@ -280,7 +280,7 @@ export default function HeaderWidget({ navItems }) {
         <div className={styles.container}>
           <div className={styles.megaMenu_Header}>
             <div className={styles.tv9_logo}>
-              <AppLink href={`${SITE_URL}`} title="TV9 Tamil">
+              <AppLink href={`${SITE_URL}`} title={siteName}>
                 <Image
                   width={80}
                   height={72}

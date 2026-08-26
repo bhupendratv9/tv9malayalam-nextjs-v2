@@ -14,7 +14,8 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | # | Topic | Status |
 |---|---|---|
 | 1 | Tenant retarget (`basePath`, site name, APIs, proxy) | **Resolved** |
-| 2 | `globals.css` swap to old ML | **Resolved** (ad label still Tamil — open) |
+| 2 | `globals.css` swap to old ML | **Resolved** |
+| 27 | Ad label Tamil → Malayalam | **Resolved** — see §27 (`പരസ്യം`) |
 | 3 | Article tags `Link is not defined` | **Resolved** |
 | 4 | Short-video sprite `#ytShort` + `#rgt-arrow` + `ICONS_SVG` / `ViewMoreLink` | **Resolved** |
 | 6 | Fonts: `Noto_Sans` in `_app.js` + AMP CSS / Google Fonts | **Resolved** |
@@ -38,6 +39,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 22 | Logo env still tv9up | **Resolved** — see §22 (`.env` `NEXT_PUBLIC_SITE_LOGO_URL` → Malayalam SVG) |
 | 23 | Infinite-scroll fetch `BASE_PATH` | **Resolved** — see §23 (`/tv9malayalam-nextjs`) |
 | 24 | Header home SVG empty (`#ic_home`) | **Resolved** — see §24 |
+| 26 | Header logo alt/title still Tamil | **Resolved** — see §26 |
 | 5 | `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
 ---
@@ -91,7 +93,7 @@ UP globals (`:root` tokens, UP layout) do not match Malayalam site chrome. Widge
 
 ### Resolution
 
-Active global sheet is the old Malayalam `globals.css`. **Open:** ad label is still Tamil (`விளம்பரம்`). Font is **Noto Sans** — see §6. After this swap, layout class names must be ML (`tv9wrapperMain` / `main_col` / `rhs_col`) — see §11.
+Active global sheet is the old Malayalam `globals.css`. Ad label is Malayalam (`പരസ്യം`) — see §27. Font is **Noto Sans** — see §6. After this swap, layout class names must be ML (`tv9wrapperMain` / `main_col` / `rhs_col`) — see §11.
 
 ---
 
@@ -183,7 +185,7 @@ Path includes `basePath`; `#ytShort` + `#rgt-arrow` added to the sprite; `ViewMo
 | Menus 404 | `fetchNavMenu` + `ENDPOINTS` | helper appends `.json`; ML menu URLs 404 | real ML menu URL or drop `.json` |
 | Short-video permalinks | CMS | listing uses `/short-videos/{slug}`; rewrite is `/videos/short-videos/:slug` | CMS path `/videos/short-videos/{slug}` |
 | AMP backups | `amp/widgets__05-08-2026/*` | tv9up logos (not live registry) | ignore or replace if used |
-| `globals.css` ad label | `styles/globals.css` | copied from old ML (Tamil) | Malayalam copy |
+| `globals.css` ad label | `styles/globals.css` | **Resolved** — see §27 | `പരസ്യം` |
 | `#webstory-icon` | `public/images/icons.svg` | ML widgets request `#webstory-icon`; sprite does not have it | **Open** — see §9 |
 | Weather / AQI click | `AppLink` `href="/aqi"` / `"/weather-forecast"` | **Resolved** — see §10 | `getHref(...)` including city-page weather tab |
 | Article detail **style** | UP `DetailMainContent` + UP layout class names vs ML `globals.css` | **Resolved** — see §11 | ML widget CSS/markup + `LayoutRightSidebar` `tv9wrapperMain` / `main_col` / `rhs_col` |
@@ -410,7 +412,7 @@ Two layers:
 
 Article / photo / live-blog detail use original ML markup + CSS. `LayoutRightSidebar` class names match ML globals. Hard-refresh the Kerala pension URL: headline `1.625rem`, grey caption bar, ML author row, Follow Us YouTube / Google News / WhatsApp, **article left column + 300px right sidebar**.
 
-**Still open (not this page’s article chrome):** AMP `CssAMP.js` still has UP article rules; `VideoDetailMainContentWidget.js` (root, registered) is old global-class markup; other UP widgets still call missing `:root` tokens (home-up, galleries, AQI tables); Tamil ad label; `<html lang="ma">`.
+**Still open (not this page’s article chrome):** AMP `CssAMP.js` still has UP article rules; `VideoDetailMainContentWidget.js` (root, registered) is old global-class markup; other UP widgets still call missing `:root` tokens (home-up, galleries, AQI tables); AMP / listing widget ad labels still Hindi (`विज्ञापन`); `<html lang="ma">`.
 
 ---
 
@@ -715,6 +717,24 @@ Same class of bug as `#ytShort` / `#p_icon`. This tree’s sprite is the UP copy
 
 ---
 
+## 27. Ad label Tamil → Malayalam
+
+`.adsCont:before` in site globals painted the ad slot caption. Old ML sheet still used Tamil.
+
+### Changes
+
+`styles/globals.css` — `content: "விளம்பரம்"` → `content: "പരസ്യം"`.
+
+### Root cause
+
+§2 copied old Malayalam `globals.css`, which still had the Tamil ad label from the Tamil-era sheet.
+
+### Resolution
+
+**Resolved.** Hard-refresh so globals are not cached. Site `.adsCont` slots should show **പരസ്യം**. AMP `CssAMP.js` and `CategoryListingCommon.module.css` still use Hindi `विज्ञापन` (not this site-wide label).
+
+---
+
 ## How CSS loads
 
 1. `pages/_app.js` → `styles/globals.css` (site-wide). Includes ML layout: `.tv9wrapperMain` / `.main_col` / `.rhs_col`.
@@ -727,6 +747,6 @@ Same class of bug as `#ytShort` / `#p_icon`. This tree’s sprite is the UP copy
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff` / `#ic_home`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22); infinite-scroll fetch `BASE_PATH` (§23); header home icon `#ic_home` (§24).
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff` / `#ic_home`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22); infinite-scroll fetch `BASE_PATH` (§23); header home icon `#ic_home` (§24); ad label `പരസ്യം` (§27).
 
-**Open:** next-article `alphaup` env API; page keys (`video-landing.json` still 403); `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); Tamil ad label in `globals.css`. Reference for ML-only bits: `tv9malayalam-nextjs-original`.
+**Open:** page keys (`video-landing.json` still 403); `top-9-widget`; menu `.json` 404s; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); AMP / listing widget ad labels still Hindi (`विज्ञापन`). Reference for ML-only bits: `tv9malayalam-nextjs-original`.
