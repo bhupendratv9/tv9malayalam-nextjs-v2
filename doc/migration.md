@@ -43,6 +43,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 22 | Logo env still tv9up | **Resolved** — see §22 (`.env` `NEXT_PUBLIC_SITE_LOGO_URL` → Malayalam SVG) |
 | 23 | Infinite-scroll fetch `BASE_PATH` | **Resolved** — see §23 (`/tv9malayalam-nextjs`) |
 | 24 | Header home SVG empty (`#ic_home`) | **Resolved** — see §24 |
+| 32 | Homepage weather city card SVG empty (`#viewIcon`) | **Resolved** — see §32 |
 | 26 | Header logo alt/title still Tamil | **Resolved** — see §26 |
 | 5 | `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
@@ -839,6 +840,24 @@ UP listing CMS already returns `/short-videos/{slug}` in permalink. Malayalam li
 
 ---
 
+## 32. Homepage weather city-card SVG empty (`#viewIcon`)
+
+City cards in `HomepageWeather` use `<use href=".../icons.svg#viewIcon">`. The sprite file loaded (200); the arrow in the grey circle did not paint. Same widget also requests `#drop_icon` and `#temp_icon`.
+
+### Changes
+
+`public/images/icons.svg` — copied `#viewIcon`, `#drop_icon`, `#temp_icon` from original ML sprite. Do not change `tv9up-nextjs`.
+
+### Root cause
+
+Same class of bug as `#ytShort` / `#p_icon` / `#ic_home`. This tree’s sprite is the UP copy. Malayalam `HomepageWeather.js` requests `#viewIcon`. File 200s; fragment missing → empty SVG. `href` / `basePath` / `ICONS_SVG` were already correct.
+
+### Resolution
+
+**Resolved.** Hard-refresh home so the sprite is not served from cache. City cards should show a white diagonal arrow in the grey circle; humidity/temp glyphs on those cards should show too.
+
+---
+
 ## How CSS loads
 
 1. `pages/_app.js` → `styles/globals.css` (site-wide). Includes ML layout: `.tv9wrapperMain` / `.main_col` / `.rhs_col`.
@@ -851,6 +870,6 @@ UP listing CMS already returns `/short-videos/{slug}` in permalink. Malayalam li
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff` / `#ic_home`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22); infinite-scroll fetch `BASE_PATH` (§23); header home icon `#ic_home` (§24); ad label `പരസ്യം` (§27); homepage Breaking News strip from page builder `breaking-news-strip` (§30); header menu `custom-menu/header-menu` (§29).
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff` / `#ic_home` / `#viewIcon` / `#drop_icon` / `#temp_icon`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22); infinite-scroll fetch `BASE_PATH` (§23); header home icon `#ic_home` (§24); homepage weather city-card `#viewIcon` (§32); ad label `പരസ്യം` (§27); homepage Breaking News strip from page builder `breaking-news-strip` (§30); header menu `custom-menu/header-menu` (§29).
 
 **Open:** page keys (`video-landing.json` still 403); `top-9-widget`; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); AMP / listing widget ad labels still Hindi (`विज्ञापन`); short-video listing permalinks `?p={id}` until CMS sends slug (§31). Reference for ML-only bits: `tv9malayalam-nextjs-original`.
