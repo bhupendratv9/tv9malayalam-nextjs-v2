@@ -32,6 +32,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 12 | Category cards leave localhost → `alphapublish.tv9hindi.com/...html` | **Resolved** — see §12 (`getHref` helper; `*UP` RHS widgets **not** changed) |
 | 13 | Short-video detail 404 after staying on localhost | **Resolved** — see §13 (`.env` `SHORT_VIDEO_API_BASE_URL` `alphaup` → `alphamalayalam`) |
 | 14 | Short-videos listing: empty SVG + no title under thumbs | **Resolved** — see §14 (ML listing markup/CSS, `#ytShort`) |
+| 31 | Short-video cards `?p={id}` open home, not detail | **Open** — CMS slug/permalinks; app workaround reverted |
 | 15 | Photo gallery view more → `/photo-gallery` 404 | **Resolved** — see §15 (S3 `photo-gallery-landing.json` 403; use `listing`) |
 | 16 | City weather icon → `/weather-forecast` missing `basePath` | **Resolved** — see §10 leftover (`TodaysWeatherInCity.js`; popular/hot-cold city cards too) |
 | 17 | Google SSO does not work | **Leave** — see §17 (same as UP: no hardcoded client ID; CMS) |
@@ -186,7 +187,7 @@ Path includes `basePath`; `#ytShort` + `#rgt-arrow` added to the sprite; `ViewMo
 | `top-9-widget` | `widgetRegistry.js` | not registered; ML homepage JSON may use it | copy from old ML **or** rebuild CMS to `*-up` |
 | Header / sports links | `Header.js`, `Sports9HeaderWidget.js` | hardcoded `tv9up.com` | Malayalam URLs |
 | Menus 404 | `fetchNavMenu` + `ENDPOINTS` | **Resolved** — see §29 | `custom-menu/{slug}` (no `.json`) |
-| Short-video permalinks | CMS | listing uses `/short-videos/{slug}`; rewrite is `/videos/short-videos/:slug` | CMS path `/videos/short-videos/{slug}` |
+| Short-video permalinks | CMS | listing uses `?p={id}` (no slug); rewrite is `/videos/short-videos/:slug` | **Open** — wait for CMS pretty permalinks / slug; see §31 |
 | AMP backups | `amp/widgets__05-08-2026/*` | tv9up logos (not live registry) | ignore or replace if used |
 | `globals.css` ad label | `styles/globals.css` | **Resolved** — see §27 | `പരസ്യം` |
 | `#webstory-icon` | `public/images/icons.svg` | ML widgets request `#webstory-icon`; sprite does not have it | **Open** — see §9 |
@@ -818,6 +819,26 @@ To match UP **order**, page builder must place `breaking-news-strip` **before** 
 
 ---
 
+## 31. Short-video cards `?p={id}` open home — **Open**
+
+Example: click listing/home short video → `http://localhost:3000/tv9malayalam-nextjs?p=2217881` → homepage, no player.
+
+Live / expected: `/videos/short-videos/{slug}` e.g. [malayalamtv9.com/.../onam-2026-wishes-from-chief-minister-vd-satheesan](https://www.malayalamtv9.com/videos/short-videos/onam-2026-wishes-from-chief-minister-vd-satheesan).
+
+### Changes
+
+Reverted. Same as UP: `getLink` / CMS `permalink`. Removed `getShortVideoLink`.
+
+### Root cause
+
+UP listing CMS already returns `/short-videos/{slug}` in permalink. Malayalam listing returns `?p={id}` with **empty slug**. `getHref` only swaps the host, so the card stays on `/`. Home ignores `query.p`.
+
+### Resolution
+
+**Open.** Wait for CMS to send slug / pretty permalinks (`/videos/short-videos/{slug}`). Do not special-case ids in the app. Detail API already has slug; listing does not.
+
+---
+
 ## How CSS loads
 
 1. `pages/_app.js` → `styles/globals.css` (site-wide). Includes ML layout: `.tv9wrapperMain` / `.main_col` / `.rhs_col`.
@@ -832,4 +853,4 @@ To match UP **order**, page builder must place `breaking-news-strip` **before** 
 
 **Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff` / `#ic_home`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22); infinite-scroll fetch `BASE_PATH` (§23); header home icon `#ic_home` (§24); ad label `പരസ്യം` (§27); homepage Breaking News strip from page builder `breaking-news-strip` (§30); header menu `custom-menu/header-menu` (§29).
 
-**Open:** page keys (`video-landing.json` still 403); `top-9-widget`; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); AMP / listing widget ad labels still Hindi (`विज्ञापन`). Reference for ML-only bits: `tv9malayalam-nextjs-original`.
+**Open:** page keys (`video-landing.json` still 403); `top-9-widget`; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); AMP / listing widget ad labels still Hindi (`विज्ञापन`); short-video listing permalinks `?p={id}` until CMS sends slug (§31). Reference for ML-only bits: `tv9malayalam-nextjs-original`.
