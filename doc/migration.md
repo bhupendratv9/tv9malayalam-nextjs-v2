@@ -16,8 +16,9 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 1 | Tenant retarget (`basePath`, site name, APIs, proxy) | **Resolved** |
 | 2 | `globals.css` swap to old ML | **Resolved** |
 | 27 | Ad label Tamil → Malayalam | **Resolved** — see §27 (`പരസ്യം`) |
-| 28 | Homepage Breaking News strip like UP | **Resolved** — see §28 (ticker API + UP bar) |
+| 28 | Homepage Breaking News strip like UP | **Resolved** — see §28 / §30 (CMS `breaking-news-strip`) |
 | 29 | Header menu `header-menu` API | **Resolved** — see §29 (`custom-menu/header-menu`) |
+| 30 | `breaking-news-strip` from page builder | **Resolved** — see §30 |
 | 3 | Article tags `Link is not defined` | **Resolved** |
 | 4 | Short-video sprite `#ytShort` + `#rgt-arrow` + `ICONS_SVG` / `ViewMoreLink` | **Resolved** |
 | 6 | Fonts: `Noto_Sans` in `_app.js` + AMP CSS / Google Fonts | **Resolved** |
@@ -764,7 +765,7 @@ CMS layout slug and empty `data_config` never fetched the Malayalam ticker. The 
 
 ### Resolution
 
-**Resolved.** Homepage header strip now uses the ticker story (label from `text_column5`, currently **Live News**) and the UP bar UI. CMS can later switch the widget to `breaking-news-strip` with the same endpoint; the default URL is only a fallback.
+**Resolved (superseded by §30).** The hardcoded ticker fallback was a temporary bridge while CMS had no `breaking-news-strip` endpoint.
 
 ---
 
@@ -792,6 +793,31 @@ Live menu: [custom-menu/header-menu](https://alphapublish.tv9hindi.com/tv9malaya
 
 ---
 
+## 30. `breaking-news-strip` same as UP
+
+UP does **not** hardcode a ticker URL. `homePageBuilder` fetches `data_config.endpoint` from page builder. Home uses `breaking-news-strip`; leftover `breaking-strip-widget` is a separate placeholder component.
+
+### Changes
+
+| File | Change |
+|---|---|
+| `lib/constants.js` | Removed `HOME_BREAKING_NEWS_TICKER_API` |
+| `lib/server/homePageBuilder.js` | No ticker rewrite / fallback. Listing fetch matches UP |
+| `BreakingNewsStrip.js` | Same parse as UP (`items[0].items[0].posts` / `text_column5`) |
+| `widgetRegistry.js` | `breaking-news-strip` → `BreakingNewsStrip`; `breaking-strip-widget` → `BreakingStripWidget` (same as UP) |
+
+### Root cause
+
+Malayalam had a hardcoded / UP-URL rewrite for the ticker. UP only uses the CMS endpoint.
+
+### Resolution
+
+**Resolved.** Same engine as UP: fetch CMS `data_config.endpoint`, render by `position` / `sort_order`. No special case in `home.js` or `homePageBuilder.js`.
+
+To match UP **order**, page builder must place `breaking-news-strip` **before** Top 9 (UP: both in **main**, strip sort 1, top-news sort 3). Malayalam currently has Top 9 in **header**, so the strip stays under the hero until CMS moves it.
+
+---
+
 ## How CSS loads
 
 1. `pages/_app.js` → `styles/globals.css` (site-wide). Includes ML layout: `.tv9wrapperMain` / `.main_col` / `.rhs_col`.
@@ -804,6 +830,6 @@ Live menu: [custom-menu/header-menu](https://alphapublish.tv9hindi.com/tv9malaya
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff` / `#ic_home`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22); infinite-scroll fetch `BASE_PATH` (§23); header home icon `#ic_home` (§24); ad label `പരസ്യം` (§27); homepage Breaking News ticker like UP (§28); header menu `custom-menu/header-menu` (§29).
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff` / `#ic_home`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22); infinite-scroll fetch `BASE_PATH` (§23); header home icon `#ic_home` (§24); ad label `പരസ്യം` (§27); homepage Breaking News strip from page builder `breaking-news-strip` (§30); header menu `custom-menu/header-menu` (§29).
 
 **Open:** page keys (`video-landing.json` still 403); `top-9-widget`; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); AMP / listing widget ad labels still Hindi (`विज्ञापन`). Reference for ML-only bits: `tv9malayalam-nextjs-original`.
