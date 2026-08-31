@@ -3,7 +3,7 @@
 Date: 21 Aug 2026  
 Source: copy of `tv9up-nextjs` (UP page-builder app)  
 Target: **malayalamtv9** (`API_SITE_NAME=tv9malayalam`, APIs `alphamalayalam`)  
-Local URL: `http://localhost:3000/tv9malayalam-nextjs`
+Local URL: `http://localhost:3400/tv9malayalam-nextjs`
 
 This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9malayalam-nextjs-v2`). `tv9up-nextjs` stays UP. Original Malayalam app is now `tv9malayalam-nextjs-original` (reference for ML-only widgets / CSS / fonts).
 
@@ -44,6 +44,7 @@ This tree is the UP engine retargeted for Malayalam (formerly worked as `tv9mala
 | 23 | Infinite-scroll fetch `BASE_PATH` | **Resolved** — see §23 (`/tv9malayalam-nextjs`) |
 | 24 | Header home SVG empty (`#ic_home`) | **Resolved** — see §24 |
 | 32 | Homepage weather city card SVG empty (`#viewIcon`) | **Resolved** — see §32 |
+| 33 | Default local port 3400 | **Resolved** — see §33 |
 | 26 | Header logo alt/title still Tamil | **Resolved** — see §26 |
 | 5 | `alphaup` env APIs, infinite-scroll path, page keys, `top-9-widget`, menus `.json` | **Open** |
 
@@ -858,6 +859,24 @@ Same class of bug as `#ytShort` / `#p_icon` / `#ic_home`. This tree’s sprite i
 
 ---
 
+## 33. Default local port 3400
+
+`npm run start` already used `-p ${PORT:-3400}`. `npm run dev` used Next’s default **3000**, and `.env` `PORT` / `NEXT_PUBLIC_SITE_URL` matched 3000.
+
+### Changes
+
+`package.json` `"dev": "next dev -p 3400"`. `.env` `PORT=3400` and `NEXT_PUBLIC_SITE_URL=http://localhost:3400/tv9malayalam-nextjs`. Do not change `tv9up-nextjs`.
+
+### Root cause
+
+`next dev` ignores `PORT` unless `-p` is passed. Local links from `SITE_URL` also pointed at 3000.
+
+### Resolution
+
+**Resolved.** Restart `npm run dev`. Open `http://localhost:3400/tv9malayalam-nextjs`.
+
+---
+
 ## How CSS loads
 
 1. `pages/_app.js` → `styles/globals.css` (site-wide). Includes ML layout: `.tv9wrapperMain` / `.main_col` / `.rhs_col`.
@@ -870,6 +889,6 @@ Same class of bug as `#ytShort` / `#p_icon` / `#ic_home`. This tree’s sprite i
 
 ## Bottom line
 
-**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff` / `#ic_home` / `#viewIcon` / `#drop_icon` / `#temp_icon`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22); infinite-scroll fetch `BASE_PATH` (§23); header home icon `#ic_home` (§24); homepage weather city-card `#viewIcon` (§32); ad label `പരസ്യം` (§27); homepage Breaking News strip from page builder `breaking-news-strip` (§30); header menu `custom-menu/header-menu` (§29).
+**Resolved:** tenant `basePath` **`/tv9malayalam-nextjs`** (same as CMS, like UP); `SITE_URL` + rewrite for `malayalamtv9.com` **and** CMS `tv9hindi.com` in `getHref` / `rewritePermalink` (§8 / §12) — `RightNewsWidgetUP` / `RightNewsPhotoWidgetUP` **not** edited; ML `globals.css`; sprite `#ytShort` / `#rgt-arrow` / `#p_icon` / `#weather_icon` / `#sun_icon` / `#wind_icon` / `#icon_googleNews` / `#whats_iconff` / `#ic_home` / `#viewIcon` / `#drop_icon` / `#temp_icon`; `ViewMoreLink` uses `ICONS_SVG`; **Noto Sans**; web-story AMP `SITE_LANGUAGE_VALUE`; Weather/AQI `getHref` (§10, city weather tab too); article detail ML chrome + layout grid (§11); short-video detail API `alphamalayalam` (§13); short-videos **listing** ML overlay + `#ytShort` (§14); photo gallery `/photo-gallery` uses `listing` (§15); logo env Malayalam SVG (§22); infinite-scroll fetch `BASE_PATH` (§23); header home icon `#ic_home` (§24); homepage weather city-card `#viewIcon` (§32); local port **3400** (§33); ad label `പരസ്യം` (§27); homepage Breaking News strip from page builder `breaking-news-strip` (§30); header menu `custom-menu/header-menu` (§29).
 
 **Open:** page keys (`video-landing.json` still 403); `top-9-widget`; `#webstory-icon` (§9); Anek leftovers in unused UP widgets (§6); AMP / listing widget ad labels still Hindi (`विज्ञापन`); short-video listing permalinks `?p={id}` until CMS sends slug (§31). Reference for ML-only bits: `tv9malayalam-nextjs-original`.

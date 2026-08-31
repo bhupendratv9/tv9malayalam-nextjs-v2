@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3400",
     "build": "bash scripts/build-and-deploy.sh",
     "build:prod": "NODE_ENV=production next build",
-    "start": "next start -p ${PORT:-3300}",
-    "start:prod": "next start -p ${PORT:-3300}",
+    "start": "next start -p ${PORT:-3400}",
+    "start:prod": "next start -p ${PORT:-3400}",
     "lint": "eslint"
   },
   "dependencies": {
